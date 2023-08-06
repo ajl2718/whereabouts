@@ -1,0 +1,206 @@
+address_id,atm.address1,atm.suburb,atm.state,atm.postcode,atm.latitude,atm.longitude,address
+0,"Blockbuster Sebastopol, 107 Rubicon Street",Sebastopol,VIC,3356,-37.5821768,143.8398368,"Blockbuster Sebastopol, 107 Rubicon Street Sebastopol VIC 3356"
+1,"K-Mart Campbellfield, 1434 Sydney Road",Campbellfield,VIC,3061,-37.688019,144.95938,"K-Mart Campbellfield, 1434 Sydney Road Campbellfield VIC 3061"
+2,10 Lochial Avenue,Mount Martha,VIC,3934,-38.2676117,145.0128799,10 Lochial Avenue Mount Martha VIC 3934
+3,"Sanctuary Lakes Shopping Centre, 300 Point Cook Road",Point Cook,VIC,3030,-37.895578,144.752585,"Sanctuary Lakes Shopping Centre, 300 Point Cook Road Point Cook VIC 3030"
+4,"Box Hill Railway Station, 38 Main Street",Box Hill,VIC,3128,-37.819288,145.121784,"Box Hill Railway Station, 38 Main Street Box Hill VIC 3128"
+5,"Box Hill Hospital, 51 Nelson Road",Box Hill,VIC,3128,-37.813777,145.119242,"Box Hill Hospital, 51 Nelson Road Box Hill VIC 3128"
+6,"Northcote Plaza, 3 Separation Street",Northcote,VIC,3070,-37.768545,145.001533,"Northcote Plaza, 3 Separation Street Northcote VIC 3070"
+7,210 Dunns Road,Mornington,VIC,3931,-38.245178,145.047744,210 Dunns Road Mornington VIC 3931
+8,"Altona Meadows Shopping Centre, 1 Central Avenue",Altona Meadows,VIC,3028,-37.87252,144.77649,"Altona Meadows Shopping Centre, 1 Central Avenue Altona Meadows VIC 3028"
+9,511 Barkly Street,West Footscray,VIC,3012,-37.797868,144.880085,511 Barkly Street West Footscray VIC 3012
+10,80 Harvester Road,Sunshine,VIC,3020,-37.781396,144.831284,80 Harvester Road Sunshine VIC 3020
+11,"Keilor Downs Plaza, 80 Taylors Road",Keilor Downs,VIC,3038,-37.726986,144.807306,"Keilor Downs Plaza, 80 Taylors Road Keilor Downs VIC 3038"
+12,"Oakleigh Central Shopping Centre, 33 Station Street",Oakleigh,VIC,3166,-37.900755,145.090283,"Oakleigh Central Shopping Centre, 33 Station Street Oakleigh VIC 3166"
+13,"Brunswick City Centre, 94 Sydney Road",Brunswick,VIC,3056,-37.77566,144.961047,"Brunswick City Centre, 94 Sydney Road Brunswick VIC 3056"
+14,"Dandenong Plaza, 1 McCrae Street",Dandenong,VIC,3175,-37.98652,145.217356,"Dandenong Plaza, 1 McCrae Street Dandenong VIC 3175"
+15,"Latrobe Regional Hospital, Princes Highway",Traralgon,VIC,3844,-38.218995,146.471284,"Latrobe Regional Hospital, Princes Highway Traralgon VIC 3844"
+16,60 Elizabeth Street,Melbourne,VIC,3000,-37.8167556,144.964349,60 Elizabeth Street Melbourne VIC 3000
+17,45 Douglas Street,Noble Park,VIC,3174,-37.9671934,145.1760318,45 Douglas Street Noble Park VIC 3174
+18,33 Anderson Street,Yarraville,VIC,3013,-37.8167272,144.8910765,33 Anderson Street Yarraville VIC 3013
+19,"Southern Cross Station, 165 Spencer Street",Melbourne,VIC,3000,-37.818813,144.953425,"Southern Cross Station, 165 Spencer Street Melbourne VIC 3000"
+20,"Shepparton Marketplace, 110 Benalla Road",Shepparton,VIC,3630,-36.388074,145.423968,"Shepparton Marketplace, 110 Benalla Road Shepparton VIC 3630"
+21,"Broadmeadows Shopping Centre, 1099 Pascoe Vale Road",Broadmeadows,VIC,3047,-37.679396,144.91912,"Broadmeadows Shopping Centre, 1099 Pascoe Vale Road Broadmeadows VIC 3047"
+22,"Centro Shopping Centre, 831 Fifteenth Street",Mildura,VIC,3500,-34.207099,142.138653,"Centro Shopping Centre, 831 Fifteenth Street Mildura VIC 3500"
+23,"Newmarket Shopping Centre, 388-390 Racecourse Road",Flemington,VIC,3031,-37.787314,144.927923,"Newmarket Shopping Centre, 388-390 Racecourse Road Flemington VIC 3031"
+24,"Burwood One, 172 Burwood Road",Burwood East,VIC,3151,-37.853375,145.149738,"Burwood One, 172 Burwood Road Burwood East VIC 3151"
+25,"Melbourne Central, 300 Elizabeth Street",Melbourne,VIC,3000,-37.810529,144.962654,"Melbourne Central, 300 Elizabeth Street Melbourne VIC 3000"
+26,"Brimbank Central Shopping Centre, 28 Neale Road",Deer Park,VIC,3023,-37.750795,144.775202,"Brimbank Central Shopping Centre, 28 Neale Road Deer Park VIC 3023"
+27,271 William Street,Melbourne,VIC,3000,-37.8126127,144.956779,271 William Street Melbourne VIC 3000
+28,"Queen Victoria Market, Queen Street",Melbourne,VIC,3000,-37.807771,144.958142,"Queen Victoria Market, Queen Street Melbourne VIC 3000"
+29,"Hogans Corner Shopping Centre, 262 Derrimut Road",Werribee,VIC,3030,-37.86169,144.687129,"Hogans Corner Shopping Centre, 262 Derrimut Road Werribee VIC 3030"
+30,"Corio Shopping Village, 83a Purnell Road",Corio,VIC,3214,-38.075716,144.355923,"Corio Shopping Village, 83a Purnell Road Corio VIC 3214"
+31,"Centre Point Shopping Centre, 274 Maude Street",Shepparton,VIC,3630,-36.382803,145.4003968,"Centre Point Shopping Centre, 274 Maude Street Shepparton VIC 3630"
+32,"Shepparton Riverside Plaza, 8025 Goulburn Valley Highway",Shepparton,VIC,3630,-36.408408,145.39112,"Shepparton Riverside Plaza, 8025 Goulburn Valley Highway Shepparton VIC 3630"
+33,"Freemans Bakery Shepparton, 310 High Street",Shepparton,VIC,3630,-36.383603,145.412027,"Freemans Bakery Shepparton, 310 High Street Shepparton VIC 3630"
+34,99 High Street,Heathcote,VIC,3523,-36.9248452,144.7105414,99 High Street Heathcote VIC 3523
+35,"Carrum Downs Shopping Centre, 100 Hall Road",Carrum Downs,VIC,3201,-38.101951,145.185032,"Carrum Downs Shopping Centre, 100 Hall Road Carrum Downs VIC 3201"
+36,"Balaclava Flight Centre, 155 Carlisle Street",Balaclava,VIC,3183,-37.868754,144.991906,"Balaclava Flight Centre, 155 Carlisle Street Balaclava VIC 3183"
+37,"Central West Plaza, 67 Ashley Street",Braybrook,VIC,3019,-37.793451,144.860508,"Central West Plaza, 67 Ashley Street Braybrook VIC 3019"
+38,"Yarram Plaza Shopping Center, 17 James Street",Yarram,VIC,3971,-38.564103,146.677023,"Yarram Plaza Shopping Center, 17 James Street Yarram VIC 3971"
+39,26 Bay Road,Sandringham,VIC,3191,-37.9518468,145.0047652,26 Bay Road Sandringham VIC 3191
+40,"Midvale Shopping Centre, 1174-1178 Geelong Road",Mount Clear,VIC,3350,-37.602949,143.867918,"Midvale Shopping Centre, 1174-1178 Geelong Road Mount Clear VIC 3350"
+41,85 Commercial Street,Korumburra,VIC,3950,-38.4316414,145.8232888,85 Commercial Street Korumburra VIC 3950
+42,"Westside Real Estate, 1A Alfrieda Street",St Albans,VIC,3021,-37.744062,144.800259,"Westside Real Estate, 1A Alfrieda Street St Albans VIC 3021"
+43,112 Main Street,Romsey,VIC,3434,-37.348705,144.743395,112 Main Street Romsey VIC 3434
+44,"Geelong Hosputal/Barwon Health, Bellarine Street",Geelong,VIC,3220,-38.151798,144.36474,"Geelong Hosputal/Barwon Health, Bellarine Street Geelong VIC 3220"
+45,"Wyndham Village, 380 Sayers Road",Tarneit,VIC,3029,-37.849151,144.704659,"Wyndham Village, 380 Sayers Road Tarneit VIC 3029"
+46,"Parkmore Shopping Centre, 317 Cheltenham Road",Keysborough,VIC,3173,-37.993337,145.171932,"Parkmore Shopping Centre, 317 Cheltenham Road Keysborough VIC 3173"
+47,"Endeavour Hills Shopping Centre, 107 Matthew Flinders Avenue",Endeavour Hills,VIC,3802,-37.976593,145.259605,"Endeavour Hills Shopping Centre, 107 Matthew Flinders Avenue Endeavour Hills VIC 3802"
+48,239-241 Maroondah Highway,Chirnside Park,VIC,3116,-37.757155,145.312887,239-241 Maroondah Highway Chirnside Park VIC 3116
+49,"Bendigo Marketplace, 116-120 Mitchell Street",Bendigo,VIC,3550,-36.765196,144.281324,"Bendigo Marketplace, 116-120 Mitchell Street Bendigo VIC 3550"
+50,"Balnarring Shopping Centre, 3050 Frankston Road",Balnarring,VIC,3926,-38.373107,145.125081,"Balnarring Shopping Centre, 3050 Frankston Road Balnarring VIC 3926"
+51,"Roxburgh Park Shopping Centre, 250 Somerton Road",Roxburgh Park,VIC,3064,-37.639829,144.93195,"Roxburgh Park Shopping Centre, 250 Somerton Road Roxburgh Park VIC 3064"
+52,"Boronia Mall, 50 Dorset Square",Boronia,VIC,3155,-37.860591,145.286781,"Boronia Mall, 50 Dorset Square Boronia VIC 3155"
+53,57 Florence Street,Mentone,VIC,3194,-37.9827424,145.0642427,57 Florence Street Mentone VIC 3194
+54,293 Spring Street,Reservoir,VIC,3073,-37.715886,145.00685,293 Spring Street Reservoir VIC 3073
+55,536 Queensberry Street,North Melbourne,VIC,3051,-37.80286,144.949406,536 Queensberry Street North Melbourne VIC 3051
+56,2 Eaton Street,Oakleigh,VIC,3166,-37.8987946,145.0905656,2 Eaton Street Oakleigh VIC 3166
+57,165-167 Hare Street,Echuca,VIC,3564,-36.1269878,144.7492774,165-167 Hare Street Echuca VIC 3564
+58,87-89 Separation Street,North Geelong,VIC,3215,-38.110797,144.3422348,87-89 Separation Street North Geelong VIC 3215
+59,191 Pakington Street,Geelong West,VIC,3218,-38.142585,144.347931,191 Pakington Street Geelong West VIC 3218
+60,54 High Street,Hastings,VIC,3915,-38.307648,145.1911573,54 High Street Hastings VIC 3915
+61,1001 Sturt Street,Ballarat,VIC,3350,-37.5607672,143.8456968,1001 Sturt Street Ballarat VIC 3350
+62,"Lilydale Marketplace, 33 Hutchinson Street",Lilydale,VIC,3140,-37.759782,145.348799,"Lilydale Marketplace, 33 Hutchinson Street Lilydale VIC 3140"
+63,1223A Howitt Street,Wendouree,VIC,3355,-37.5399767,143.828626,1223A Howitt Street Wendouree VIC 3355
+64,566 Burke Road,Camberwell,VIC,3124,-37.8308659,145.0568134,566 Burke Road Camberwell VIC 3124
+65,102-106 Main Street,Pakenham,VIC,3810,-38.0775275,145.4817101,102-106 Main Street Pakenham VIC 3810
+66,19 Victoria Street,Warragul,VIC,3820,-38.162449,145.9306764,19 Victoria Street Warragul VIC 3820
+67,140 Koroit St,Warrnambool,VIC,3280,-38.3818558,142.4821281,140 Koroit St Warrnambool VIC 3280
+68,231 Bay Street,Port Melbourne,VIC,3207,-37.838249,144.942571,231 Bay Street Port Melbourne VIC 3207
+69,28 Hartnett Drive,Seaford,VIC,3198,-38.1136623,145.141286,28 Hartnett Drive Seaford VIC 3198
+70,"Cranbourne Park Shopping Centre, High Street",Cranbourne,VIC,3977,-38.110258,145.282019,"Cranbourne Park Shopping Centre, High Street Cranbourne VIC 3977"
+71,89 Johnson Street,Maffra,VIC,3860,-37.9666644,146.975165,89 Johnson Street Maffra VIC 3860
+72,"Chadstone Shopping Centre, 1341 Dandenong Road",Chadstone,VIC,3148,-37.887426,145.08464,"Chadstone Shopping Centre, 1341 Dandenong Road Chadstone VIC 3148"
+73,81 Punt Road,Cobram,VIC,3644,-35.9201956,145.6473098,81 Punt Road Cobram VIC 3644
+74,79 King George Street,Cohuna,VIC,3568,-35.8088837,144.2213731,79 King George Street Cohuna VIC 3568
+75,42 Murray Street,Colac,VIC,3250,-38.3396471,143.5894811,42 Murray Street Colac VIC 3250
+76,50 Thompson Avenue,Cowes,VIC,3922,-38.4496602,145.2389648,50 Thompson Avenue Cowes VIC 3922
+77,800 Bourke Street,Docklands,VIC,3008,-37.81904,144.945814,800 Bourke Street Docklands VIC 3008
+78,"Drysdale Village, 16 Wyndam Street",Drysdale,VIC,3222,-38.1728522,144.5695731,"Drysdale Village, 16 Wyndam Street Drysdale VIC 3222"
+79,342-344 Belgrave-Gembrook Road,Emerald,VIC,3782,-37.932321,145.440508,342-344 Belgrave-Gembrook Road Emerald VIC 3782
+80,"Epping Plaza Shopping Centre, 571-583 High Street",Epping,VIC,3076,-37.653583,145.018236,"Epping Plaza Shopping Centre, 571-583 High Street Epping VIC 3076"
+81,131 Gray Street,Hamilton,VIC,3300,-37.743253,142.0240071,131 Gray Street Hamilton VIC 3300
+82,251 Maroondah Highway,Healesville,VIC,3777,-37.652939,145.518749,251 Maroondah Highway Healesville VIC 3777
+83,3 A'beckett Street,Inverloch,VIC,3996,-38.6338973,145.7282765,3 A'beckett Street Inverloch VIC 3996
+84,44 Victoria Street,Kerang,VIC,3579,-35.7339297,143.9202858,44 Victoria Street Kerang VIC 3579
+85,18 Sydney Street,Kilmore,VIC,3764,-37.2937679,144.9515965,18 Sydney Street Kilmore VIC 3764
+86,182 Allen Street,Kyabram,VIC,3620,-36.31364,145.046982,182 Allen Street Kyabram VIC 3620
+87,111 Mollison Street,Kyneton,VIC,3444,-37.2481414,144.4533034,111 Mollison Street Kyneton VIC 3444
+88,299-301 The Esplanade,Lakes Entrance,VIC,3909,-37.8812814,147.9835208,299-301 The Esplanade Lakes Entrance VIC 3909
+89,23 McCartin Street,Leongatha,VIC,3953,-38.4770939,145.9451568,23 McCartin Street Leongatha VIC 3953
+90,76 High Street,Mansfield,VIC,3722,-37.0525329,146.0890137,76 High Street Mansfield VIC 3722
+91,149 High Street,Maryborough,VIC,3465,-37.0462757,143.738493,149 High Street Maryborough VIC 3465
+92,18-20 Moore Street,Moe,VIC,3825,-38.1758142,146.2609557,18-20 Moore Street Moe VIC 3825
+93,68 Puckle Street,Moonee Ponds,VIC,3039,-37.7668421,144.9224628,68 Puckle Street Moonee Ponds VIC 3039
+94,107 Main Street,Mornington,VIC,3931,-38.2197882,145.038764,107 Main Street Mornington VIC 3931
+95,199 Princes Highway,Morwell,VIC,3840,-38.236653,146.3981461,199 Princes Highway Morwell VIC 3840
+96,50 Ranelagh Drive,Mount Eliza,VIC,3930,-38.18414,145.088862,50 Ranelagh Drive Mount Eliza VIC 3930
+97,322 High Street,Nagambie,VIC,3608,-36.7844834,145.1543189,322 High Street Nagambie VIC 3608
+98,51 Victoria Street,Nhill,VIC,3418,-36.3345217,141.6489334,51 Victoria Street Nhill VIC 3418
+99,421-423 Keilor Road,Niddrie,VIC,3042,-37.7372425,144.8919902,421-423 Keilor Road Niddrie VIC 3042
+100,41 Melville Street,Numurkah,VIC,3636,-36.089753,145.442395,41 Melville Street Numurkah VIC 3636
+101,81 The Terrace,Ocean Grove,VIC,3226,-38.2678418,144.5241597,81 The Terrace Ocean Grove VIC 3226
+102,71-79 Nicholson Street,Orbost,VIC,3888,-37.7070607,148.4549068,71-79 Nicholson Street Orbost VIC 3888
+103,7 Pickering Street,Ouyen,VIC,3490,-35.070082,142.3165082,7 Pickering Street Ouyen VIC 3490
+104,"Point Cook Town Centre, Main Street",Point Cook,VIC,3030,-37.88345,144.734215,"Point Cook Town Centre, Main Street Point Cook VIC 3030"
+105,64 Percy Street,Portland,VIC,3305,-38.3471292,141.6038639,64 Percy Street Portland VIC 3305
+106,337 Bridge Road,Richmond,VIC,3121,-37.818604,145.001038,337 Bridge Road Richmond VIC 3121
+107,"Stud Park Shopping Centre, 1101 Stud Road",Rowville,VIC,3178,-37.920837,145.236512,"Stud Park Shopping Centre, 1101 Stud Road Rowville VIC 3178"
+108,40 Station Street,Seymour,VIC,3660,-37.0242532,145.1375904,40 Station Street Seymour VIC 3660
+109,141 Campbell Street,Swan Hill,VIC,3585,-35.3381508,143.5597146,141 Campbell Street Swan Hill VIC 3585
+110,143 Hogan Street,Tatura,VIC,3616,-36.4400819,145.2282894,143 Hogan Street Tatura VIC 3616
+111,49 Main Street,Timboon,VIC,3268,-38.484329,142.979367,49 Main Street Timboon VIC 3268
+112,67 High Street,Wallan,VIC,3756,-37.41368,144.978738,67 High Street Wallan VIC 3756
+113,158 Scott Street,Warracknabeal,VIC,3393,-36.252451,142.394765,158 Scott Street Warracknabeal VIC 3393
+114,73 Church Street,Whittlesea,VIC,3757,-37.5117932,145.1180463,73 Church Street Whittlesea VIC 3757
+115,174 Graham Street,Wonthaggi,VIC,3995,-38.6060527,145.5887796,174 Graham Street Wonthaggi VIC 3995
+116,55 Belmore Street,Yarrawonga,VIC,3730,-36.0112,146.0043957,55 Belmore Street Yarrawonga VIC 3730
+117,114 Barkly Street,Ararat,VIC,3377,-37.284301,142.929242,114 Barkly Street Ararat VIC 3377
+118,"Highpoint Shopping Centre, 200 Rosamond Road",Maribyrnong,VIC,3032,-37.773275,144.888443,"Highpoint Shopping Centre, 200 Rosamond Road Maribyrnong VIC 3032"
+119,"CS Square Shopping Centre, 29-35 Lake Street",Caroline Springs,VIC,3023,-37.731095,144.743575,"CS Square Shopping Centre, 29-35 Lake Street Caroline Springs VIC 3023"
+120,637 Glenferrie Road,Hawthorn,VIC,3122,-37.8217819,145.0354563,637 Glenferrie Road Hawthorn VIC 3122
+121,600 Chapel Street,South Yarra,VIC,3141,-37.839488,144.9956247,600 Chapel Street South Yarra VIC 3141
+122,"Bayside Shopping Centre, 28 Beach Street",Frankston,VIC,3199,-38.139751,145.125873,"Bayside Shopping Centre, 28 Beach Street Frankston VIC 3199"
+123,"Waverley Gardens Shopping Centre, 271 Police Road",Mulgrave,VIC,3170,-37.935367,145.189621,"Waverley Gardens Shopping Centre, 271 Police Road Mulgrave VIC 3170"
+124,"Watergardens Shopping Centre, 399 Melton Highway",Taylors Lakes,VIC,3038,-37.700538,144.776286,"Watergardens Shopping Centre, 399 Melton Highway Taylors Lakes VIC 3038"
+125,224-228 Smith Street,Collingwood,VIC,3066,-37.802306,144.983778,224-228 Smith Street Collingwood VIC 3066
+126,348-350 Clayton Road,Clayton,VIC,3168,-37.9279667,145.1191733,348-350 Clayton Road Clayton VIC 3168
+127,120 Upper Heidelberg Road,Ivanhoe,VIC,3079,-37.7690726,145.042069,120 Upper Heidelberg Road Ivanhoe VIC 3079
+128,162 Main Street,Bacchus Marsh,VIC,3340,-37.675867,144.438716,162 Main Street Bacchus Marsh VIC 3340
+129,165-169 Main Street,Croydon,VIC,3136,-37.7980317,145.2806266,165-169 Main Street Croydon VIC 3136
+130,145-149 Main Street,Bairnsdale,VIC,3875,-37.8262214,147.6310741,145-149 Main Street Bairnsdale VIC 3875
+131,266 Stephensons Road,Mount Waverley,VIC,3149,-37.8768445,145.1288696,266 Stephensons Road Mount Waverley VIC 3149
+132,45 Reid Street,Wangaratta,VIC,3677,-36.3548263,146.3259266,45 Reid Street Wangaratta VIC 3677
+133,186-188 High Street,Wodonga,VIC,3690,-36.122519,146.8881339,186-188 High Street Wodonga VIC 3690
+134,"Queen Victoria Centre, 228-234 Lonsdale Street",Melbourne,VIC,3000,-37.8113239,144.9653848,"Queen Victoria Centre, 228-234 Lonsdale Street Melbourne VIC 3000"
+135,"Bellarine Village Shopping Centre, 25-29 Bellarine Highway",Newcomb,VIC,3219,-38.169174,144.388597,"Bellarine Village Shopping Centre, 25-29 Bellarine Highway Newcomb VIC 3219"
+136,406-408 Glenhuntly Road,Elsternwick,VIC,3185,-37.8849066,145.0053958,406-408 Glenhuntly Road Elsternwick VIC 3185
+137,176 High Street,Belmont,VIC,3216,-38.1751275,144.342619,176 High Street Belmont VIC 3216
+138,75 Nunn Street,Benalla,VIC,3672,-36.550984,145.98332,75 Nunn Street Benalla VIC 3672
+139,245 Raymond Street,Sale,VIC,3850,-38.1080942,147.0654176,245 Raymond Street Sale VIC 3850
+140,"Bendigo Strath Village Centre, 134 Condon Street",Kennington,VIC,3550,-36.774548,144.304858,"Bendigo Strath Village Centre, 134 Condon Street Kennington VIC 3550"
+141,49-51 Main Street,Greensborough,VIC,3088,-37.7033247,145.1042854,49-51 Main Street Greensborough VIC 3088
+142,1055 Point Nepean Road,Rosebud,VIC,3939,-38.355863,144.9047386,1055 Point Nepean Road Rosebud VIC 3939
+143,359 Whitehorse Road,Balwyn,VIC,3103,-37.812852,145.0816238,359 Whitehorse Road Balwyn VIC 3103
+144,35 Church Street,Brighton,VIC,3186,-37.9133771,144.99382,35 Church Street Brighton VIC 3186
+145,185 High Street,Kew,VIC,3101,-37.8064531,145.03164,185 High Street Kew VIC 3101
+146,445 Toorak Road,Toorak,VIC,3142,-37.840922,145.0077527,445 Toorak Road Toorak VIC 3142
+147,"Brimbank Plaza Shopping Centre, 28 Neale Road",Deer Park,VIC,3023,-37.75101,144.774633,"Brimbank Plaza Shopping Centre, 28 Neale Road Deer Park VIC 3023"
+148,84 Glenferrie Road,Malvern,VIC,3144,-37.8625362,145.0283337,84 Glenferrie Road Malvern VIC 3144
+149,"Mountain Gate Shopping Centre, 854 Burwood Highway",Ferntree Gully,VIC,3156,-37.8832364,145.2775212,"Mountain Gate Shopping Centre, 854 Burwood Highway Ferntree Gully VIC 3156"
+150,415 High Street,Preston,VIC,3072,-37.7397169,145.0036827,415 High Street Preston VIC 3072
+151,21 Brook Street,Sunbury,VIC,3429,-37.5801,144.73023,21 Brook Street Sunbury VIC 3429
+152,55 Deakin Avenue,Mildura,VIC,3500,-34.1851816,142.1617128,55 Deakin Avenue Mildura VIC 3500
+153,34 Ireland Street,Bright,VIC,3741,-36.728317,146.961136,34 Ireland Street Bright VIC 3741
+154,145 Barker Street,Castlemaine,VIC,3450,-37.0665833,144.2165165,145 Barker Street Castlemaine VIC 3450
+155,100 Exhibition Street,Melbourne,VIC,3000,-37.813319,144.971374,100 Exhibition Street Melbourne VIC 3000
+156,700 Bourke Street,Docklands,VIC,3008,-37.817567,144.94967,700 Bourke Street Docklands VIC 3008
+157,"Westfield Knox, 425 Burwood Highway",Wantirna South,VIC,3152,-37.868437,145.241575,"Westfield Knox, 425 Burwood Highway Wantirna South VIC 3152"
+158,57-59 Mitchell Street,Bendigo,VIC,3550,-36.7613412,144.2806284,57-59 Mitchell Street Bendigo VIC 3550
+159,82-88 Franklin Street,Traralgon,VIC,3844,-38.1964448,146.5379839,82-88 Franklin Street Traralgon VIC 3844
+160,"Craigieburn Central, 340 Craigieburn Road",Craigieburn,VIC,3064,-37.594153,144.914219,"Craigieburn Central, 340 Craigieburn Road Craigieburn VIC 3064"
+161,1 Joseph Avenue,Moorabbin Airport,VIC,3194,-37.972464,145.1092151,1 Joseph Avenue Moorabbin Airport VIC 3194
+162,"Waurn Ponds Shopping Centre, 173-199 Pioneer Road",Waurn Ponds,VIC,3216,-38.199078,144.318128,"Waurn Ponds Shopping Centre, 173-199 Pioneer Road Waurn Ponds VIC 3216"
+163,79-81 Malop Street,Geelong,VIC,3220,-38.1474027,144.3614175,79-81 Malop Street Geelong VIC 3220
+164,"Westfield Plenty Valley, 415 McDonalds Road",Mill Park,VIC,3082,-37.650467,145.070162,"Westfield Plenty Valley, 415 McDonalds Road Mill Park VIC 3082"
+165,29 Napier Street,St Arnaud,VIC,3478,-36.6158294,143.2575658,29 Napier Street St Arnaud VIC 3478
+166,93 High Street,Terang,VIC,3264,-38.2414471,142.9174662,93 High Street Terang VIC 3264
+167,67-69 Grant Street,Alexandra,VIC,3714,-37.191904,145.710066,67-69 Grant Street Alexandra VIC 3714
+168,381 Wyndham Street,Shepparton,VIC,3630,-36.3822347,145.3995252,381 Wyndham Street Shepparton VIC 3630
+169,"Forest Hill Chase Shopping Center, 270 Canterbury Road",Forest Hill,VIC,3131,-37.835307,145.164568,"Forest Hill Chase Shopping Center, 270 Canterbury Road Forest Hill VIC 3131"
+170,"Parkmore Shopping Centre, 317 Cheltenham Road",Keysborough,VIC,3173,-37.993338,145.172029,"Parkmore Shopping Centre, 317 Cheltenham Road Keysborough VIC 3173"
+171,30 Main Street,Box Hill,VIC,3128,-37.818947,145.12258,30 Main Street Box Hill VIC 3128
+172,333 Springvale Road,Springvale,VIC,3171,-37.951057,145.152583,333 Springvale Road Springvale VIC 3171
+173,"Eastland Shopping Centre, 171-175 Maroondah Highway",Ringwood,VIC,3134,-37.813561,145.228367,"Eastland Shopping Centre, 171-175 Maroondah Highway Ringwood VIC 3134"
+174,288 Lygon Street,Carlton,VIC,3053,-37.800216,144.967263,288 Lygon Street Carlton VIC 3053
+175,3 Ordish Road,Dandenong South,VIC,3175,-38.012935,145.196422,3 Ordish Road Dandenong South VIC 3175
+176,"Broadmeadows Shopping Centre, 1099 - 1169 Pascoe Vale Road",Broadmeadows,VIC,3047,-37.679358,144.92088,"Broadmeadows Shopping Centre, 1099 - 1169 Pascoe Vale Road Broadmeadows VIC 3047"
+177,260 Clarendon Street,South Melbourne,VIC,3205,-37.832441,144.960053,260 Clarendon Street South Melbourne VIC 3205
+178,135 Manifold Street,Camperdown,VIC,3260,-38.233709,143.148264,135 Manifold Street Camperdown VIC 3260
+179,"Woodgrove Shopping Centre, 533-555 High Street",Melton,VIC,3337,-37.686322,144.562271,"Woodgrove Shopping Centre, 533-555 High Street Melton VIC 3337"
+180,"Tarneit Central Shopping Centre, 540 Derrimut Road",Tarneit,VIC,3029,-37.836745,144.692388,"Tarneit Central Shopping Centre, 540 Derrimut Road Tarneit VIC 3029"
+181,16 Kingsway,Glen Waverley,VIC,3150,-37.878943,145.164216,16 Kingsway Glen Waverley VIC 3150
+182,"Werribee Plaza Shopping Centre, Derrimut Road",Hoppers Crossing,VIC,3029,-37.874877,144.681527,"Werribee Plaza Shopping Centre, Derrimut Road Hoppers Crossing VIC 3029"
+183,22 Watton Street,Werribee,VIC,3030,-37.9013437,144.6610027,22 Watton Street Werribee VIC 3030
+184,406 Sydney Road,Coburg,VIC,3058,-37.743756,144.966389,406 Sydney Road Coburg VIC 3058
+185,75-77 Firebrace Street,Horsham,VIC,3400,-36.7157289,142.1999347,75-77 Firebrace Street Horsham VIC 3400
+186,"Sunshine Marketplace, 80 Harvester Road",Sunshine,VIC,3020,-37.782018,144.832101,"Sunshine Marketplace, 80 Harvester Road Sunshine VIC 3020"
+187,"Dandenong Plaza, 1 McCrae Street",Dandenong,VIC,3175,-37.986467,145.218482,"Dandenong Plaza, 1 McCrae Street Dandenong VIC 3175"
+188,"Westfield Fountain Gate, 352 Princes Highway",Narre Warren,VIC,3805,-38.018206,145.304441,"Westfield Fountain Gate, 352 Princes Highway Narre Warren VIC 3805"
+189,"The Pines Shopping Centre, 181 Reynolds Road",Doncaster East,VIC,3109,-37.762729,145.168233,"The Pines Shopping Centre, 181 Reynolds Road Doncaster East VIC 3109"
+190,"Mill Park Shopping Centre The Stables, 314 Childs Road",Mill Park,VIC,3082,-37.666462,145.060968,"Mill Park Shopping Centre The Stables, 314 Childs Road Mill Park VIC 3082"
+191,196-208 Russell Street,Melbourne,VIC,3000,-37.811638,144.967743,196-208 Russell Street Melbourne VIC 3000
+192,Southland Shopping Centre,Cheltenham,VIC,3192,-37.9582729,145.0540754,Southland Shopping Centre Cheltenham VIC 3192
+193,"Brandon Park Shopping Centre, 608 Ferntree Gully Road",Mulgrave,VIC,3150,-37.905402,145.163059,"Brandon Park Shopping Centre, 608 Ferntree Gully Road Mulgrave VIC 3150"
+194,"Westfield Doncaster, 619 Doncaster Road",Doncaster,VIC,3108,-37.78638,145.125191,"Westfield Doncaster, 619 Doncaster Road Doncaster VIC 3108"
+195,"Westfield Airport West, 29-35 Louis Street",Airport West,VIC,3042,-37.713926,144.887986,"Westfield Airport West, 29-35 Louis Street Airport West VIC 3042"
+196,39-41 High Street,Berwick,VIC,3806,-38.0309209,145.3462136,39-41 High Street Berwick VIC 3806
+197,330 Collins Street,Melbourne,VIC,3000,-37.816309,144.9632169,330 Collins Street Melbourne VIC 3000
+198,535 Bourke St,Melbourne,VIC,3000,-37.815865,144.958025,535 Bourke St Melbourne VIC 3000
+199,"Shop 1, 19-21 Douglas Parade",Williamstown,VIC,3016,-37.8579551,144.8978057,"Shop 1, 19-21 Douglas Parade Williamstown VIC 3016"
+200,383 Centre Road,Bentleigh,VIC,3204,-37.9182968,145.0377574,383 Centre Road Bentleigh VIC 3204
+201,16 Gilbert Street,Torquay,VIC,3228,-38.3320921,144.3243424,16 Gilbert Street Torquay VIC 3228
+202,"Shop 128, Casey Central SC, 400 Narre Warren - Cranbourne Rd",Narre Warren South,VIC,3805,-38.0678,145.29991,"Shop 128, Casey Central SC, 400 Narre Warren - Cranbourne Rd Narre Warren South VIC 3805"
+203,29 Brantome Street,Gisborne,VIC,3437,-37.4865957,144.5898331,29 Brantome Street Gisborne VIC 3437
+204,"Northland Shopping Centre, 2-50 Murray Road",Preston,VIC,3072,-37.739435,145.028486,"Northland Shopping Centre, 2-50 Murray Road Preston VIC 3072"

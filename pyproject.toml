@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "geoduck"
+name = "whereabouts"
 version = "0.1.0"
 description = ""
-authors = ["alex2718 <a.lee84@hotmail.com>"]
+authors = ["alex2718 <ajlee3141@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]

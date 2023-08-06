@@ -1,4 +1,4 @@
-create table addrtext as
+create table addrtext_pre as
     select
     address_detail_pid as addr_id,
     (

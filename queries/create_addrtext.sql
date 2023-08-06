@@ -1,4 +1,4 @@
-insert into addrtext
+insert into addrtext_pre
 select
 address_detail_pid as addr_id,
 (

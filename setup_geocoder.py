@@ -1,6 +1,6 @@
 # set up the GNAF database
 import yaml
-from pyn.GNAFLoader import GNAFLoader
+from whereabouts.GNAFLoader import GNAFLoader
 
 gnafloader = GNAFLoader('gnaf_au')
 
@@ -38,6 +38,6 @@ gnafloader.create_phrases()
 gnafloader.create_inverted_index()
 
 # trigram phrases
-gnafloader.create_phrases(['trigram'])
+#gnafloader.create_phrases(['trigram'])
 
 # drop phrase table since no longer needed

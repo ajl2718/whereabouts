@@ -1,4 +1,4 @@
-create table addrtext (
+create table addrtext_pre (
 addr_id varchar,
 addr varchar
 );

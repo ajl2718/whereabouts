@@ -67,22 +67,22 @@ match AS (
     t2.address as address, 
     t2.numeric_tokens input_numerics, 
     t3.numeric_tokens match_numerics,
-    t3.addr, 
-    case when t3.addr is not null then
-    jaro_winkler_similarity(t2.address, t3.addr)
+    t3.address address_matched, 
+    case when t3.address is not null then
+    jaro_winkler_similarity(t2.address, t3.address)
     else 0.0 end as similarity 
     from input_proposed_match t1
     left join input_addresses_with_numerics t2 on t1.address_id1=t2.address_id
-    left join addrtext_with_numerics t3 on t1.address_id2=t3.addr_id
+    left join addrtext_with_numerics t3 on t1.address_id2=t3.address_id
 ),
 match_ranked as (
 select row_number() over (partition by address_id1 order by similarity desc) rank,
 address_id1, 
 address_id2, 
-address, 
+address,
+address_matched, 
 input_numerics,
 match_numerics,
-addr address_matched,
 LOCALITY_NAME suburb, 
 POSTCODE postcode,
 LATITUDE latitude,

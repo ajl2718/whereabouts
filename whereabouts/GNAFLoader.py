@@ -10,6 +10,7 @@ MAKE_ADDRESSES = Path('queries/make_addresses.sql').read_text()
 MAKE_ADDRESSES = Path('queries/create_addrtext.sql').read_text()
 MAKE_ADDRESSES2 = Path('queries/create_addrtext2.sql').read_text()
 MAKE_ADDRESSES3 = Path('queries/create_addrtext3.sql').read_text()
+MAKE_ADDRESSES4 = Path('queries/create_addrtext4.sql').read_text()
 DO_MATCH_BASIC = Path("queries/geocoder_query_standard.sql").read_text() # threshold 500 - for fast matching
 
 CREATE_GEOCODER_TABLES = Path("queries/create_geocoder_tables.sql").read_text()
@@ -93,7 +94,8 @@ class GNAFLoader:
 
     def create_final_address_table(self):
         self.con.execute(MAKE_ADDRESSES3)
-
+        self.con.execute(MAKE_ADDRESSES4)
+        
     def create_geocoder_tables(self):
         print("Creating geocoder tables...")
         self.con.execute(CREATE_TABLES)

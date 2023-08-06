@@ -2,7 +2,7 @@ from pathlib import Path
 import duckdb
 import pandas as pd
 from scipy.spatial import KDTree
-import pickle
+from json import loads
 
 DO_MATCH_BASIC = Path("queries/geocoder_query_standard3.sql").read_text() # threshold 500 - for fast matching
 CREATE_GEOCODER_TABLES = Path("queries/create_geocoder_tables.sql").read_text()
@@ -89,7 +89,7 @@ class Matcher(object):
         
         query_indices = tree.query(points)[1]
         results = self.reference_data.iloc[query_indices, :]
-        
+        results = loads(results.to_json(orient='table'))['data']
         return results
 
     def query(self, query):

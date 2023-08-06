@@ -1,4 +1,4 @@
-# Pyn
+# Whereabouts
 Fast, scalable geocoding for Python using an embedded database
 
 ## Description

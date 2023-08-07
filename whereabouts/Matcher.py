@@ -4,7 +4,7 @@ import pandas as pd
 from scipy.spatial import KDTree
 from json import loads
 
-DO_MATCH_BASIC = Path("queries/geocoder_query_standard3.sql").read_text() # threshold 500 - for fast matching
+DO_MATCH_BASIC = Path("queries/geocoder_query_standard4.sql").read_text() # threshold 500 - for fast matching
 CREATE_GEOCODER_TABLES = Path("queries/create_geocoder_tables.sql").read_text()
 MAKE_ADDRESSES = Path("queries/make_addresses.sql").read_text()
 
@@ -64,7 +64,11 @@ class Matcher(object):
 
             self.con.execute("INSERT INTO input_addresses SELECT * FROM df")
             
-            answers = self.con.execute(DO_MATCH_BASIC).df().sort_values(by='address_id1').reset_index().iloc[:, 1:]
+            answers = self.con.execute(DO_MATCH_BASIC).df().sort_values(by='address_id').reset_index().iloc[:, 1:]
+       #     answers = df.merge(answers.loc[:, ['address_id']], 
+        #                       left_on='address_id', 
+         #                      right_on='address_id1', 
+          #                     how='left')
 
             self.con.execute("drop table if exists input_addresses;")
             self.con.execute("drop table if exists input_addresses_with_tokens;")

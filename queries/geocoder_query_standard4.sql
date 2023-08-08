@@ -2,7 +2,7 @@ with input_addresses_with_numerics as (
     with input_addresses_cleaned as (
         select
         address_id,
-        trim(regexp_replace(regexp_replace(upper(address), '[^A-Z0-9]+', ' '), '[ ]+', ' ')) address
+        trim(regexp_replace(regexp_replace(upper(address), '[^A-Z0-9]+', ' ', 'g'), '[ ]+', ' ')) address
         from input_addresses
     ),
     tokens as 

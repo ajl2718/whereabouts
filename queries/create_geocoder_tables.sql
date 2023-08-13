@@ -1,3 +1,14 @@
+CREATE TABLE addrtext(
+    addr_id varchar not null,
+    ADDRESS_LABEL varchar,
+    ADDRESS_SITE_NAME varchar,
+    LOCALITY_NAME varchar,
+    POSTCODE int,
+    STATE varchar,
+    LATITUDE float,
+    LONGITUDE float
+);
+
 CREATE TABLE phrase -- Compute 2-word phrase tokens
 (addr_id varchar not null,
 tokenphrase text not null);
@@ -36,4 +47,3 @@ values
 (6),
 (7)
 )
-"""

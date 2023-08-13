@@ -1,8 +1,3 @@
-create table addrtext_pre (
-addr_id varchar,
-addr varchar
-);
-
 CREATE TABLE phrase -- Compute 2-word phrase tokens
 (addr_id varchar not null,
 tokenphrase text not null);

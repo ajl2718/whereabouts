@@ -11,6 +11,7 @@ MAKE_ADDRESSES = Path('queries/create_addrtext.sql').read_text()
 MAKE_ADDRESSES2 = Path('queries/create_addrtext2.sql').read_text()
 MAKE_ADDRESSES3 = Path('queries/create_addrtext3.sql').read_text()
 MAKE_ADDRESSES4 = Path('queries/create_addrtext4.sql').read_text()
+MAKE_ADDRESSES6 = Path('queries/create_addrtext6.sql').read_text()
 DO_MATCH_BASIC = Path("queries/geocoder_query_standard.sql").read_text() # threshold 500 - for fast matching
 
 CREATE_GEOCODER_TABLES = Path("queries/create_geocoder_tables.sql").read_text()
@@ -78,6 +79,18 @@ class GNAFLoader:
             print(f'Loading data for state: {state_name}')
             self.load_data_subset_standard(gnaf_path, state_name)
 
+    def load_gnaf_data(self, gnaf_path, state_names=['VIC']):
+        for state_name in state_names:
+            print(f"Loading data for {state_name}")
+            query = f"""
+            insert into addrtext 
+            select * from
+            read_parquet('{gnaf_path}')
+            where state='{state_name}'
+            """
+            self.con.execute(query)
+            
+
     def create_address_view(self):
         self.con.execute(ADDRESS_VIEW)
 
@@ -93,12 +106,11 @@ class GNAFLoader:
             self.con.execute(MAKE_ADDRESSES2, [state, n])
 
     def create_final_address_table(self):
-        self.con.execute(MAKE_ADDRESSES3)
-        self.con.execute(MAKE_ADDRESSES4)
+        self.con.execute(MAKE_ADDRESSES6)
         
     def create_geocoder_tables(self):
         print("Creating geocoder tables...")
-        self.con.execute(CREATE_TABLES)
+      #  self.con.execute(CREATE_TABLES)
         self.con.execute(CREATE_GEOCODER_TABLES)
         
     def create_phrases(self, phrases=['standard']):

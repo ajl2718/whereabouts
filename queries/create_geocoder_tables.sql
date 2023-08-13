@@ -26,6 +26,14 @@ CREATE TABLE trigramphraseinverted -- Compute trigram inverted index
 addr_ids varchar[] not null,
 frequency bigint not null);
 
---CREATE TABLE streetabbrev
---(name text not null,
---abbrev text not null);
+create table numbers as (
+values
+(1),
+(2),
+(3),
+(4),
+(5),
+(6),
+(7)
+)
+"""

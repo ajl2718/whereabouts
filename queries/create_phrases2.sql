@@ -1,5 +1,4 @@
 -- insert values into addrtext
-
 -- Creates the two token phrases
 -- to do: create the phrase made from pairs of trigrams
 insert into phrase
@@ -8,7 +7,7 @@ with addrtext_with_row_num as (
     addr_id,
     addr,
     row_number() over () row_num
-    from addrtext
+    from addrtext_with_detail
 ),
 addrtext_subset as (
     select * from addrtext_with_row_num

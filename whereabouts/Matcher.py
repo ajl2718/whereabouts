@@ -4,7 +4,8 @@ import pandas as pd
 from scipy.spatial import KDTree
 from json import loads
 
-DO_MATCH_BASIC = Path("queries/geocoder_query_standard4.sql").read_text() # threshold 500 - for fast matching
+DO_MATCH_BASIC = Path("queries/geocoder_query_standard5.sql").read_text() # threshold 500 - for fast matching
+DO_MATCH_TRIGRAM = Path("queries/geocoder_query_trigram.sql").read_text()
 CREATE_GEOCODER_TABLES = Path("queries/create_geocoder_tables.sql").read_text()
 MAKE_ADDRESSES = Path("queries/make_addresses.sql").read_text()
 
@@ -24,25 +25,25 @@ class Matcher(object):
 
         # for reverse geocoding, require reference data
         # to do: this can take a lot of memory. Use DB to do this
-        self.reference_data = self.con.execute("""
-        select 
-        at.addr_id address_id,
-        at.addr address,
-        av.latitude latitude,
-        av.longitude longitude
-        from 
-        addrtext at
-        inner join
-        address_view av
-        on at.addr_id = av.address_detail_pid;
-        """).df()
+    #    self.reference_data = self.con.execute("""
+    #    select 
+    #    at.addr_id address_id,
+    #    at.addr address,
+    #    av.latitude latitude,
+    #    av.longitude longitude
+    #    from 
+    #    addrtext at
+    #    inner join
+    #    address_view av
+    #    on at.addr_id = av.address_detail_pid;
+    #    """).df()
 
-        self.tree = KDTree(self.reference_data[['latitude', 'longitude']].values)
+    #    self.tree = KDTree(self.reference_data[['latitude', 'longitude']].values)
         self.how = how
         self.threshold = threshold
 
 
-    def geocode(self, addresses):
+    def geocode(self, addresses, how='standard'):
         if isinstance(addresses, str):
             addresses = [addresses]
 
@@ -50,30 +51,48 @@ class Matcher(object):
         if len(addresses) == 0:
             raise Exception("No addresses to match")
         else:   
-            df = pd.DataFrame(data={'address_id': range(1, len(addresses)+1), 'address': addresses})
-            
-            self.con.execute("drop table if exists input_addresses;")
-            self.con.execute("drop table if exists input_addresses_with_tokens;")
-            
-            # create a table with the address info
-            self.con.execute("""
-            create table input_addresses (
-            address_id integer,
-            address varchar);"""
-            )
+            if how == 'standard':
+                df = pd.DataFrame(data={'address_id': range(1, len(addresses)+1), 'address': addresses})
+                self.con.execute("drop table if exists input_addresses;")
+                self.con.execute("drop table if exists input_addresses_with_tokens;")
+                
+                # create a table with the address info
+                self.con.execute("""
+                create table input_addresses (
+                address_id integer,
+                address varchar);"""
+                )
 
-            self.con.execute("INSERT INTO input_addresses SELECT * FROM df")
-            
-            answers = self.con.execute(DO_MATCH_BASIC).df().sort_values(by='address_id').reset_index().iloc[:, 1:]
-       #     answers = df.merge(answers.loc[:, ['address_id']], 
-        #                       left_on='address_id', 
-         #                      right_on='address_id1', 
-          #                     how='left')
+                self.con.execute("INSERT INTO input_addresses SELECT * FROM df")
+                
+                answers = self.con.execute(DO_MATCH_BASIC).df().sort_values(by='address_id').reset_index().iloc[:, 1:]
 
-            self.con.execute("drop table if exists input_addresses;")
-            self.con.execute("drop table if exists input_addresses_with_tokens;")
+                self.con.execute("drop table if exists input_addresses;")
+                self.con.execute("drop table if exists input_addresses_with_tokens;")
 
-            return answers.T.to_dict()
+                return answers.T.to_dict()
+            elif how == 'trigram':
+                df = pd.DataFrame(data={'address_id': range(1, len(addresses)+1), 'address': addresses})
+                self.con.execute("drop table if exists input_addresses;")
+                self.con.execute("drop table if exists input_addresses_with_tokens;")
+                
+                # create a table with the address info
+                self.con.execute("""
+                create table input_addresses (
+                address_id integer,
+                address varchar);"""
+                )
+
+                self.con.execute("INSERT INTO input_addresses SELECT * FROM df")
+                
+                answers = self.con.execute(DO_MATCH_TRIGRAM).df().sort_values(by='address_id').reset_index().iloc[:, 1:]
+
+                self.con.execute("drop table if exists input_addresses;")
+                self.con.execute("drop table if exists input_addresses_with_tokens;")
+
+                return answers.T.to_dict()
+            else:
+                raise Exception("No recognised query type")
         
     # to do: extract all address components for each point rather than full address
     def reverse_geocode(self, points):

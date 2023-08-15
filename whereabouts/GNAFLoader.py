@@ -22,6 +22,11 @@ CREATE_INDEXES = Path("queries/create_indexes.sql").read_text()
 
 CREATE_TRIGRAM_PHRASES = Path("queries/create_trigramphrases.sql").read_text()
 
+TRIGRAM_STEP1 = Path("queries/create_trigram_index_step1.sql").read_text()
+TRIGRAM_STEP2 = Path("queries/create_trigram_index_step2.sql").read_text()
+TRIGRAM_STEP3 = Path("queries/create_trigram_index_step3.sql").read_text()
+TRIGRAM_STEP4 = Path("queries/create_trigram_index_step4.sql").read_text()
+
 class GNAFLoader:
     def __init__(self, db_name):
         self.db = db_name
@@ -122,10 +127,18 @@ class GNAFLoader:
                 print(f'Creating phrases for chunk {n}...')
                 self.con.execute(CREATE_PHRASES, [n])
         if 'trigram' in phrases:
-            print("Creating trigram phrases...")
+            print("Add row number to phrase inverted index...")
+            self.con.execute(TRIGRAM_STEP1)
+            print("Creating trigram inverted phrases. Step 1...")
             for n in range(100):
                 print(f'Creating trigram phrases for chunk {n}...')
-                self.con.execute(CREATE_TRIGRAM_PHRASES, [n])
+                self.con.execute(TRIGRAM_STEP2, [n])
+            print("Creating trigram inverted phrases. Step 2...")
+            self.con.execute(TRIGRAM_STEP3)
+            print("Creating trigram inverted phrases. Step 3...")
+            for n in range(100):
+                print(f'Creating trigram phrases for chunk {n}...')
+                self.con.execute(TRIGRAM_STEP4, [n])
 
     def create_inverted_index(self, phrases=['standard']):
         # how to do this in a way that prevents memory issues

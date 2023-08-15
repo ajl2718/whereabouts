@@ -4,7 +4,7 @@ import pandas as pd
 from scipy.spatial import KDTree
 from json import loads
 
-DO_MATCH_BASIC = Path("queries/geocoder_query_standard5.sql").read_text() # threshold 500 - for fast matching
+DO_MATCH_BASIC = Path("queries/geocoder_query_standard.sql").read_text() # threshold 500 - for fast matching
 DO_MATCH_TRIGRAM = Path("queries/geocoder_query_trigram.sql").read_text()
 CREATE_GEOCODER_TABLES = Path("queries/create_geocoder_tables.sql").read_text()
 MAKE_ADDRESSES = Path("queries/make_addresses.sql").read_text()

@@ -24,21 +24,17 @@ class Matcher(object):
         self.con = duckdb.connect(database=db_name)
 
         # for reverse geocoding, require reference data
-        # to do: this can take a lot of memory. Use DB to do this
-    #    self.reference_data = self.con.execute("""
-    #    select 
-    #    at.addr_id address_id,
-    #    at.addr address,
-    #    av.latitude latitude,
-    #    av.longitude longitude
-    #    from 
-    #    addrtext at
-    #    inner join
-    #    address_view av
-    #    on at.addr_id = av.address_detail_pid;
-    #    """).df()
+        self.reference_data = self.con.execute("""
+        select 
+        addr_id address_id,
+        addr address,
+        latitude latitude,
+        longitude longitude
+        from 
+        addrtext_with_detail at
+        """).df()
 
-    #    self.tree = KDTree(self.reference_data[['latitude', 'longitude']].values)
+        self.tree = KDTree(self.reference_data[['latitude', 'longitude']].values)
         self.how = how
         self.threshold = threshold
 

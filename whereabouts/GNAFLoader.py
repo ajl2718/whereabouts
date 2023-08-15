@@ -73,6 +73,43 @@ class GNAFLoader:
             self.con.execute(INVERTED_INDEX)
             self.con.execute(CREATE_INDEXES)
 
+    def clean_database(self):
+        """
+        Once geocoder tables have been created, remove unncessary tables from DB
+        to clear up space. Note that DuckDB currently does not free up the space
+        so the database has to be exported with tables and then loaded back again
+        """
+        self.con.execute("""
+        drop table addrtext; 
+        drop table phrase; 
+        drop table skipphrase;
+        drop table skipphraseinverted;
+        drop table trigramphrase;
+        drop table tg_distinct;
+        drop table trigramphraseinverted;
+        drop table trigramphraseinverted2;
+        """)
+
+    def export_database(self, db_path):
+        """
+        Export the database to the specified folder
+
+        Args
+        ----
+        db_path (str): name of folder to export db to
+        """
+        self.con.execute(f"export database '{db_path}' (format parquet);")
+
+    def import_database(self, db_path):
+        """
+        Import database from specified folders
+
+        Args
+        -----
+        db_path (str): path where database files and queries are located
+        """
+        self.con.execute(f"import database '{db_path}'")
+
     def create_kdtree(self, tree_path):
         """
         Create a KD-Tree data structure from the reference data in GNAF

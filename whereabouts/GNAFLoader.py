@@ -3,7 +3,7 @@ import duckdb
 from scipy.spatial import KDTree
 import pickle
 
-MAKE_ADDRESSES6 = Path('queries/create_addrtext.sql').read_text()
+MAKE_ADDRESSES = Path('queries/create_addrtext.sql').read_text()
 DO_MATCH_BASIC = Path("queries/geocoder_query_standard.sql").read_text() # threshold 500 - for fast matching
 
 CREATE_GEOCODER_TABLES = Path("queries/create_geocoder_tables.sql").read_text()
@@ -36,7 +36,7 @@ class GNAFLoader:
             self.con.execute(query)
 
     def create_final_address_table(self):
-        self.con.execute(MAKE_ADDRESSES6)
+        self.con.execute(MAKE_ADDRESSES)
         
     def create_geocoder_tables(self):
         print("Creating geocoder tables...")

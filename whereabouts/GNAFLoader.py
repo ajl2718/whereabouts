@@ -3,12 +3,12 @@ import duckdb
 from scipy.spatial import KDTree
 import pickle
 
-MAKE_ADDRESSES6 = Path('queries/create_addrtext6.sql').read_text()
+MAKE_ADDRESSES6 = Path('queries/create_addrtext.sql').read_text()
 DO_MATCH_BASIC = Path("queries/geocoder_query_standard.sql").read_text() # threshold 500 - for fast matching
 
 CREATE_GEOCODER_TABLES = Path("queries/create_geocoder_tables.sql").read_text()
 
-CREATE_PHRASES = Path("queries/create_phrases2.sql").read_text()
+CREATE_PHRASES = Path("queries/create_phrases.sql").read_text()
 INVERTED_INDEX = Path("queries/phrase_inverted.sql").read_text()
 CREATE_INDEXES = Path("queries/create_indexes.sql").read_text()
 

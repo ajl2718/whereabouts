@@ -82,22 +82,30 @@ class GNAFLoader:
             self.con.execute(INVERTED_INDEX)
             self.con.execute(CREATE_INDEXES)
 
-    def clean_database(self):
+    def clean_database(self, phrases):
         """
         Once geocoder tables have been created, remove unncessary tables from DB
         to clear up space. Note that DuckDB currently does not free up the space
         so the database has to be exported with tables and then loaded back again
         """
+        
         self.con.execute("""
-        drop table addrtext; 
-        drop table phrase; 
+        drop table addrtext;
         drop table skipphrase;
         drop table skipphraseinverted;
-        drop table trigramphrase;
-        drop table tg_distinct;
-        drop table trigramphraseinverted;
-        drop table trigramphraseinverted2;
         """)
+
+        if 'standard' in phrases:
+            self.con.execute("""
+            drop table phrase;
+            """)
+        if 'trigram' in phrases:
+            self.con.execute("""
+            drop table trigramphrase;
+            drop table tg_distinct;
+            drop table trigramphraseinverted;
+            drop table trigramphraseinverted2;
+            """)
 
     def export_database(self, db_path):
         """

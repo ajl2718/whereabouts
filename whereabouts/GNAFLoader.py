@@ -29,8 +29,17 @@ class GNAFLoader:
             print(f"Loading data for {state_name}")
             query = f"""
             insert into addrtext 
-            select * from
-            read_parquet('{gnaf_path}')
+            select 
+            ADDRESS_DETAIL_PID addr_id, 
+            ADDRESS_LABEL address_label,
+            ADDRESS_SITE_NAME address_site_name,
+            LOCALITY_NAME locality_name,
+            POSTCODE postcode,
+            STATE state,
+            LATITUDE latitude,
+            LONGITUDE 
+            from
+            read_csv_auto('{gnaf_path}', delim='|')
             where state='{state_name}'
             """
             self.con.execute(query)

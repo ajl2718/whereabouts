@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "whereabouts"
-version = "0.1.0"
+version = "0.2.0"
 description = ""
 authors = ["alex2718 <ajlee3141@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.13"
-duckdb = "0.7.1"
+duckdb = "0.8.1"
 pandas = "^1.5.3"
 requests = "^2.28.2"
 tqdm = "^4.64.1"

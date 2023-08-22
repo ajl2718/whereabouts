@@ -1,5 +1,7 @@
 # Whereabouts
-Fast, scalable geocoding for Python using DuckDB
+Fast, scalable geocoding for Python using DuckDB. The geocoding algorithms are based on the following papers:
+- https://arxiv.org/abs/1708.01402
+- https://arxiv.org/abs/1712.09691
 
 ## Description
 Geocode addresses and reverse geocode coordinates directly from Python in your own environment. 

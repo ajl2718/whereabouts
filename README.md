@@ -10,7 +10,6 @@ Geocode addresses and reverse geocode coordinates directly from Python in your o
 - Fast (Geocode 1000s / sec and reverse geocode 200,000s / sec)
 - Robust to typographical errors
 
-**Currently only working for Australian data.**
 
 ## Requirements
 - Python 3.8+
@@ -24,6 +23,7 @@ poetry shell
 poetry install
 ```
 
+The current process for using Australian data from the GNAF is as follows:
 1) Download the latest version of GNAF core from https://geoscape.com.au/data/g-naf-core/
 2) Update the `setup.yml` file to point to the location of the GNAF core file
 3) Finally, setup the geocoder. This creates the required reference tables
@@ -31,6 +31,21 @@ poetry install
 ```
 python setup_geocoder.py
 ```
+
+To use address data from another country, the file should have the following columns:
+
+| Column name | Description |
+| ----------- | ----------- |
+| ADDRESS_DETAIL_PID | Unique identifier for address |
+| ADDRESS_LABEL | The full address |
+| ADDRESS_SITE_NAME | Name of the site. This is usually null |
+| LOCALITY_NAME | Name of the suburb or locality |
+| POSTCODE | Postcode of address |
+| STATE | State 
+| LATITUDE | Latitude of geocoded address |
+| LONGITUDE | Longitude of geocoded address |
+
+Note that by default the file should be pipe-separated, i.e., use '|' as the delimitor.
 
 ## Examples
 
@@ -46,3 +61,5 @@ For more accurate geocoding you can use trigram phrases rather than token phrase
 ```
 matcher.geocode(addresslist, how='trigram')
 ```
+
+## Using 

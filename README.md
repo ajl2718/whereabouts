@@ -57,9 +57,12 @@ matcher = Matcher(db_name='gnaf_au')
 matcher.geocode(addresslist, how='standard')
 ```
 
-For more accurate geocoding you can use trigram phrases rather than token phrases
+For more accurate geocoding you can use trigram phrases rather than token phrases (note that the trigram option has to have been specified in the setup.yml file as part of the setup)
 ```
 matcher.geocode(addresslist, how='trigram')
 ```
 
-## Using 
+Once a Matcher object is created, the KD-tree for fast geocoding will also be created. A list of latitude, longitude values can then be reverse geocoded as follows
+```
+matcher.reverse_geocode(coordinates)
+```

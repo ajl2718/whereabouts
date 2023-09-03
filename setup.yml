@@ -5,4 +5,4 @@ gnaf:
     - filepath: /home/alex/Desktop/Data/G-NAF Core/GNAF_CORE.psv
 geocoder:
     - matchers: [standard]
-    - states: [VIC]
+    - states: [VIC, SA]

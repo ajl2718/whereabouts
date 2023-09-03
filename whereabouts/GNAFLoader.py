@@ -3,21 +3,21 @@ import duckdb
 from scipy.spatial import KDTree
 import pickle
 
-MAKE_ADDRESSES = Path('queries/create_addrtext.sql').read_text()
-DO_MATCH_BASIC = Path("queries/geocoder_query_standard.sql").read_text() # threshold 500 - for fast matching
+MAKE_ADDRESSES = Path('whereabouts/queries/create_addrtext.sql').read_text()
+DO_MATCH_BASIC = Path("whereabouts/queries/geocoder_query_standard.sql").read_text() # threshold 500 - for fast matching
 
-CREATE_GEOCODER_TABLES = Path("queries/create_geocoder_tables.sql").read_text()
+CREATE_GEOCODER_TABLES = Path("whereabouts/queries/create_geocoder_tables.sql").read_text()
 
-CREATE_PHRASES = Path("queries/create_phrases.sql").read_text()
-INVERTED_INDEX = Path("queries/phrase_inverted.sql").read_text()
-CREATE_INDEXES = Path("queries/create_indexes.sql").read_text()
+CREATE_PHRASES = Path("whereabouts/queries/create_phrases.sql").read_text()
+INVERTED_INDEX = Path("whereabouts/queries/phrase_inverted.sql").read_text()
+CREATE_INDEXES = Path("whereabouts/queries/create_indexes.sql").read_text()
 
-CREATE_TRIGRAM_PHRASES = Path("queries/create_trigramphrases.sql").read_text()
+CREATE_TRIGRAM_PHRASES = Path("whereabouts/queries/create_trigramphrases.sql").read_text()
 
-TRIGRAM_STEP1 = Path("queries/create_trigram_index_step1.sql").read_text()
-TRIGRAM_STEP2 = Path("queries/create_trigram_index_step2.sql").read_text()
-TRIGRAM_STEP3 = Path("queries/create_trigram_index_step3.sql").read_text()
-TRIGRAM_STEP4 = Path("queries/create_trigram_index_step4.sql").read_text()
+TRIGRAM_STEP1 = Path("whereabouts/queries/create_trigram_index_step1.sql").read_text()
+TRIGRAM_STEP2 = Path("whereabouts/queries/create_trigram_index_step2.sql").read_text()
+TRIGRAM_STEP3 = Path("whereabouts/queries/create_trigram_index_step3.sql").read_text()
+TRIGRAM_STEP4 = Path("whereabouts/queries/create_trigram_index_step4.sql").read_text()
 
 class GNAFLoader:
     def __init__(self, db_name):

@@ -1,0 +1,4 @@
+gnaf:
+    db_name: gnaf_au
+    url: https://data.gov.au/data/dataset/19432f89-dc3a-4ef3-b943-5326ef1dbecc/resource/3b99dae5-1920-47b0-b1f1-5b6c1193780e/download/g-naf_nov22_allstates_gda2020_psv_109.zip
+    folder: gnaf

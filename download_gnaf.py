@@ -8,15 +8,15 @@ from lxml import html
 
 # load config file to get name of DB
 # and URL of GNAF
-with open('setup.yml', 'r') as setup_details:
+with open('gnaf_details.yml', 'r') as setup_details:
     try:
         details = yaml.safe_load(setup_details)
     except yaml.YAMLError as exc:
         print(exc)
 
 # details of GNAF
-db_name = details['gnaf'][0]['db_name']
-gnaf_folder = details['gnaf'][2]['folder']
+db_name = details['gnaf']['db_name']
+gnaf_folder = details['gnaf']['folder']
 
 # create the data folder if not already there
 try:

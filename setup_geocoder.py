@@ -47,4 +47,5 @@ addressloader.export_database('gnaf_geocoder')
 os.remove(db_name)
 
 print("Importing database")
+addressloader = AddressLoader(db_name)
 addressloader.import_database('gnaf_geocoder')

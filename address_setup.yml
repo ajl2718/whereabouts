@@ -4,7 +4,7 @@ data:
     filepath: /home/alex/Desktop/Data/gnaf_nov2023/GNAF_CORE.psv
 geocoder:
     matchers: [standard]
-    states: [VIC, NSW]
+    states: [VIC, SA]
 schema:
     addr_id: ADDRESS_DETAIL_PID
     address_label: ADDRESS_LABEL

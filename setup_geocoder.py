@@ -20,7 +20,7 @@ addressloader = AddressLoader(db_name)
 print("Create geocoder tables")
 addressloader.create_geocoder_tables()
 for state in states:
-    addressloader.load_data('address_setup.yml', state_names=[state])
+    addressloader.load_data('setup.yml', state_names=[state])
 
 addressloader.create_final_address_table()
 

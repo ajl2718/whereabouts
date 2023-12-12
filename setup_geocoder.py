@@ -2,7 +2,7 @@ import yaml
 import os
 from whereabouts.AddressLoader import AddressLoader
 
-with open('address_setup.yml', 'r') as setup_details:
+with open('setup.yml', 'r') as setup_details:
     try:
         details = yaml.safe_load(setup_details)
     except yaml.YAMLError as exc:

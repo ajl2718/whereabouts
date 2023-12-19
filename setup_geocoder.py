@@ -2,7 +2,9 @@ import yaml
 import os
 from whereabouts.AddressLoader import AddressLoader
 
-with open('setup.yml', 'r') as setup_details:
+config_file = 'setup.yml'
+
+with open(config_file, 'r') as setup_details:
     try:
         details = yaml.safe_load(setup_details)
     except yaml.YAMLError as exc:
@@ -11,6 +13,7 @@ with open('setup.yml', 'r') as setup_details:
 db_name = details['data']['db_name']
 db_folder = details['data']['folder']
 data_path = details['data']['filepath']
+sep = details['data']['sep']
 
 states = details['geocoder']['states']
 matchers = details['geocoder']['matchers']
@@ -19,8 +22,11 @@ addressloader = AddressLoader(db_name)
 
 print("Create geocoder tables")
 addressloader.create_geocoder_tables()
-for state in states:
-    addressloader.load_data('setup.yml', state_names=[state])
+if states:
+    for state in states:
+        addressloader.load_data(config_file, state_names=[state])
+else:
+    addressloader.load_data(config_file, state_names=[])
 
 addressloader.create_final_address_table()
 
@@ -41,7 +47,7 @@ else:
     addressloader.clean_database(phrases=['standard'])
 
 print("Exporting database")
-addressloader.export_database('gnaf_geocoder')
+addressloader.export_database(db_folder)
 
 # delete the old db file
 os.remove(db_name)
@@ -49,4 +55,4 @@ os.remove(db_name)
 print("Importing database")
 del(addressloader)
 addressloader = AddressLoader(db_name)
-addressloader.import_database('gnaf_geocoder')
+addressloader.import_database(db_folder)

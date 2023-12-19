@@ -2,9 +2,10 @@ data:
     db_name: gnaf_au
     folder: geodb
     filepath: /home/alex/Desktop/Data/gnaf_nov2023/GNAF_CORE.psv
+    sep: "|"
 geocoder:
-    matchers: [standard]
-    states: [VIC, SA]
+    matchers: [standard, trigram]
+    states: [VIC]
 schema:
     addr_id: ADDRESS_DETAIL_PID
     address_label: ADDRESS_LABEL

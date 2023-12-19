@@ -1,0 +1,17 @@
+data:
+    db_name: kiwi
+    folder: geodb
+    filepath: /home/alex/Desktop/Data/address_temp/kiwi/nz-addresses.csv
+    sep: ","
+geocoder:
+    matchers: [standard, trigram]
+    states: []
+schema:
+    addr_id: address_id
+    address_label: full_address
+    address_site_name: full_address
+    locality_name: suburb_locality
+    postcode: 0
+    state: territorial_authority
+    latitude: shape_Y
+    longitude: shape_X

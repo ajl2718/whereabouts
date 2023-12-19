@@ -38,9 +38,10 @@ class AddressLoader:
                 latitude_value = details['schema']['latitude']
                 longitude_value = details['schema']['longitude']
                 file_path = details['data']['filepath']
+                sep = details['data']['sep']
 
-                for state_name in state_names:
-                    print(f"Loading data for {state_name}")
+                if len(state_names) == 0:
+                    print(f"Loading data")
                     query = f"""
                     insert into addrtext 
                     select 
@@ -53,10 +54,28 @@ class AddressLoader:
                     {latitude_value} latitude,
                     {longitude_value} longitude
                     from
-                    read_csv_auto('{file_path}', delim='|')
-                    where state='{state_name}'
+                    read_csv_auto('{file_path}', delim='{sep}')
                     """
                     self.con.execute(query)
+                else:
+                    for state_name in state_names:
+                        print(f"Loading data for {state_name}")
+                        query = f"""
+                        insert into addrtext 
+                        select 
+                        {id_value} addr_id, 
+                        {address_label_value} address_label,
+                        {address_site_name_value} address_site_name,
+                        {locality_name_value} locality_name,
+                        {postcode_value} postcode,
+                        {state_value} state,
+                        {latitude_value} latitude,
+                        {longitude_value} longitude
+                        from
+                        read_csv_auto('{file_path}', delim='{sep}')
+                        where state='{state_name}'
+                        """
+                        self.con.execute(query)
 
             except yaml.YAMLError as exc:
                 print(exc)

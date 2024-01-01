@@ -55,7 +55,7 @@ input_trigramphrases as (
     ),
     trigramphrases as 
     (
-        select t1.address_id addr_id, t1.trigram || ' ' || t2.trigram trigramphrase
+        select t1.address_id addr_id, md5(t1.trigram || ' ' || t2.trigram)[1:5] trigramphrase
         from trigrams t1
         left join trigrams t2
         on (t1.address_id, t1.row_num)=(t2.address_id, t2.row_num-1)

@@ -56,7 +56,7 @@ input_phrase_matched_pre as (
     address_id1, 
     tokenphrase, 
     case when address_ids2 is null 
-    then unnest(['']) 
+    then unnest([-1]) 
     else unnest(address_ids2) end address_id2
     from input_phrase_matched_lists
 ),
@@ -135,4 +135,4 @@ from input_addresses_with_numerics t1
 left join matches_final t2
 on t1.address_id=t2.address_id1
 where (rank=1) or (rank is null)
-order by address_id;
+order by address_id; -- Deal with null case

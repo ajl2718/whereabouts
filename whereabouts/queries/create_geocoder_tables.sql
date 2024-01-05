@@ -1,5 +1,5 @@
 CREATE TABLE addrtext(
-    addr_id varchar not null,
+    addr_id integer not null,
     ADDRESS_LABEL varchar,
     ADDRESS_SITE_NAME varchar,
     LOCALITY_NAME varchar,
@@ -10,32 +10,32 @@ CREATE TABLE addrtext(
 );
 
 CREATE TABLE phrase -- Compute 2-word phrase tokens
-(addr_id varchar not null,
+(addr_id integer not null,
 tokenphrase text not null);
 
 CREATE TABLE phraseinverted -- Compute inverted index
 (tokenphrase text not null,
-addr_ids varchar[] not null,
+addr_ids integer[] not null,
 frequency bigint not null);
 
 CREATE TABLE skipphrase -- Compute 2-word phrase tokens
-(addr_id varchar not null,
+(addr_id integer not null,
 tokenphrase text not null);
 
 CREATE TABLE skipphraseinverted -- Compute inverted index
 (tokenphrase text not null,
-addr_ids varchar[] not null,
+addr_ids integer[] not null,
 frequency bigint not null);
 
 CREATE TABLE trigramphrase -- Compute 2-word trigram phrases
-(addr_id varchar not null,
+(addr_id integer not null,
 trigramphrase text not null
 );
 
 CREATE TABLE trigramphraseinverted -- Compute trigram inverted index
-(trigramphrase text not null,
-addr_ids varchar[] not null,
-frequency bigint not null);
+(trigramphrase integer not null,
+addr_ids integer[] not null,
+frequency integer not null);
 
 create table numbers as (
 values

@@ -13,10 +13,14 @@ CREATE_PHRASES = Path("whereabouts/queries/create_phrases.sql").read_text()
 INVERTED_INDEX = Path("whereabouts/queries/phrase_inverted.sql").read_text()
 CREATE_INDEXES = Path("whereabouts/queries/create_indexes.sql").read_text()
 
+CREATE_SKIPPHRASES = Path("whereabouts/queries/create_skipphrases.sql").read_text()
+INVERTED_INDEX_SKIPPHRASE = Path("whereabouts/queries/skipphrase_inverted.sql").read_text()
+#CREATE_INDEXES_SKIPPHRASE = Path("whereabouts/queries/create_indexes_skipphrase.sql").read_text()
+
 CREATE_TRIGRAM_PHRASES = Path("whereabouts/queries/create_trigramphrases.sql").read_text()
 
 TRIGRAM_STEP1 = Path("whereabouts/queries/create_trigram_index_step1.sql").read_text()
-TRIGRAM_STEP2 = Path("whereabouts/queries/create_trigram_index_step2.sql").read_text()
+TRIGRAM_STEP2 = Path("whereabouts/queries/create_trigram_index_step2b.sql").read_text()
 TRIGRAM_STEP3 = Path("whereabouts/queries/create_trigram_index_step3.sql").read_text()
 TRIGRAM_STEP4 = Path("whereabouts/queries/create_trigram_index_step4.sql").read_text()
 
@@ -97,6 +101,13 @@ class AddressLoader:
             for n in range(100): # change based on size of db
                 print(f'Creating phrases for chunk {n}...')
                 self.con.execute(CREATE_PHRASES, [n])
+        if 'skipphrase' in phrases:
+            print('Creating skipphrases...')
+            # create the phrases in chunks to prevent memory errors
+            # this still takes a looooong time
+            for n in range(100): # change based on size of db
+                print(f'Creating skipphrases for chunk {n}...')
+                self.con.execute(CREATE_SKIPPHRASES, [n])
         if 'trigram' in phrases:
             print("Add row number to phrase inverted index...")
             self.con.execute(TRIGRAM_STEP1)
@@ -118,6 +129,9 @@ class AddressLoader:
         if 'standard' in phrases:
             self.con.execute(INVERTED_INDEX)
             self.con.execute(CREATE_INDEXES)
+        if 'skipphrase' in phrases:
+            self.con.execute(INVERTED_INDEX_SKIPPHRASE)
+          #  self.con.execute(CREATE_INDEXES_SKIPPHRASE)
 
     def clean_database(self, phrases):
         """
@@ -128,13 +142,15 @@ class AddressLoader:
         
         self.con.execute("""
         drop table addrtext;
-        drop table skipphrase;
-        drop table skipphraseinverted;
         """)
 
         if 'standard' in phrases:
             self.con.execute("""
             drop table phrase;
+            """)
+        if 'skipphrase' in phrases:
+            self.con.execute("""
+            drop table skipphrase;
             """)
         if 'trigram' in phrases:
             self.con.execute("""

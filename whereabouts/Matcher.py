@@ -1,13 +1,30 @@
 from pathlib import Path
 import duckdb
 import pandas as pd
-from scipy.spatial import KDTree
 from json import loads
 
-DO_MATCH_BASIC = Path("whereabouts/queries/geocoder_query_standard.sql").read_text() # threshold 500 - for fast matching
-DO_MATCH_TRIGRAM = Path("whereabouts/queries/geocoder_query_trigram.sql").read_text()
+DO_MATCH_BASIC = Path("whereabouts/queries/geocoder_query_standard2.sql").read_text() # threshold 500 - for fast matching
+DO_MATCH_SKIPPHRASE = Path("whereabouts/queries/geocoder_query_skipphrase.sql").read_text()
+DO_MATCH_TRIGRAM = Path("whereabouts/queries/geocoder_query_trigramb2.sql").read_text()
 CREATE_GEOCODER_TABLES = Path("whereabouts/queries/create_geocoder_tables.sql").read_text()
 
+# UDF for comparing overlap in numeric tokens between input and candidate addresses
+def list_overlap(list1: list[str], list2: list[str], threshold: float) -> bool:
+    if list2:
+        overlap = len(set(list1).intersection(set(list2))) / len(list1)
+        if overlap >= threshold:
+            return True
+        else:
+            return False
+    else:
+        return False
+    
+def numeric_overlap(input_numerics: list[str], 
+                    candidate_numerics: list[str]) -> float:
+    num_overlap = len(set(input_numerics).intersection(set(candidate_numerics)))
+    fraction_overlap = num_overlap / len(set(input_numerics))
+    return fraction_overlap
+    
 class Matcher(object):
     def __init__(self, db_name, how='standard', threshold=0.5):
         """
@@ -22,72 +39,54 @@ class Matcher(object):
         """
         self.con = duckdb.connect(database=db_name)
 
-        # for reverse geocoding, require reference data
-        self.reference_data = self.con.execute("""
-        select 
-        addr_id address_id,
-        addr address,
-        latitude latitude,
-        longitude longitude
-        from 
-        addrtext_with_detail at
-        """).df()
-
-        self.tree = KDTree(self.reference_data[['latitude', 'longitude']].values)
+        try:    
+            self.con.create_function('list_overlap', list_overlap)
+            self.con.create_function('numeric_overlap', numeric_overlap)
+        except:
+            print("Functions already exist")
+      #  self.tree = KDTree(self.reference_data[['latitude', 'longitude']].values)
         self.how = how
         self.threshold = threshold
 
-
-    def geocode(self, addresses, how='standard'):
+    def geocode(self, addresses, address_ids=None, how=None):
         if isinstance(addresses, str):
             addresses = [addresses]
+
+        # use default geocoding algorithm if not specified
+        if how:
+            how = how 
+        else:
+            how = self.how
 
         # check if there is actually a list of addresses to match
         if len(addresses) == 0:
             raise Exception("No addresses to match")
         else:   
-            if how == 'standard':
-                df = pd.DataFrame(data={'address_id': range(1, len(addresses)+1), 'address': addresses})
-                self.con.execute("drop table if exists input_addresses;")
-                self.con.execute("drop table if exists input_addresses_with_tokens;")
-                
-                # create a table with the address info
-                self.con.execute("""
-                create table input_addresses (
-                address_id integer,
-                address varchar);"""
-                )
-
-                self.con.execute("INSERT INTO input_addresses SELECT * FROM df")
-                
-                answers = self.con.execute(DO_MATCH_BASIC).df().sort_values(by='address_id').reset_index().iloc[:, 1:]
-
-                self.con.execute("drop table if exists input_addresses;")
-                self.con.execute("drop table if exists input_addresses_with_tokens;")
-
-                return answers.T.to_dict()
-            elif how == 'trigram':
-                df = pd.DataFrame(data={'address_id': range(1, len(addresses)+1), 'address': addresses})
-                self.con.execute("drop table if exists input_addresses;")
-                self.con.execute("drop table if exists input_addresses_with_tokens;")
-                
-                # create a table with the address info
-                self.con.execute("""
-                create table input_addresses (
-                address_id integer,
-                address varchar);"""
-                )
-
-                self.con.execute("INSERT INTO input_addresses SELECT * FROM df")
-                
-                answers = self.con.execute(DO_MATCH_TRIGRAM).df().sort_values(by='address_id').reset_index().iloc[:, 1:]
-
-                self.con.execute("drop table if exists input_addresses;")
-                self.con.execute("drop table if exists input_addresses_with_tokens;")
-
-                return answers.T.to_dict()
+            if address_ids:
+                df = pd.DataFrame(data={'address_id': address_ids, 'address': addresses})
             else:
-                raise Exception("No recognised query type")
+                df = pd.DataFrame(data={'address_id': range(1, len(addresses)+1), 'address': addresses})
+            self.con.execute("drop table if exists input_addresses;")
+            self.con.execute("drop table if exists input_addresses_with_tokens;")
+            self.con.execute("""
+            create table input_addresses (
+            address_id integer,
+            address varchar);"""
+            )
+            self.con.execute("INSERT INTO input_addresses SELECT * FROM df")
+
+            if how == 'skipphrase':
+                answers = self.con.execute(DO_MATCH_SKIPPHRASE).df().sort_values(by='address_id').reset_index().iloc[:, 1:]
+            elif how == 'trigram':
+                answers = self.con.execute(DO_MATCH_TRIGRAM).df().sort_values(by='address_id').reset_index().iloc[:, 1:]
+            else:
+                answers = self.con.execute(DO_MATCH_BASIC).df().sort_values(by='address_id').reset_index().iloc[:, 1:]
+            
+            self.con.execute("drop table if exists input_addresses;")
+            self.con.execute("drop table if exists input_addresses_with_tokens;")
+
+            return list(answers.T.to_dict().values())
+                
         
     # to do: extract all address components for each point rather than full address
     def reverse_geocode(self, points):

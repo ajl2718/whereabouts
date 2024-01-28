@@ -7,9 +7,13 @@ class MatcherPipeline(object):
         """
         matchers: list of Matcher objects
         """
+        if matchers:
+            self.matchers = matchers
+
+    def set_matches(self, matchers):
         self.matchers = matchers
 
-    def match(self, addresses, address_ids=None):
+    def geocode(self, addresses, address_ids=None):
         """
         Pass the list of addresses through each of the matchers, filtering out those that
         are likely to be correctly matched at each step
@@ -25,12 +29,12 @@ class MatcherPipeline(object):
 
         # this needs to be optimised
         matcher = self.matchers[0]
-        results = matcher.match(addresses)
+        results = matcher.geocode(addresses)
         threshold = matcher.threshold
 
         matched, unmatched = get_unmatched(results, threshold)
-        addresses0 = [result["input_address"] for result in unmatched]
-        address_ids0 = [result["address_id1"] for result in unmatched]
+        addresses0 = [result["address"] for result in unmatched]
+        address_ids0 = [result["address_id"] for result in unmatched]
 
         all_results += matched
 
@@ -38,12 +42,12 @@ class MatcherPipeline(object):
         for matcher in self.matchers[1:]:
             if len(unmatched) == 0:
                 break
-            results = matcher.match(addresses0, address_ids0)
+            results = matcher.geocode(addresses0, address_ids0)
             threshold = matcher.threshold
             matched, unmatched = get_unmatched(results, threshold)
 
-            addresses0 = [result["input_address"] for result in unmatched]
-            address_ids0 = [result["address_id1"] for result in unmatched]
+            addresses0 = [result["address"] for result in unmatched]
+            address_ids0 = [result["address_id"] for result in unmatched]
 
             all_results += matched
 

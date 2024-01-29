@@ -1,4 +1,4 @@
 {
     "last_update": "2024-01-29",
-    "models": ["au_vic_lg"]
+    "models": ["au_vic_sm", "au_sm"]
 }

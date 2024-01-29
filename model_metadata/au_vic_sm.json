@@ -1,0 +1,12 @@
+{
+    "name": "au_vic_sm",
+    "version": "0.9.0",
+    "description": "Large database for geocoding addresses in Victoria Australia. Uses standard, trigram and skiphrase",
+    "source_data": "GNAF",
+    "source_data_url": "https://geoscape.com.au/data/g-naf-core/",
+    "source_data_version": "November 2023",
+    "preprocessing_url": "https://www.github.com/ajl2718/whereabouts_references/",
+    "download_url": "https://storage.googleapis.com/whereabouts_data/au_vic_sm.db",
+    "author": "Alex Lee",
+    "contact": "ajlee3141@gmail.com"
+}

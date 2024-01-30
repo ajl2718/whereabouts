@@ -37,13 +37,13 @@ class Matcher(object):
         how (str): geocoding type to use
         threshold (float): when to classify geocoded result as a match 
         """
-        self.con = duckdb.connect(database=db_name)
+        self.con = duckdb.connect(database=f'whereabouts/models/{db_name}.db')
 
         try:    
             self.con.create_function('list_overlap', list_overlap)
             self.con.create_function('numeric_overlap', numeric_overlap)
         except:
-            print("Functions already exist")
+            pass
       #  self.tree = KDTree(self.reference_data[['latitude', 'longitude']].values)
         self.how = how
         self.threshold = threshold

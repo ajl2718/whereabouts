@@ -2,6 +2,7 @@ from pathlib import Path
 import duckdb
 import pandas as pd
 from json import loads
+import os
 
 DO_MATCH_BASIC = Path("whereabouts/queries/geocoder_query_standard2.sql").read_text() # threshold 500 - for fast matching
 DO_MATCH_SKIPPHRASE = Path("whereabouts/queries/geocoder_query_skipphrase.sql").read_text()
@@ -37,7 +38,13 @@ class Matcher(object):
         how (str): geocoding type to use
         threshold (float): when to classify geocoded result as a match 
         """
-        self.con = duckdb.connect(database=f'whereabouts/models/{db_name}.db')
+        # check that model is in folder
+        db_names = os.listdir('whereabouts/models')
+        db_names = [db_name[:-3] for db_name in db_names]
+        if db_name in db_names:
+            self.con = duckdb.connect(database=f'whereabouts/models/{db_name}.db')
+        else:
+            print(f"Could not find database {db_name}")
 
         try:    
             self.con.create_function('list_overlap', list_overlap)

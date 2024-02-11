@@ -3,11 +3,12 @@ import duckdb
 import pandas as pd
 from json import loads
 import os
+import importlib.resources
 
-DO_MATCH_BASIC = Path("whereabouts/queries/geocoder_query_standard2.sql").read_text() # threshold 500 - for fast matching
-DO_MATCH_SKIPPHRASE = Path("whereabouts/queries/geocoder_query_skipphrase.sql").read_text()
-DO_MATCH_TRIGRAM = Path("whereabouts/queries/geocoder_query_trigramb2.sql").read_text()
-CREATE_GEOCODER_TABLES = Path("whereabouts/queries/create_geocoder_tables.sql").read_text()
+DO_MATCH_BASIC = importlib.resources.read_text('whereabouts.queries', 'geocoder_query_standard2.sql')
+DO_MATCH_SKIPPHRASE = importlib.resources.read_text('whereabouts.queries', 'geocoder_query_skipphrase.sql')
+DO_MATCH_TRIGRAM = importlib.resources.read_text('whereabouts.queries', 'geocoder_query_trigramb2.sql')
+CREATE_GEOCODER_TABLES = importlib.resources.read_text('whereabouts.queries', 'create_geocoder_tables.sql')
 
 # UDF for comparing overlap in numeric tokens between input and candidate addresses
 def list_overlap(list1: list[str], list2: list[str], threshold: float) -> bool:
@@ -39,10 +40,13 @@ class Matcher(object):
         threshold (float): when to classify geocoded result as a match 
         """
         # check that model is in folder
-        db_names = os.listdir('whereabouts/models')
+        path_to_models = importlib.resources.path('whereabouts', '') / 'models'
+        path_to_models = str(path_to_models)
+
+        db_names = os.listdir(path_to_models)
         db_names = [db_name[:-3] for db_name in db_names]
         if db_name in db_names:
-            self.con = duckdb.connect(database=f'whereabouts/models/{db_name}.db')
+            self.con = duckdb.connect(database=f'{path_to_models}/{db_name}.db')
         else:
             print(f"Could not find database {db_name}")
 

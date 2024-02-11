@@ -1,5 +1,9 @@
 import subprocess 
 import requests 
+import yaml
+import os
+from .AddressLoader import AddressLoader
+import importlib.resources
 
 def get_unmatched(results, threshold):
     """
@@ -42,7 +46,86 @@ def download(model_name):
         model_metadata = requests.get(model_metadata_url).json()
         print(f"Downloading data for {model_name}")
         data_path = model_metadata['download_url']
-        subprocess.run(["curl", "-o", f'whereabouts/models/{model_name}', data_path]) 
+        subprocess.run(["curl", "-o", f'whereabouts/models/{model_name}.db', data_path]) 
     else:
         print(f"Model {model_name} not found")
+
+
+def setup_geocoder(config_file):
+    """
+    Given a configuration file containing details of the reference data and the type of
+    geocoding algorithm to use, setup the database tables for doing geocoding with the 
+    reference data
+
+    Args
+    ----
+    configuration (str): path to the .yml file with the configuration details
+    """
+    # open the config file
+    with open(config_file, 'r') as setup_details:
+        try:
+            details = yaml.safe_load(setup_details)
+        except yaml.YAMLError as exc:
+            print(exc)
+
+    try:            
+        # get all the info from the config file
+        db_name = details['data']['db_name']
+        db_folder = details['data']['folder']
+        states = details['geocoder']['states']
+        matchers = details['geocoder']['matchers']
+    except:
+        print("Some details missing from configuration file")
+
+    # create the database
+    addressloader = AddressLoader(db_name)
     
+    print("Create geocoder tables")
+    addressloader.create_geocoder_tables()
+    if states:
+        for state in states:
+            addressloader.load_data(details, state_names=[state])
+    else:
+        addressloader.load_data(details, state_names=[])
+
+    addressloader.create_final_address_table()
+
+    if 'standard' in matchers:
+        print("Create standard phrases")
+        addressloader.create_phrases()
+        addressloader.create_inverted_index()
+
+    if 'skipphrase' in matchers:
+        print("Create skipphrases")
+        addressloader.create_phrases(['skipphrase'])
+        addressloader.create_inverted_index(['skipphrase'])
+
+    # trigram phrases
+    if 'trigram' in matchers:
+        print("Create trigram phrases")
+        addressloader.create_phrases(['trigram'])
+
+    print("Cleaning database")
+    if 'trigram' in matchers:
+        addressloader.clean_database(phrases=['standard', 'trigram'])
+    else:
+        addressloader.clean_database(phrases=['standard'])
+
+    print("Exporting database")
+    addressloader.export_database(db_folder)
+
+    # delete the old db file
+    os.remove(db_name)
+
+    print("Importing database")
+    del(addressloader)
+    path_to_model = importlib.resources.path('whereabouts', '') / 'models'
+    path_to_model = str(path_to_model)
+
+    addressloader = AddressLoader(f'{path_to_model}/{db_name}')
+    addressloader.import_database(db_folder)
+    
+    # remove all files created in export of db
+    for filename in os.listdir(db_folder):
+        os.remove(f'{db_folder}/{filename}')
+    os.rmdir(db_folder)

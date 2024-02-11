@@ -3,87 +3,79 @@ import duckdb
 from scipy.spatial import KDTree
 import pickle
 import yaml
+import importlib.resources
 
-MAKE_ADDRESSES = Path('whereabouts/queries/create_addrtext.sql').read_text()
-DO_MATCH_BASIC = Path("whereabouts/queries/geocoder_query_standard.sql").read_text() # threshold 500 - for fast matching
+MAKE_ADDRESSES = importlib.resources.read_text('whereabouts.queries', 'create_addrtext.sql')
+DO_MATCH_BASIC = importlib.resources.read_text('whereabouts.queries', 'geocoder_query_standard.sql')
+CREATE_GEOCODER_TABLES = importlib.resources.read_text('whereabouts.queries', 'create_geocoder_tables.sql')
 
-CREATE_GEOCODER_TABLES = Path("whereabouts/queries/create_geocoder_tables.sql").read_text()
+CREATE_PHRASES = importlib.resources.read_text('whereabouts.queries', 'create_phrases.sql')
+INVERTED_INDEX = importlib.resources.read_text('whereabouts.queries', 'phrase_inverted.sql')
+CREATE_INDEXES = importlib.resources.read_text('whereabouts.queries', 'create_indexes.sql')
 
-CREATE_PHRASES = Path("whereabouts/queries/create_phrases.sql").read_text()
-INVERTED_INDEX = Path("whereabouts/queries/phrase_inverted.sql").read_text()
-CREATE_INDEXES = Path("whereabouts/queries/create_indexes.sql").read_text()
+CREATE_SKIPPHRASES = importlib.resources.read_text('whereabouts.queries', 'create_skipphrases.sql')
+INVERTED_INDEX_SKIPPHRASE = importlib.resources.read_text('whereabouts.queries', 'skipphrase_inverted.sql')
 
-CREATE_SKIPPHRASES = Path("whereabouts/queries/create_skipphrases.sql").read_text()
-INVERTED_INDEX_SKIPPHRASE = Path("whereabouts/queries/skipphrase_inverted.sql").read_text()
-#CREATE_INDEXES_SKIPPHRASE = Path("whereabouts/queries/create_indexes_skipphrase.sql").read_text()
+CREATE_TRIGRAM_PHRASES = importlib.resources.read_text('whereabouts.queries', 'create_trigramphrases.sql')
 
-CREATE_TRIGRAM_PHRASES = Path("whereabouts/queries/create_trigramphrases.sql").read_text()
-
-TRIGRAM_STEP1 = Path("whereabouts/queries/create_trigram_index_step1.sql").read_text()
-TRIGRAM_STEP2 = Path("whereabouts/queries/create_trigram_index_step2b.sql").read_text()
-TRIGRAM_STEP3 = Path("whereabouts/queries/create_trigram_index_step3.sql").read_text()
-TRIGRAM_STEP4 = Path("whereabouts/queries/create_trigram_index_step4.sql").read_text()
+TRIGRAM_STEP1 = importlib.resources.read_text('whereabouts.queries', 'create_trigram_index_step1.sql')
+TRIGRAM_STEP2 = importlib.resources.read_text('whereabouts.queries', 'create_trigram_index_step2b.sql')
+TRIGRAM_STEP3 = importlib.resources.read_text('whereabouts.queries', 'create_trigram_index_step3.sql')
+TRIGRAM_STEP4 = importlib.resources.read_text('whereabouts.queries', 'create_trigram_index_step4.sql')
 
 class AddressLoader:
     def __init__(self, db_name):
         self.db = db_name
         self.con = duckdb.connect(database=db_name)
 
-    def load_data(self, setup_file_path, state_names=['VIC']):
-        with open(setup_file_path, 'r') as setup_details:
-            try:
-                details = yaml.safe_load(setup_details)
-                id_value = details['schema']['addr_id']
-                address_label_value = details['schema']['address_label']
-                address_site_name_value = details['schema']['address_site_name']
-                locality_name_value = details['schema']['locality_name']
-                postcode_value = details['schema']['postcode']
-                state_value = details['schema']['state']
-                latitude_value = details['schema']['latitude']
-                longitude_value = details['schema']['longitude']
-                file_path = details['data']['filepath']
-                sep = details['data']['sep']
+    def load_data(self, details, state_names=['VIC']):
+        id_value = details['schema']['addr_id']
+        address_label_value = details['schema']['address_label']
+        address_site_name_value = details['schema']['address_site_name']
+        locality_name_value = details['schema']['locality_name']
+        postcode_value = details['schema']['postcode']
+        state_value = details['schema']['state']
+        latitude_value = details['schema']['latitude']
+        longitude_value = details['schema']['longitude']
+        file_path = details['data']['filepath']
+        sep = details['data']['sep']
 
-                if len(state_names) == 0:
-                    print(f"Loading data")
-                    query = f"""
-                    insert into addrtext 
-                    select 
-                    {id_value} addr_id, 
-                    {address_label_value} address_label,
-                    {address_site_name_value} address_site_name,
-                    {locality_name_value} locality_name,
-                    {postcode_value} postcode,
-                    {state_value} state,
-                    {latitude_value} latitude,
-                    {longitude_value} longitude
-                    from
-                    read_csv_auto('{file_path}', delim='{sep}')
-                    """
-                    self.con.execute(query)
-                else:
-                    for state_name in state_names:
-                        print(f"Loading data for {state_name}")
-                        query = f"""
-                        insert into addrtext 
-                        select 
-                        {id_value} addr_id, 
-                        {address_label_value} address_label,
-                        {address_site_name_value} address_site_name,
-                        {locality_name_value} locality_name,
-                        {postcode_value} postcode,
-                        {state_value} state,
-                        {latitude_value} latitude,
-                        {longitude_value} longitude
-                        from
-                        read_csv_auto('{file_path}', delim='{sep}')
-                        where state='{state_name}'
-                        """
-                        self.con.execute(query)
-
-            except yaml.YAMLError as exc:
-                print(exc)
-                print("Cannot load addresses because insufficient scheme information")
+        if len(state_names) == 0:
+            print(f"Loading data")
+            query = f"""
+            insert into addrtext 
+            select 
+            {id_value} addr_id, 
+            {address_label_value} address_label,
+            {address_site_name_value} address_site_name,
+            {locality_name_value} locality_name,
+            {postcode_value} postcode,
+            {state_value} state,
+            {latitude_value} latitude,
+            {longitude_value} longitude
+            from
+            read_csv_auto('{file_path}', delim='{sep}')
+            """
+            self.con.execute(query)
+        else:
+            for state_name in state_names:
+                print(f"Loading data for {state_name}")
+                query = f"""
+                insert into addrtext 
+                select 
+                {id_value} addr_id, 
+                {address_label_value} address_label,
+                {address_site_name_value} address_site_name,
+                {locality_name_value} locality_name,
+                {postcode_value} postcode,
+                {state_value} state,
+                {latitude_value} latitude,
+                {longitude_value} longitude
+                from
+                read_csv_auto('{file_path}', delim='{sep}')
+                where state='{state_name}'
+                """
+                self.con.execute(query)
         
     def create_final_address_table(self):
         self.con.execute(MAKE_ADDRESSES)

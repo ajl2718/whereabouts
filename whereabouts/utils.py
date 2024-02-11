@@ -129,3 +129,17 @@ def setup_geocoder(config_file):
     for filename in os.listdir(db_folder):
         os.remove(f'{db_folder}/{filename}')
     os.rmdir(db_folder)
+
+def remove_database(db_name):
+    """
+    Remove a database from the folder of databases
+
+    db_name (str): title of database (without the extension of folder path)
+    """
+    path_to_model = importlib.resources.path('whereabouts', '') / 'models'
+    path_to_model = str(path_to_model)
+    all_dbs = os.listdir(path_to_model)
+    if f'{db_name}.db' in all_dbs:
+        os.remove(f'{path_to_model}/{db_name}.db')
+    else:
+        print(f"Could not database with name {db_name}")

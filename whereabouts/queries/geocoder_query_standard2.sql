@@ -81,7 +81,7 @@ match AS (
     t3.numeric_tokens match_numerics,
     t3.addr address_matched, 
     case when t3.addr is not null then
-    jaro_similarity(t2.address, t3.addr) * numeric_overlap(t2.numeric_tokens, t3.numeric_tokens)
+    ngram_jaccard(t2.address, t3.addr) * numeric_overlap(t2.numeric_tokens, t3.numeric_tokens)
     else 0.0 end as similarity 
     from input_proposed_match t1
     left join input_addresses_with_numerics t2 on t1.address_id1=t2.address_id

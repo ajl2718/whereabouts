@@ -55,7 +55,7 @@ input_trigramphrases as (
     ),
     trigramphrases as 
     (
-        select t1.address_id addr_id, cast(hash(t1.trigram || ' ' || t2.trigram) % 10000000 as integer) trigramphrase
+        select t1.address_id addr_id, cast(hash(t1.trigram || ' ' || t2.trigram) % 1000000000 as integer) trigramphrase
         from trigrams t1
         left join trigrams t2
         on (t1.address_id, t1.row_num)=(t2.address_id, t2.row_num-1)
@@ -99,7 +99,7 @@ match AS (
     t3.numeric_tokens match_numerics,
     t3.addr address_matched, 
     case when t3.addr is not null then
-    jaro_similarity(t2.address, t3.addr)
+    ngram_jaccard(t2.address, t3.addr) * numeric_overlap(t2.numeric_tokens, t3.numeric_tokens)
     else 0.0 end as similarity 
     from input_proposed_match t1
     left join input_addresses_with_numerics t2 on t1.address_id1=t2.address_id
@@ -122,15 +122,8 @@ match_ranked as (
         from match
         left join addrtext_with_detail t4 on match.address_id2=t4.addr_id
     )
-    select * from match_ranked_pre
-    where case 
-    when array_length(input_numerics) == 1 then 
-    (list_contains(match_numerics, input_numerics[1]))
-    when array_length(input_numerics) == 2 then
-    (list_contains(match_numerics, input_numerics[1]) and list_contains(match_numerics, input_numerics[2]))
-    when array_length(input_numerics) == 3 then
-    (list_contains(match_numerics, input_numerics[1]) and list_contains(match_numerics, input_numerics[2]) and list_contains(match_numerics, input_numerics[3]))
-    end
+    select * from match_ranked_pre where
+    list_overlap(input_numerics, match_numerics, 0.5)
 ),
 matches_final as (     
     select 

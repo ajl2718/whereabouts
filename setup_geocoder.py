@@ -24,9 +24,9 @@ print("Create geocoder tables")
 addressloader.create_geocoder_tables()
 if states:
     for state in states:
-        addressloader.load_data(config_file, state_names=[state])
+        addressloader.load_data(details, state_names=[state])
 else:
-    addressloader.load_data(config_file, state_names=[])
+    addressloader.load_data(details, state_names=[])
 
 addressloader.create_final_address_table()
 

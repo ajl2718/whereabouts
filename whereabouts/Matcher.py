@@ -54,16 +54,18 @@ class Matcher(object):
         threshold (float): when to classify geocoded result as a match 
         """
         # check that model is in folder
-        path_to_models = importlib.resources.path('whereabouts', '') / 'models'
-        path_to_models = str(path_to_models)
+        with importlib.resources.path('whereabouts', '') as whereabouts_path:
+            path_to_models = Path(whereabouts_path) / 'models'
 
         db_names = os.listdir(path_to_models)
-        db_names = [db_name[:-3] for db_name in db_names]
+        db_names = [db_name[:-3] for db_name in db_names if db_name[-3:] == '.db']
         if db_name in db_names:
             self.con = duckdb.connect(database=f'{path_to_models}/{db_name}.db')
         else:
             print(f"Could not find database {db_name}")
-
+            print(f"The following geocoding databases are installed:")
+            for db_name in db_names:
+                print(f'{db_name}')
         try:    
             self.con.create_function('list_overlap', list_overlap)
             self.con.create_function('numeric_overlap', numeric_overlap)

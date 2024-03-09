@@ -1,17 +1,17 @@
 data:
-    db_name: kiwi
+    db_name: au_vic_lg
     folder: geodb
-    filepath: /home/alex/Desktop/Data/address_temp/kiwi/nz-addresses.csv
+    filepath: /Users/alexlee/Desktop/Data/geo/gnaf_feb2024/gnaf_core_processed.csv
     sep: ","
 geocoder:
     matchers: [standard, trigram]
-    states: []
+    states: [VIC]
 schema:
-    addr_id: address_id
-    address_label: full_address
-    address_site_name: full_address
-    locality_name: suburb_locality
-    postcode: 0
-    state: territorial_authority
-    latitude: shape_Y
-    longitude: shape_X
+    addr_id: row_num
+    address_label: ADDRESS_LABEL
+    address_site_name: ADDRESS_SITE_NAME
+    locality_name: LOCALITY_NAME
+    postcode: POSTCODE
+    state: STATE
+    latitude: LATITUDE
+    longitude: LONGITUDE

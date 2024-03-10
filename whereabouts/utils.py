@@ -78,6 +78,7 @@ def setup_geocoder(config_file):
         print("Some details missing from configuration file")
 
     # create the database
+    db_name += '.db'
     addressloader = AddressLoader(db_name)
     
     print("Create geocoder tables")
@@ -119,7 +120,7 @@ def setup_geocoder(config_file):
 
     print("Importing database")
     del(addressloader)
-    path_to_model = importlib.resources.path('whereabouts', '') / 'models'
+    path_to_model = importlib.resources.files('whereabouts') / 'models'
     path_to_model = str(path_to_model)
 
     addressloader = AddressLoader(f'{path_to_model}/{db_name}')

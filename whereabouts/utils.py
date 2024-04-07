@@ -135,7 +135,7 @@ def setup_geocoder(config_file):
         os.remove(f'{db_folder}/{filename}')
     os.rmdir(db_folder)
     t2 = time()
-    printf(f'Created reference database in {t2-t1}s.')
+    print(f'Created reference database in {t2-t1}s.')
 
 def remove_database(db_name):
     """
@@ -157,7 +157,7 @@ def list_databases():
     """
     path_to_models = importlib.resources.files('whereabouts') / 'models'
     path_to_models = str(path_to_models)
-    all_dbs = [filename[:-4] for filename in os.listdir(path_to_models) if filename.endswith('.db')]
+    all_dbs = [filename[:-3] for filename in os.listdir(path_to_models) if filename.endswith('.db')]
     print('The following reference databases are installed')
     for db in all_dbs:
         print(db)

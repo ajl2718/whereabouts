@@ -4,6 +4,7 @@ import yaml
 import os
 from .AddressLoader import AddressLoader
 import importlib.resources
+from time import time
 
 def get_unmatched(results, threshold):
     """
@@ -77,6 +78,9 @@ def setup_geocoder(config_file):
     except:
         print("Some details missing from configuration file")
 
+
+    t1 = time()
+    print("Creating reference database")
     # create the database
     db_name += '.db'
     addressloader = AddressLoader(db_name)
@@ -130,6 +134,8 @@ def setup_geocoder(config_file):
     for filename in os.listdir(db_folder):
         os.remove(f'{db_folder}/{filename}')
     os.rmdir(db_folder)
+    t2 = time()
+    printf(f'Created reference database in {t2-t1}s.')
 
 def remove_database(db_name):
     """

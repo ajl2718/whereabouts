@@ -157,7 +157,7 @@ def list_databases():
     """
     path_to_models = importlib.resources.files('whereabouts') / 'models'
     path_to_models = str(path_to_models)
-    all_dbs = [filename[:-4] for filename in os.listdir(path_to_models if filename.endswith('.db'))]
+    all_dbs = [filename[:-4] for filename in os.listdir(path_to_models) if filename.endswith('.db'))]
     print('The following reference databases are installed')
     for db in all_dbs:
         print(db)

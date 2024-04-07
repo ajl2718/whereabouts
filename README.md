@@ -30,9 +30,6 @@ The reference file should be a single csv file with at least three fields: the c
 
 Once the `setup.yml` is created and a reference dataset is available, the geocoding database can be created using the `setup_geocoder` function from whereabouts.utils.
 
-```
-
-```
 The current process for using Australian data from the GNAF is as follows:
 1) Download the latest version of GNAF core from https://geoscape.com.au/data/g-naf-core/
 2) Update the `setup.yml` file to point to the location of the GNAF core file

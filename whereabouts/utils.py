@@ -143,10 +143,21 @@ def remove_database(db_name):
 
     db_name (str): title of database (without the extension of folder path)
     """
-    path_to_model = importlib.resources.path('whereabouts', '') / 'models'
+    path_to_model = importlib.resources.files('whereabouts') / 'models'
     path_to_model = str(path_to_model)
     all_dbs = os.listdir(path_to_model)
     if f'{db_name}.db' in all_dbs:
         os.remove(f'{path_to_model}/{db_name}.db')
     else:
         print(f"Could not database with name {db_name}")
+
+def list_databases():
+    """
+    List all the reference databases that have been installed
+    """
+    path_to_models = importlib.resources.files('whereabouts') / 'models'
+    path_to_models = str(path_to_models)
+    all_dbs = [filename[:-4] for filename in os.listdir(path_to_models if filename.endswith('.db'))]
+    print('The following reference databases are installed')
+    for db in all_dbs:
+        print(db)

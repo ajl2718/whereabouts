@@ -1,11 +1,11 @@
 data:
-    db_name: gnaf_au
+    db_name: au_all_sm
     folder: geodb
-    filepath: /home/alex/Desktop/Data/gnaf_nov2023/GNAF_CORE.psv
-    sep: "|"
+    filepath: G-NAFCore_MAY24_AUSTRALIA_GDA2020_PSV_107/G-NAF Core/G-NAF Core MAY 2024/Standard/GNAF_CORE_processed_210624.parquet
+    sep: ","
 geocoder:
-    matchers: [standard, trigram]
-    states: [VIC]
+    matchers: [standard]
+    states: [VIC, NSW, QLD, ACT, TAS, SA, WA, NT]
 schema:
     addr_id: ADDRESS_DETAIL_PID
     address_label: ADDRESS_LABEL

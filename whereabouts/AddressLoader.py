@@ -40,6 +40,14 @@ class AddressLoader:
         file_path = details['data']['filepath']
         sep = details['data']['sep']
 
+        # check the extension of the file
+        # either read_csv_auto or read_parquet
+        filetype = file_path.split('.')[-1]
+        if filetype == "parquet":
+            load_function = f"read_parquet('{file_path}')"
+        elif filetype == "csv":
+            load_function = f"read_csv_auto('{file_path}', delim='{sep}')"
+
         if len(state_names) == 0:
             print(f"Loading data")
             query = f"""
@@ -54,7 +62,7 @@ class AddressLoader:
             {latitude_value} latitude,
             {longitude_value} longitude
             from
-            read_csv_auto('{file_path}', delim='{sep}')
+            {load_function}
             """
             self.con.execute(query)
         else:
@@ -72,7 +80,7 @@ class AddressLoader:
                 {latitude_value} latitude,
                 {longitude_value} longitude
                 from
-                read_csv_auto('{file_path}', delim='{sep}')
+                {load_function}
                 where state='{state_name}'
                 """
                 self.con.execute(query)

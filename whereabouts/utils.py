@@ -1,5 +1,3 @@
-import subprocess 
-import requests 
 import yaml
 import os
 from .AddressLoader import AddressLoader
@@ -162,5 +160,7 @@ def download(filename, repo_id):
 
         with open(f'{path_to_model}/{output_filename}', 'wb') as f:
             f.write(model)
+        try:
+            os.remove(f'{filename}.joblib')
     except:
         print(f"Could not download {filename}")

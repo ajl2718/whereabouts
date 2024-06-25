@@ -5,6 +5,8 @@ import os
 from .AddressLoader import AddressLoader
 import importlib.resources
 from time import time
+import joblib
+from huggingface_hub import hf_hub_download
 
 def get_unmatched(results, threshold):
     """
@@ -27,30 +29,6 @@ def order_matches(matches):
     """
     matches_sorted = sorted(matches, key=lambda k: k['address_id']) 
     return matches_sorted
-
-
-def download(model_name):
-    """
-    Download a database for geocoding addresses in a particular part of the world
-
-    Args
-    ----
-    model_name (str): name of database to download
-    """
-    # URL of location of metadata for all models
-    base_url = "https://raw.githubusercontent.com/ajl2718/whereabouts/main/model_metadata"
-    metadata_url = f"{base_url}/all_models.json"
-    # get all the model names from the reference json file
-    all_models = requests.get(metadata_url).json()['models']
-    if model_name in all_models:
-        model_metadata_url = f'{base_url}/{model_name}.json'
-        model_metadata = requests.get(model_metadata_url).json()
-        print(f"Downloading data for {model_name}")
-        data_path = model_metadata['download_url']
-        subprocess.run(["curl", "-o", f'whereabouts/models/{model_name}.db', data_path]) 
-    else:
-        print(f"Model {model_name} not found")
-
 
 def setup_geocoder(config_file):
     """
@@ -161,3 +139,28 @@ def list_databases():
     print('The following reference databases are installed')
     for db in all_dbs:
         print(db)
+
+def download(filename, repo_id):
+    """
+    Download a duckdb database from the huggingface hub
+
+    Args
+    ----
+    filename (str): the name of the file to download
+    output_filename (str): the name of the file to save (ignoring .db)
+    repo_id (str): huggingface repo ID
+    """
+
+    try:        
+        model = joblib.load(
+            hf_hub_download(repo_id=repo_id, filename=f"{filename}.joblib")
+        )
+
+        output_filename = f'{filename.split('.')[0]}.db'
+        path_to_model = importlib.resources.files('whereabouts') / 'models'
+        path_to_model = str(path_to_model)
+
+        with open(f'{path_to_model}/{output_filename}', 'wb') as f:
+            f.write(model)
+    except:
+        print(f"Could not download {filename}")

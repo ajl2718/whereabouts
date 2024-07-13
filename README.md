@@ -35,7 +35,9 @@ You will need a geocoding database to match addresses against. You can either do
 
 ### 1. Download a geocoder database
 
-Pre-built geocoding database are available from (https://www.huggingface.co)[Huggingface]. The list of available databases can be found (here)[https://huggingface.co/saunteringcat/whereabouts-db/tree/main]
+Pre-built geocoding database are available from [Huggingface](https://www.huggingface.co). The list of available databases can be found [here](https://huggingface.co/saunteringcat/whereabouts-db/tree/main)
+
+As an example, to install the small size geocoder database for all of Australia:
 
 ```
 python -m whereabouts download au_all_sm
@@ -44,7 +46,7 @@ python -m whereabouts download au_all_sm
 
 ### 2. Create a geocoder database
 
-The reference file should be a single csv or parquet file with the following columns:
+You can create your own geocoder database if you have your own address file. This file should be a single csv or parquet file with the following columns:
 
 | Column name | Description | Data type |
 | ----------- | ----------- | --------- |
@@ -76,9 +78,4 @@ matcher.geocode(addresslist, how='standard')
 For more accurate geocoding you can use trigram phrases rather than token phrases (note that the trigram option has to have been specified in the setup.yml file as part of the setup)
 ```
 matcher.geocode(addresslist, how='trigram')
-```
-
-Once a Matcher object is created, the KD-tree for fast geocoding will also be created. A list of latitude, longitude values can then be reverse geocoded as follows
-```
-matcher.reverse_geocode(coordinates)
 ```

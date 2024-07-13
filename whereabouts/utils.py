@@ -145,7 +145,6 @@ def download(filename, repo_id):
     Args
     ----
     filename (str): the name of the file to download
-    output_filename (str): the name of the file to save (ignoring .db)
     repo_id (str): huggingface repo ID
     """
 
@@ -162,5 +161,23 @@ def download(filename, repo_id):
             f.write(model)
         try:
             os.remove(f'{filename}.joblib')
+        except:
+            pass
     except:
         print(f"Could not download {filename}")
+
+def convert_db(filename):
+    """
+    Convert duckdb database to joblib format for huggingface upload
+
+    Args
+    ----
+    filename (str): name of the file to upload
+    """
+    try:
+        output_filename = f'{filename[:-3]}.joblib'
+        with open(filename, 'rb') as f:
+            data = f.read()
+        joblib.dump(data, output_filename)
+    except:
+        print(f"Could not convert duckdb database to joblib")

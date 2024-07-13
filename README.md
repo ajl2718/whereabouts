@@ -10,49 +10,60 @@ Geocode addresses and reverse geocode coordinates directly from Python in your o
 - Fast (Geocode 1000s / sec and reverse geocode 200,000s / sec)
 - Robust to typographical errors
 
-
 ## Requirements
 - Python 3.8+
-- Poetry (for package management)
+- requirements.txt (found in repo)
 
-## Installation
-Once Poetry is installed and you are in the project directory:
+## Installation: via PIP
+
+whereabouts can be installed either from this repo using pip / uv / conda
 
 ```
-poetry shell
-poetry install
+pip install whereabouts
 ```
 
-## Create a geocoder database
-To start geocoding, a geocoding database has to be created, which uses a reference dataset containing addresses and corresponding latitude, longitude values.
+### 1. Install depedencies
+Install all the dependencies:
 
-The reference file should be a single csv file with at least three fields: the complete address, latitude, longitude. These fields should be specified in a `setup.yml` file. An example is included.
+```
+pip install -r requirements.txt
+```
 
-Once the `setup.yml` is created and a reference dataset is available, the geocoding database can be created using the `setup_geocoder` function from whereabouts.utils.
+## Download a geocoder database or create your own
 
-The current process for using Australian data from the GNAF is as follows:
-1) Download the latest version of GNAF core from https://geoscape.com.au/data/g-naf-core/
-2) Update the `setup.yml` file to point to the location of the GNAF core file
-3) Finally, setup the geocoder. This creates the required reference tables
+You will need a geocoding database to match addresses against. You can either download a pre-built database or create your own using a dataset of high quality reference addresses for a given country, state or other geographic region.
+
+### 1. Download a geocoder database
+
+Pre-built geocoding database are available from (https://www.huggingface.co)[Huggingface]. The list of available databases can be found (here)[https://huggingface.co/saunteringcat/whereabouts-db/tree/main]
+
+```
+python -m whereabouts download au_all_sm
+```
+
+
+### 2. Create a geocoder database
+
+The reference file should be a single csv or parquet file with the following columns:
+
+| Column name | Description | Data type |
+| ----------- | ----------- | --------- |
+| ADDRESS_DETAIL_PID | Unique identifier for address | int |
+| ADDRESS_LABEL | The full address | str |
+| ADDRESS_SITE_NAME | Name of the site. This is usually null | str |
+| LOCALITY_NAME | Name of the suburb or locality | str |
+| POSTCODE | Postcode of address | int |
+| STATE | State | str |
+| LATITUDE | Latitude of geocoded address | float |
+| LONGITUDE | Longitude of geocoded address | float |
+
+These fields should be specified in a `setup.yml` file. Once the `setup.yml` is created and a reference dataset is available, the geocoding database can be created:
 
 ```
 python -m whereabouts setup_geocoder setup.yml
 ```
 
-To use address data from another country, the file should have the following columns:
-
-| Column name | Description |
-| ----------- | ----------- |
-| ADDRESS_DETAIL_PID | Unique identifier for address |
-| ADDRESS_LABEL | The full address |
-| ADDRESS_SITE_NAME | Name of the site. This is usually null |
-| LOCALITY_NAME | Name of the suburb or locality |
-| POSTCODE | Postcode of address |
-| STATE | State 
-| LATITUDE | Latitude of geocoded address |
-| LONGITUDE | Longitude of geocoded address |
-
-## Examples
+## Geocoding examples
 
 Geocode a list of addresses 
 ```

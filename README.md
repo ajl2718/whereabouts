@@ -43,10 +43,24 @@ As an example, to install the small size geocoder database for all of Australia:
 python -m whereabouts download au_all_sm
 ```
 
+## Geocoding examples
 
-### 2. Create a geocoder database
+Geocode a list of addresses 
+```
+from whereabouts.Matcher import Matcher
 
-You can create your own geocoder database if you have your own address file. This file should be a single csv or parquet file with the following columns:
+matcher = Matcher(db_name='gnaf_au')
+matcher.geocode(addresslist, how='standard')
+```
+
+For more accurate geocoding you can use trigram phrases rather than token phrases (note that the trigram option has to have been specified in the setup.yml file as part of the setup)
+```
+matcher.geocode(addresslist, how='trigram')
+```
+
+## Create a geocoder database
+
+Rather than using a pre-built database, you can create your own geocoder database if you have your own address file. This file should be a single csv or parquet file with the following columns:
 
 | Column name | Description | Data type |
 | ----------- | ----------- | --------- |
@@ -63,19 +77,4 @@ These fields should be specified in a `setup.yml` file. Once the `setup.yml` is 
 
 ```
 python -m whereabouts setup_geocoder setup.yml
-```
-
-## Geocoding examples
-
-Geocode a list of addresses 
-```
-from whereabouts.Matcher import Matcher
-
-matcher = Matcher(db_name='gnaf_au')
-matcher.geocode(addresslist, how='standard')
-```
-
-For more accurate geocoding you can use trigram phrases rather than token phrases (note that the trigram option has to have been specified in the setup.yml file as part of the setup)
-```
-matcher.geocode(addresslist, how='trigram')
 ```

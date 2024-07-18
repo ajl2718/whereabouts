@@ -22,18 +22,11 @@ whereabouts can be installed either from this repo using pip / uv / conda
 pip install whereabouts
 ```
 
-### 1. Install depedencies
-Install all the dependencies:
-
-```
-pip install -r requirements.txt
-```
-
 ## Download a geocoder database or create your own
 
 You will need a geocoding database to match addresses against. You can either download a pre-built database or create your own using a dataset of high quality reference addresses for a given country, state or other geographic region.
 
-### 1. Download a geocoder database
+### Option 1: Download a geocoder database
 
 Pre-built geocoding database are available from [Huggingface](https://www.huggingface.co). The list of available databases can be found [here](https://huggingface.co/saunteringcat/whereabouts-db/tree/main)
 
@@ -58,7 +51,7 @@ For more accurate geocoding you can use trigram phrases rather than token phrase
 matcher.geocode(addresslist, how='trigram')
 ```
 
-## Create a geocoder database
+## Option 2: Create a geocoder database
 
 Rather than using a pre-built database, you can create your own geocoder database if you have your own address file. This file should be a single csv or parquet file with the following columns:
 

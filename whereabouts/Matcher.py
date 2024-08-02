@@ -4,42 +4,13 @@ import pandas as pd
 from json import loads
 import os
 import importlib.resources
+from .utils import list_overlap, numeric_overlap, ngram_jaccard
 
-DO_MATCH_BASIC = importlib.resources.read_text('whereabouts.queries', 'geocoder_query_standard2.sql')
-DO_MATCH_SKIPPHRASE = importlib.resources.read_text('whereabouts.queries', 'geocoder_query_skipphrase.sql')
-DO_MATCH_TRIGRAM = importlib.resources.read_text('whereabouts.queries', 'geocoder_query_trigramb2.sql')
-CREATE_GEOCODER_TABLES = importlib.resources.read_text('whereabouts.queries', 'create_geocoder_tables.sql')
-
-# UDF for comparing overlap in numeric tokens between input and candidate addresses
-def list_overlap(list1: list[str], 
-                 list2: list[str], 
-                 threshold: float) -> bool:
-    if list2:
-        overlap = len(set(list1).intersection(set(list2))) / len(list1)
-        if overlap >= threshold:
-            return True
-        else:
-            return False
-    else:
-        return False
-    
-def numeric_overlap(input_numerics: list[str], 
-                    candidate_numerics: list[str]) -> float:
-    num_overlap = len(set(input_numerics).intersection(set(candidate_numerics)))
-    fraction_overlap = num_overlap / len(set(input_numerics))
-    return fraction_overlap
-
-def ngram_jaccard(input_address: str, candidate_address: str) -> float:
-    # bigrams
-    bigrams_input = [input_address[n:n+2] for n in range(0, len(input_address) - 1)]
-    bigrams_candidate = [candidate_address[n:n+2] for n in range(0, len(candidate_address) - 1)]
-    # unigrams
-    unigrams_input = [input_address[n:n+1] for n in range(0, len(input_address))]
-    unigrams_candidate = [candidate_address[n:n+1] for n in range(0, len(candidate_address))]
-    ngrams_input_set = set(bigrams_input).union(unigrams_input)
-    ngrams_candidate_set = set(bigrams_candidate).union(unigrams_candidate)
-    return len(ngrams_input_set.intersection(ngrams_candidate_set)) / len(ngrams_input_set.union(ngrams_candidate_set))
-
+# change files to files
+DO_MATCH_BASIC = importlib.resources.files('whereabouts.queries').joinpath('geocoder_query_standard2.sql').read_text()
+DO_MATCH_SKIPPHRASE = importlib.resources.files('whereabouts.queries').joinpath('geocoder_query_skipphrase.sql').read_text()
+DO_MATCH_TRIGRAM = importlib.resources.files('whereabouts.queries').joinpath('geocoder_query_trigramb2.sql').read_text()
+CREATE_GEOCODER_TABLES = importlib.resources.files('whereabouts.queries').joinpath('create_geocoder_tables.sql').read_text()
     
 class Matcher(object):
     def __init__(self, db_name, how='standard', threshold=0.5):

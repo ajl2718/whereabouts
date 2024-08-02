@@ -1,0 +1,17 @@
+data:
+    db_name: db_test
+    folder: geodb
+    filepath: tests/test_data3056.parquet
+    sep: ","
+geocoder:
+    matchers: [standard, trigram]
+    states: []
+schema:
+    addr_id: row_num
+    address_label: ADDRESS_LABEL
+    address_site_name: ADDRESS_SITE_NAME
+    locality_name: LOCALITY_NAME
+    postcode: POSTCODE
+    state: STATE
+    latitude: LATITUDE
+    longitude: LONGITUDE

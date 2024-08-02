@@ -153,12 +153,13 @@ def download(filename, repo_id):
             hf_hub_download(repo_id=repo_id, filename=f"{filename}.joblib")
         )
 
-        output_filename = f'{filename.split('.')[0]}.db'
+        output_filename = f"{filename.split('.')[0]}.db"
         path_to_model = importlib.resources.files('whereabouts') / 'models'
         path_to_model = str(path_to_model)
 
         with open(f'{path_to_model}/{output_filename}', 'wb') as f:
             f.write(model)
+
         try:
             os.remove(f'{filename}.joblib')
         except:
@@ -181,3 +182,34 @@ def convert_db(filename):
         joblib.dump(data, output_filename)
     except:
         print(f"Could not convert duckdb database to joblib")
+
+# UDF for comparing overlap in numeric tokens between input and candidate addresses
+def list_overlap(list1: list[str], 
+                 list2: list[str], 
+                 threshold: float) -> bool:
+    if list2:
+        overlap = len(set(list1).intersection(set(list2))) / len(list1)
+        if overlap >= threshold:
+            return True
+        else:
+            return False
+    else:
+        return False
+    
+def numeric_overlap(input_numerics: list[str], 
+                    candidate_numerics: list[str]) -> float:
+    num_overlap = len(set(input_numerics).intersection(set(candidate_numerics)))
+    fraction_overlap = num_overlap / len(set(input_numerics))
+    return fraction_overlap
+
+def ngram_jaccard(input_address: str, candidate_address: str) -> float:
+    # bigrams
+    bigrams_input = [input_address[n:n+2] for n in range(0, len(input_address) - 1)]
+    bigrams_candidate = [candidate_address[n:n+2] for n in range(0, len(candidate_address) - 1)]
+    # unigrams
+    unigrams_input = [input_address[n:n+1] for n in range(0, len(input_address))]
+    unigrams_candidate = [candidate_address[n:n+1] for n in range(0, len(candidate_address))]
+    ngrams_input_set = set(bigrams_input).union(unigrams_input)
+    ngrams_candidate_set = set(bigrams_candidate).union(unigrams_candidate)
+    return len(ngrams_input_set.intersection(ngrams_candidate_set)) / len(ngrams_input_set.union(ngrams_candidate_set))
+

@@ -5,23 +5,23 @@ import pickle
 import yaml
 import importlib.resources
 
-MAKE_ADDRESSES = importlib.resources.read_text('whereabouts.queries', 'create_addrtext.sql')
-DO_MATCH_BASIC = importlib.resources.read_text('whereabouts.queries', 'geocoder_query_standard.sql')
-CREATE_GEOCODER_TABLES = importlib.resources.read_text('whereabouts.queries', 'create_geocoder_tables.sql')
+MAKE_ADDRESSES = importlib.resources.files('whereabouts.queries').joinpath('create_addrtext.sql').read_text()
+DO_MATCH_BASIC = importlib.resources.files('whereabouts.queries').joinpath('geocoder_query_standard.sql').read_text()
+CREATE_GEOCODER_TABLES = importlib.resources.files('whereabouts.queries').joinpath('create_geocoder_tables.sql').read_text()
 
-CREATE_PHRASES = importlib.resources.read_text('whereabouts.queries', 'create_phrases.sql')
-INVERTED_INDEX = importlib.resources.read_text('whereabouts.queries', 'phrase_inverted.sql')
-CREATE_INDEXES = importlib.resources.read_text('whereabouts.queries', 'create_indexes.sql')
+CREATE_PHRASES = importlib.resources.files('whereabouts.queries').joinpath('create_phrases.sql')
+INVERTED_INDEX = importlib.resources.files('whereabouts.queries').joinpath('phrase_inverted.sql')
+CREATE_INDEXES = importlib.resources.files('whereabouts.queries').joinpath('create_indexes.sql')
 
-CREATE_SKIPPHRASES = importlib.resources.read_text('whereabouts.queries', 'create_skipphrases.sql')
-INVERTED_INDEX_SKIPPHRASE = importlib.resources.read_text('whereabouts.queries', 'skipphrase_inverted.sql')
+CREATE_SKIPPHRASES = importlib.resources.files('whereabouts.queries').joinpath('create_skipphrases.sql')
+INVERTED_INDEX_SKIPPHRASE = importlib.resources.files('whereabouts.queries').joinpath('skipphrase_inverted.sql')
 
-CREATE_TRIGRAM_PHRASES = importlib.resources.read_text('whereabouts.queries', 'create_trigramphrases.sql')
+CREATE_TRIGRAM_PHRASES = importlib.resources.files('whereabouts.queries').joinpath('create_trigramphrases.sql')
 
-TRIGRAM_STEP1 = importlib.resources.read_text('whereabouts.queries', 'create_trigram_index_step1.sql')
-TRIGRAM_STEP2 = importlib.resources.read_text('whereabouts.queries', 'create_trigram_index_step2b.sql')
-TRIGRAM_STEP3 = importlib.resources.read_text('whereabouts.queries', 'create_trigram_index_step3.sql')
-TRIGRAM_STEP4 = importlib.resources.read_text('whereabouts.queries', 'create_trigram_index_step4.sql')
+TRIGRAM_STEP1 = importlib.resources.files('whereabouts.queries').joinpath('create_trigram_index_step1.sql')
+TRIGRAM_STEP2 = importlib.resources.files('whereabouts.queries').joinpath('create_trigram_index_step2b.sql')
+TRIGRAM_STEP3 = importlib.resources.files('whereabouts.queries').joinpath('create_trigram_index_step3.sql')
+TRIGRAM_STEP4 = importlib.resources.files('whereabouts.queries').joinpath('create_trigram_index_step4.sql')
 
 class AddressLoader:
     def __init__(self, db_name):

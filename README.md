@@ -42,11 +42,11 @@ Geocode a list of addresses
 ```
 from whereabouts.Matcher import Matcher
 
-matcher = Matcher(db_name='gnaf_au')
+matcher = Matcher(db_name='au_all_sm')
 matcher.geocode(addresslist, how='standard')
 ```
 
-For more accurate geocoding you can use trigram phrases rather than token phrases (note that the trigram option has to have been specified in the setup.yml file as part of the setup)
+For more accurate geocoding you can use trigram phrases rather than token phrases. Note you will need one of the large databases to use trigram geocoding.
 ```
 matcher.geocode(addresslist, how='trigram')
 ```

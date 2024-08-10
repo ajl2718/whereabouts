@@ -187,6 +187,8 @@ def convert_db(filename):
 def list_overlap(list1: list[str], 
                  list2: list[str], 
                  threshold: float) -> bool:
+    if list1 is None: # in case where there are no numeric tokens in input
+        return False
     if list2:
         overlap = len(set(list1).intersection(set(list2))) / len(list1)
         if overlap >= threshold:

@@ -1,10 +1,12 @@
+import os
+import yaml 
+import pytest
+
+import numpy as np
+
 from whereabouts.AddressLoader import AddressLoader
 from whereabouts.utils import setup_geocoder
-import yaml 
-import numpy as np
-import pytest
-import os
-
+from whereabouts.Matcher import Matcher 
 
 @pytest.mark.order(1)
 def test_config_loader():
@@ -93,6 +95,7 @@ def test_create_standard_phrases():
     assert addressloader.con.execute('select * from phrase limit 3;').df().shape[1] == 2
 
 # test create inverted index
+@pytest.mark.order(7)
 def test_create_inverted_index():
     db_name = 'db_test.db'
     addressloader = AddressLoader(db_name)
@@ -101,6 +104,7 @@ def test_create_inverted_index():
     assert addressloader.con.execute('select count(*) from phraseinverted').df().values[0, 0] == 17149
 
 # test clean database
+@pytest.mark.order(8)
 def test_clean_database():
     db_name = 'db_test.db'
     addressloader = AddressLoader(db_name)
@@ -109,12 +113,43 @@ def test_clean_database():
     assert addressloader.con.execute('show tables;').df().shape[0] == 7
 
 # test export database
+@pytest.mark.order(9)
 def test_export_db():
     db_name = 'db_test.db'
     addressloader = AddressLoader(db_name)
     addressloader.export_database('db_test')
     assert 'db_test' in os.listdir('.')
     os.remove('db_test.db')
-    for filename in os.listdir('db_test'):
-        os.remove(f'db_test/{filename}')
-    os.rmdir('db_test')
+    del(addressloader)
+
+#@pytest.mark.order(10)
+#def test_import_db():
+#    db_name = 'whereabouts/models/db_test.db'
+#    addressloader = AddressLoader(db_name)
+#    addressloader.import_database('db_test')
+  #  for filename in os.listdir('db_test'):
+  #      os.remove(f'db_test/{filename}')
+  #  assert 'db_test.db' in os.listdir('whereabouts/models')
+
+
+def example_addresses():
+    return ['115 sydney rd brusnwick 3056', 
+            '115 sydnee rd brusnwick', 
+            '115 sydney rd brunswick']
+
+def test_matching_standard():
+    addresses = example_addresses()
+  #  matcher = Matcher('db_test')
+  #  results = matcher.geocode(addresses)
+  #  assert len(results) == 3
+  #  assert results[0]['similarity'] > 0.5
+  #  assert results[2]['similarity'] < results[0]['similarity']
+
+def test_matching_trigram():
+    addresses = example_addresses()
+  #  matcher = Matcher('db_test')
+  #  results = matcher.geocode(addresses, how='trigram')
+  #  assert len(results) == 3
+  #  assert results[0]['similarity'] > 0.5
+  #  assert results[1]['similarity'] > 0.5
+  #  assert results[2]['similarity'] > 0.5

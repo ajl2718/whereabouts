@@ -10,7 +10,7 @@ def example_match_result():
              'postcode': 3056, 
              'latitude': -37.774810791015625, 
              'longitude': 144.9606170654297, 
-             'similarity': 0.8076923076923077}, w
+             'similarity': 0.8076923076923077},
              {'address_id': 1, 
              'address': '115 sydney rd brunswick', 
              'address_id2': 7174666, 
@@ -57,5 +57,3 @@ def test_get_unmatched():
     assert matched[0]['address_id'] == 3
     assert matched[1]['address_id'] == 1
     assert unmatched[0]['address_id'] == 2
-
-

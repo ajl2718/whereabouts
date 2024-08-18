@@ -85,6 +85,7 @@ def setup_geocoder(config_file):
     if 'trigram' in matchers:
         print("Create trigram phrases")
         addressloader.create_phrases(['trigram'])
+    #    addressloader.create_inverted_index()
 
     print("Cleaning database")
     if 'trigram' in matchers:

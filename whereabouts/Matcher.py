@@ -25,8 +25,7 @@ class Matcher(object):
         threshold (float): when to classify geocoded result as a match 
         """
         # check that model is in folder
-        with importlib.resources.path('whereabouts', '') as whereabouts_path:
-            path_to_models = Path(whereabouts_path) / 'models'
+        path_to_models = importlib.resources.files('whereabouts').joinpath('models')
 
         db_names = os.listdir(path_to_models)
         db_names = [db_name[:-3] for db_name in db_names if db_name[-3:] == '.db']

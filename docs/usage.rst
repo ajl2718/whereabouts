@@ -9,10 +9,13 @@ Installation
 To use whereabouts, first install using your favourite package manager
 
 .. code-block:: console
-   (.venv) $ pip install whereabouts
-   (.venv) $ python -m whereabouts download au_all_sm
 
-The second line is for downloading a pre-built address geocoding database.
+   (.venv) $ pip install whereabouts
+
+You will then need to download a pre-built geocoding database or build your own
+
+.. code-block:: console
+   (.venv) $ python -m whereabouts download au_all_sm
 
 Downloading a geocoding database
 --------------------------------

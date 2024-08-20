@@ -17,7 +17,6 @@ You will then need to download a pre-built geocoding database or build your own
 .. code-block:: console
    (.venv) $ python -m whereabouts download au_all_sm
 
-
 Downloading a geocoding database
 --------------------------------
 

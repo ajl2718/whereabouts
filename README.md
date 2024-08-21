@@ -1,5 +1,6 @@
 # Whereabouts
-A light-weight, fast geocoder for Python using DuckDB. Try it out online at [Huggingface](https://huggingface.co/spaces/saunteringcat/whereabouts-geocoding/settings)
+A light-weight, fast geocoder for Python using DuckDB. Try it out online at [Huggingface](https://huggingface.co/spaces/saunteringcat/whereabouts-geocoding)
+
 
 ## Description
 Whereabouts is an open-source geocoding library for Python, allowing you to geocode and standardize address data all within your own environment:

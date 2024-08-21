@@ -15,6 +15,7 @@ To use whereabouts, first install using your favourite package manager
 You will then need to download a pre-built geocoding database or build your own
 
 .. code-block:: console
+   
    (.venv) $ python -m whereabouts download au_all_sm
 
 The current pre-built databases are available on `Huggingface <https://huggingface.co/saunteringcat/whereabouts-db>`_.

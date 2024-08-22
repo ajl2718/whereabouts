@@ -1,7 +1,13 @@
 # Configuration file for the Sphinx documentation builder.
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../whereabouts'))
+current_dir = os.path.abspath(os.path.dirname(__file__))
+
+# Get the absolute path to the project root directory
+project_root = os.path.abspath(os.path.join(current_dir, '../../'))
+
+# Add the whereabouts directory to sys.path
+sys.path.insert(0, os.path.join(project_root, 'whereabouts'))
 
 # -- Project informatio n
 

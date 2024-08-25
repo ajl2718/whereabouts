@@ -1,7 +1,7 @@
-Whereabouts API reference
-=========================
+.. _api:
 
-.. autoclass:: Matcher.Matchersdf
-   :members:
-   :undoc-members:
-   :show-inheritance:
+Developer Interface
+===================
+
+.. autoclass:: whereabouts.Matcher.Matcher
+   :inherited-members:

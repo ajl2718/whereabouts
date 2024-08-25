@@ -2,7 +2,7 @@
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath('../whereabouts'))
+sys.path.insert(0, os.path.abspath('../..'))
 
 # -- Project informatio n
 

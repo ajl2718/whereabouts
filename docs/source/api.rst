@@ -7,6 +7,8 @@ Whereabouts API reference
    whereabouts.Matcher
    whereabouts.MatcherPipeline
    
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+Test
+----
+
+.. autoclass:: whereabouts.Matcher
+.. autoclass:: whereabouts.MatcherPipeline

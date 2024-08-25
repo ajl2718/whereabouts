@@ -10,5 +10,5 @@ Whereabouts API reference
 Test
 ----
 
-.. autoclass:: whereabouts.Matcher
+.. autoclass:: whereabouts.Matcher.Matcher
 .. autoclass:: whereabouts.MatcherPipeline

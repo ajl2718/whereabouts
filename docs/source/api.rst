@@ -1,7 +1,7 @@
 Whereabouts API reference
 =========================
 
-.. autoclass:: Matcher.Matcher
+.. autoclass:: Matcher.Matchersdf
    :members:
    :undoc-members:
    :show-inheritance:

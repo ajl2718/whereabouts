@@ -6,5 +6,5 @@ Developer Interface
 .. autoclass:: whereabouts.Matcher.Matcher
    :inherited-members:
 
-.. autoclass:: whereabouts.Matcher
+.. autoclass:: whereabouts.MatcherPipeline.MatcherPipeline
    :inherited-members:

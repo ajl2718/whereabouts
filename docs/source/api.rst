@@ -1,7 +1,10 @@
 Whereabouts API reference
 =========================
 
-.. autosummary::
-   :toctree: generated
+Matcher Class
+=============
 
-   whereabouts.Matcher
+.. autoclass:: whereabouts.Matcher
+    :members:
+    :undoc-members:
+    :show-inheritance:

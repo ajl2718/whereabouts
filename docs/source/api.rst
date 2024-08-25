@@ -4,7 +4,7 @@ Whereabouts API reference
 Matcher Class
 =============
 
-.. autoclass:: whereabouts.Matcher.Matcher
+.. autoclass:: Matcher.Matcher
    :members:
    :undoc-members:
    :show-inheritance:

@@ -11,4 +11,4 @@ Test
 ----
 
 .. autoclass:: whereabouts.Matcher.Matcher
-.. autoclass:: whereabouts.MatcherPipeline
+.. autoclass:: whereabouts.Matcher

@@ -1,9 +1,10 @@
-from pathlib import Path
-import duckdb
-import pandas as pd
 from json import loads
 import os
 import importlib.resources
+
+import duckdb
+import pandas as pd
+
 from .utils import list_overlap, numeric_overlap, ngram_jaccard
 
 # change files to files
@@ -13,16 +14,32 @@ DO_MATCH_TRIGRAM = importlib.resources.files('whereabouts.queries').joinpath('ge
 CREATE_GEOCODER_TABLES = importlib.resources.files('whereabouts.queries').joinpath('create_geocoder_tables.sql').read_text()
     
 class Matcher(object):
+    """
+    A class for geocoding addresses.
+
+    Attributes
+    ----------
+    con : duckdb.connect
+        Reference to a DuckDB database connection.
+    how : str
+        Algorithm for matching, either 'standard' or 'trigram'. Defaults to 'standard'.
+    threshold : float
+        The threshold at which to consider a match valid. Defaults to 0.5.
+
+    Methods
+    -------
+    geocode(addresses):
+        Geocodes a list of addresses.
+    """
     def __init__(self, db_name, how='standard', threshold=0.5):
         """
-        Initialize the matcher object. Uses setup.yml file for the geocoder
-        database name
+        Initialize the matcher object.
 
-        Args
-        ----
-        db_name (str): name of database
-        how (str): geocoding type to use
-        threshold (float): when to classify geocoded result as a match 
+        Uses the `setup.yml` file for the geocoder database name.
+
+        :param str db_name: Name of the database.
+        :param str how: Geocoding type to use.
+        :param float threshold: Threshold for classifying a geocoded result as a match.
         """
         # check that model is in folder
         path_to_models = importlib.resources.files('whereabouts').joinpath('models')
@@ -33,7 +50,7 @@ class Matcher(object):
             self.con = duckdb.connect(database=f'{path_to_models}/{db_name}.db')
         else:
             print(f"Could not find database {db_name}")
-            print(f"The following geocoding databases are installed:")
+            print("The following geocoding databases are installed:")
             for db_name in db_names:
                 print(f'{db_name}')
         try:    
@@ -47,6 +64,15 @@ class Matcher(object):
         self.threshold = threshold
 
     def geocode(self, addresses, address_ids=None, how=None):
+        """
+        Geocodes a list of addresses
+
+        Args:
+            addresses (list or str): list or string representing addresses
+        
+        Returns:
+            results (list): list of dicts representing geocoded addresses
+        """
         if isinstance(addresses, str):
             addresses = [addresses]
 
@@ -83,7 +109,8 @@ class Matcher(object):
             self.con.execute("drop table if exists input_addresses;")
             self.con.execute("drop table if exists input_addresses_with_tokens;")
 
-            return list(answers.T.to_dict().values())
+            results = list(answers.T.to_dict().values())
+            return results
                 
         
     # to do: extract all address components for each point rather than full address
@@ -92,13 +119,11 @@ class Matcher(object):
         Given a list of latitude longitude tuples, find the corresponding nearest
         addresses
 
-        Args
-        ----
-        points (list of tuples): the latitude, longitude coordinates to reverse geocode
+        Args:
+            points (list of tuples): the latitude, longitude coordinates to reverse geocode
 
-        Return
-        -------
-        results (list of dicts): addresses
+        Returns:
+            results (list of dicts): addresses
         """
         tree = self.tree
         

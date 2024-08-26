@@ -1,11 +1,27 @@
-from time import time
 from .utils import get_unmatched, order_matches
 
-
 class MatcherPipeline(object):
+    """
+    MatcherPipeline class, for concatenating Matcher objects
+    to improve recall of addresses
+
+    Attributes
+    ----------
+    matchers : list
+        List of Matcher objects
+
+    Methods
+    -------
+    geocode(addresses):
+        geocode the addresses through the list of Matcher objects
+    """
     def __init__(self, matchers):
         """
-        matchers: list of Matcher objects
+        Create a MatcherPipeline object
+        
+        Args
+        ----
+        matchers (list): list of Matcher objects
         """
         if matchers:
             self.matchers = matchers
@@ -18,11 +34,13 @@ class MatcherPipeline(object):
         Pass the list of addresses through each of the matchers, filtering out those that
         are likely to be correctly matched at each step
 
-        Args:
+        Args
+        ----
         addresses: list of strs representing addresses or place names
         address_ids (default=None): list of ints representing the id values of addresses or place names
 
-        Return:
+        Returns
+        -------
         all_results: list of dicts representing the best match do each of the addresses
         """
         all_results = []

@@ -4,7 +4,7 @@ import sys
 
 sys.path.insert(0, os.path.abspath('../..'))
 
-# -- Project informatio n
+# -- Project information
 
 project = 'whereabouts'
 copyright = '2024, Alex Lee'
@@ -30,11 +30,9 @@ intersphinx_mapping = {
 }
 intersphinx_disabled_domains = ['std']
 
-templates_path = ['_templates']
-
 # -- Options for HTML output
 
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'alabaster'
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'

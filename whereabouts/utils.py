@@ -8,18 +8,21 @@ from huggingface_hub import hf_hub_download
 
 def get_unmatched(results, threshold):
     """
-    Given results (outputs from Matcher), filter out those that are correctly matched and
-    those that are not.
+    Given results (outputs from Matcher), filter out those that are correctly matched 
+    and those that are not.
+    
+    Parameters:
+        results (list): A list of dictionaries where each dictionary contains a 'similarity' key.
+        threshold (float): The similarity threshold to determine if a result is matched.
+    
+    Returns:
+        tuple: A tuple containing two lists - matched and unmatched results.
     """
-    # unmatched are those below threshold in similarity value
-    # get the id values of the unmatched (so we can correctly order at the end)
-    matched, unmatched = [], []
-    for result in results:
-        if result['similarity'] >= threshold:
-            matched.append(result)
-        else:
-            unmatched.append(result)
+    matched = [result for result in results if result['similarity'] >= threshold]
+    unmatched = [result for result in results if result['similarity'] < threshold]
+    
     return matched, unmatched
+
 
 def order_matches(matches):
     """
@@ -126,7 +129,7 @@ def remove_database(db_name):
     if f'{db_name}.db' in all_dbs:
         os.remove(f'{path_to_model}/{db_name}.db')
     else:
-        print(f"Could not database with name {db_name}")
+        print(f"Could not find database with name {db_name}")
 
 def list_databases():
     """

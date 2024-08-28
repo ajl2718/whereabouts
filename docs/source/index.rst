@@ -4,7 +4,7 @@ whereabouts documentation
 **whereabouts** is a light-weight Python package for bulk geocoding and address standardization. 
 It is fast, accurate and allows you to avoid paying for commercial geocodering services and sending data to external APIs.
 
-Contents
+In these docs
 --------
 
 .. toctree::

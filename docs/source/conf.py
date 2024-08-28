@@ -21,7 +21,8 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.intersphinx',
-    'sphinx.ext.napoleon'
+    'sphinx.ext.napoleon',
+    'sphinxcontrib.bibtex'
 ]
 
 intersphinx_mapping = {
@@ -30,9 +31,10 @@ intersphinx_mapping = {
 }
 intersphinx_disabled_domains = ['std']
 
-# -- Options for HTML output
+bibtex_bibfiles = ['references.bib']
 
-html_theme = 'alabaster'
+# -- Options for HTML output
+html_theme = 'furo'
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'

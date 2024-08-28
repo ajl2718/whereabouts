@@ -5,9 +5,6 @@ References
 
 The geocoding algorithms implemented in whereabouts are described in the following papers:
 
-- :cite:`zhang2017`
-- :cite:`zhang2018`
-
 .. _zhang2017:
 
 Yuhang Zhang, Tania Churchill, and Kee Siong Ng. *Exploiting Redundancy, Recurrence and Parallelism: How to Link Millions of Addresses with Ten Lines of Code in Ten Minutes*. arXiv preprint arXiv:1708.01402, 2017. Available at: https://doi.org/10.48550/arXiv.1708.01402

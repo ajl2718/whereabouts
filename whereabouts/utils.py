@@ -18,9 +18,14 @@ def get_unmatched(results, threshold):
     Returns:
         tuple: A tuple containing two lists - matched and unmatched results.
     """
-    matched = [result for result in results if result['similarity'] >= threshold]
-    unmatched = [result for result in results if result['similarity'] < threshold]
-    
+    matched = []
+    unmatched = []
+    for result in results:
+        if result['similarity'] >= threshold:
+            matched.append(result)
+        else:
+            unmatched.append(result)
+
     return matched, unmatched
 
 

@@ -31,7 +31,7 @@ intersphinx_mapping = {
 intersphinx_disabled_domains = ['std']
 
 # -- Options for HTML output
-html_theme = 'furo'
+html_theme = 'alabaster'
 
 # -- Options for EPUB output
 epub_show_urls = 'footnote'

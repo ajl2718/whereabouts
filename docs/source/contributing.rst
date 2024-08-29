@@ -61,14 +61,4 @@ Review Process
 
 Once you have submitted your pull request, it will be reviewed by one or more of the project maintainers. They may request changes or provide feedback. Please be responsive to any comments and update your pull request as needed.
 
-After your pull request has been approved, it will be merged into the `main` branch. Congratulations on your contribution!
-
-Code of Conduct
----------------
-
-Please remember to follow our Code of Conduct during all interactions with the project. We are committed to maintaining a welcoming and inclusive environment for everyone.
-
-Thank You!
-----------
-
-Thank you for your interest in contributing to the whereabouts project.
+After your pull request has been approved, it will be merged into the `main` branch.

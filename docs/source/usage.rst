@@ -43,11 +43,11 @@ For improved matching accuracy you can use a larger database with `trigram` matc
 Matching pipelines: the best of both worlds
 -------------------------------------------
 You can also chain matcher objects together so that addresses that fail to match with standard matching are sent to a second matcher
-that uses trigram matching.
+that uses trigram matching. Note that the larger databases allow for both standard and trigram matching.
 
 >>> from whereabouts.MatcherPipeline import MatcherPipeline
 >>> from whereabouts.Matcher import Matcher 
->>> matcher1 = Matcher('au_all_sm')
+>>> matcher1 = Matcher('au_all_lg', how='standard')
 >>> matcher2 = Matcher('au_all_lg', how='trigram')
 >>> pipeline = MatcherPipeline([matcher1, matcher2])
 >>> results = pipeline.geocode(addresses)

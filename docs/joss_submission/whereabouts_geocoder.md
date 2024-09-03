@@ -50,10 +50,6 @@ The results are shown below:
 | Retail locations     | 194                 |
 | Licensed venues      | 8192                |
 
-![Comparison of accuracy between geocoding systems from residential address dataset.](geocoder_comparison1.png)
-
-![Comparison of accuracy between geocoding systems from retail address dataset.](geocoder_comparison1.png)
-
 | ![Figure 1](geocoder_comparison1.png) | ![Figure 2](geocoder_comparison1.png) |
 |:--------------------------------:|:--------------------------------:|
 | **Comparison of accuracy between geocoding systems from residential address dataset.** | **Comparison of accuracy between geocoding systems from retail address dataset.** |

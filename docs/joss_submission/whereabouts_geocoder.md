@@ -54,6 +54,9 @@ The results are shown below:
 
 ![Comparison of accuracy between geocoding systems from retail address dataset.](geocoder_comparison1.png)
 
+| ![Figure 1](geocoder_comparison1.png) | ![Figure 2](geocoder_comparison1.png) |
+|:--------------------------------:|:--------------------------------:|
+| **Comparison of accuracy between geocoding systems from residential address dataset.** | **Comparison of accuracy between geocoding systems from retail address dataset.** |
 
 ## References
 

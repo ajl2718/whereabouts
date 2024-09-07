@@ -8,10 +8,12 @@ tags:
 authors:
   - name: Alex Lee
     orcid: 0000-0003-1007-1382
-    equal-contrib: true
-    affiliation:
-      - Victorian Comprehensive Cancer Centre Data Connect
-      - Department of General Practice and Primary Care, University of Melbourne
+    affiliation: "1, 2"
+affiliations:
+  - name: Victorian Comprehensive Cancer Centre Data Connect
+    index: 1
+  - name: Department of General Practice and Primary Care, University of Melbourne
+    index: 2 
 date: 3 September 2024
 bibliography: paper.bib
 ---

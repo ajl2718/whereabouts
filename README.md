@@ -32,7 +32,13 @@ You will need a geocoding database to match addresses against. You can either do
 
 Pre-built geocoding database are available from [Huggingface](https://www.huggingface.co). The list of available databases can be found [here](https://huggingface.co/saunteringcat/whereabouts-db/tree/main)
 
-As an example, to install the small size geocoder database for all of Australia:
+As an example, to install the small size geocoder database for California:
+
+```
+python -m whereabouts download us_ca_sm
+```
+
+or for the small size geocoder database for all of Australia:
 
 ```
 python -m whereabouts download au_all_sm
@@ -80,6 +86,10 @@ The algorithm employs simple record linkage techniques, making it suitable for i
 
 ## Documentation
 Work in progress: https://whereabouts.readthedocs.io/en/latest/
+
+## A note on data sources
+- Australian geocoding databases are built from the [Geocoded National Address File](https://data.gov.au/dataset/ds-dga-19432f89-dc3a-4ef3-b943-5326ef1dbecc/details)
+- US databases are being built from [OpenAddresses](https://openaddresses.io/) and these are currently work-in-progress
 
 ## To do:
 - Additional countries (US, NZ, France, UK)

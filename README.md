@@ -4,7 +4,7 @@ A light-weight, fast geocoder for Python using DuckDB. Try it out online at [Hug
 ## Important note about licenses
 Note that while the code from this package is licensed under the MIT license, the pre-built databases use data from data providers that may have restrictions for particular use cases:
 - The Australian databases are built from the [Geocoded National Address File](https://https://data.gov.au/data/dataset/geocoded-national-address-file-g-naf) with conditions of use based on the [End User License Agreemment](https://data.gov.au/dataset/ds-dga-e1a365fc-52f5-4798-8f0c-ed1d33d43b6d/distribution/dist-dga-0102be65-3781-42d9-9458-fdaf7170efed/details?q=previous%20gnaf)
-- The US databases are still work-in-progress but are based on data from OpenAddresses ([OpenAddresses](https://openaddresses.io/) and so any work with whereabouts based on US address data should adhere to the [OpenAddresses license](https://github.com/openaddresses/openaddresses/blob/master/LICENSE).
+- The US databases are still work-in-progress but are based on data from [OpenAddresses](https://openaddresses.io/) and so any work with whereabouts based on US address data should adhere to the [OpenAddresses license](https://github.com/openaddresses/openaddresses/blob/master/LICENSE).
 
 ## Description
 Whereabouts is an open-source geocoding library for Python, allowing you to geocode and standardize address data all within your own environment:

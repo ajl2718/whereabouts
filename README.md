@@ -1,3 +1,6 @@
+[![Documentation Status](https://readthedocs.org/projects/whereabouts/badge/?version=latest)](http://whereabouts.readthedocs.io/en/latest/?badge=latest)
+[![Downloads](https://pepy.tech/badge/whereabouts)](https://pepy.tech/project/whereabouts)
+
 # Whereabouts
 A light-weight, fast geocoder for Python using DuckDB. Try it out online at [Huggingface](https://huggingface.co/spaces/saunteringcat/whereabouts-geocoding)
 

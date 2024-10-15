@@ -67,19 +67,39 @@ Building your own address database
 
 Rather than using a pre-built database, you can create your own geocoder database if you have your own address file. This file should be a single csv or parquet file with the following columns:
 
-| Column name | Description | Data type |
-| ----------- | ----------- | --------- |
-| ADDRESS_DETAIL_PID | Unique identifier for address | int |
-| ADDRESS_LABEL | The full address | str |
-| ADDRESS_SITE_NAME | Name of the site. This is usually null | str |
-| LOCALITY_NAME | Name of the suburb or locality | str |
-| POSTCODE | Postcode of address | int |
-| STATE | State | str |
-| LATITUDE | Latitude of geocoded address | float |
-| LONGITUDE | Longitude of geocoded address | float |
+.. list-table:: 
+   :header-rows: 1
 
-These fields should be specified in a `setup.yml` file. Once the `setup.yml` is created and a reference dataset is available, the geocoding database can be created:
+   * - Column name
+     - Description
+     - Data type
+   * - ADDRESS_DETAIL_PID
+     - Unique identifier for address
+     - int
+   * - ADDRESS_LABEL
+     - The full address
+     - str
+   * - ADDRESS_SITE_NAME
+     - Name of the site. This is usually null
+     - str
+   * - LOCALITY_NAME
+     - Name of the suburb or locality
+     - str
+   * - POSTCODE
+     - Postcode of address
+     - int
+   * - STATE
+     - State
+     - str
+   * - LATITUDE
+     - Latitude of geocoded address
+     - float
+   * - LONGITUDE
+     - Longitude of geocoded address
+     - float
 
-```
-python -m whereabouts setup_geocoder setup.yml
-```
+These fields should be specified in a ``setup.yml`` file. Once the ``setup.yml`` is created and a reference dataset is available, the geocoding database can be created:
+
+.. code-block:: bash
+
+   python -m whereabouts setup_geocoder setup.yml

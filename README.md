@@ -98,6 +98,19 @@ Note that while the code from this package is licensed under the MIT license, th
 
 Users of this software must comply with the terms and conditions of the respective data licenses, which may impose additional restrictions or requirements. By using this software, you agree to comply with the relevant licenses for any third-party data.
 
+## Citing
+To cite this repo, please use the following
+
+@software{whereabouts_2024,
+  author = {Alex Lee},
+  doi = {[10.5281/zenodo.1234](https://doi.org/10.5281/zenodo.13627073)},
+  month = {10},
+  title = {{Whereabouts}},
+  url = {https://github.com/ajl2718/whereabouts},
+  version = {0.3.14},
+  year = {2024}
+}
+
 ## To do:
 - Additional countries (US, NZ, France, UK)
 - Geocode street corners

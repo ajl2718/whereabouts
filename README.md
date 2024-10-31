@@ -101,6 +101,7 @@ Users of this software must comply with the terms and conditions of the respecti
 ## Citing
 To cite this repo, please use the following
 
+```bibtext
 @software{whereabouts_2024,
   author = {Alex Lee},
   doi = {[10.5281/zenodo.1234](https://doi.org/10.5281/zenodo.13627073)},

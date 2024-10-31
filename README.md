@@ -111,8 +111,3 @@ To cite this repo, please use the following
   version = {0.3.14},
   year = {2024}
 }```
-
-## To do:
-- Additional countries (US, NZ, France, UK)
-- Geocode street corners
-- Geocode individual suburb, street name pairs (without house numbers)

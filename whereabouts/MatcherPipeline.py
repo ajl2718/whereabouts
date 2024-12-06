@@ -11,7 +11,7 @@ class MatcherPipeline:
 
     Methods
     -------
-    geocode(addresses, address_ids=None):
+    geocode(addresses, address_ids=None) :
         Geocode a list of addresses using the Matcher objects in sequence.
     """
     
@@ -51,8 +51,8 @@ class MatcherPipeline:
 
         Returns
         -------
-        list of dict
-            A list of dictionaries representing the best match for each address.
+        results : list of dict
+            A list of dictionaries containing the best match for each input address.
         """
         all_results = []
 
@@ -81,7 +81,7 @@ class MatcherPipeline:
             all_results.extend(matched)
 
         # Combine matched and unmatched results, and order them
-        answers = all_results + unmatched
-        answers = order_matches(answers)
+        results = all_results + unmatched
+        results = order_matches(results)
 
-        return answers
+        return results

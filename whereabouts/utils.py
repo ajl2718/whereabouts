@@ -11,12 +11,17 @@ def get_unmatched(results, threshold):
     Given results (outputs from Matcher), filter out those that are correctly matched 
     and those that are not.
     
-    Parameters:
-        results (list): A list of dictionaries where each dictionary contains a 'similarity' key.
-        threshold (float): The similarity threshold to determine if a result is matched.
+    Parameters
+    ----------
+    results : list
+        A list of dictionaries where each dictionary contains a 'similarity' key.
+    threshold : float
+        The similarity threshold to determine if a result is matched.
     
-    Returns:
-        tuple: A tuple containing two lists - matched and unmatched results.
+    Returns
+    -------
+    tuple : 
+        A tuple containing two lists - matched and unmatched results.
     """
     matched = []
     unmatched = []
@@ -32,6 +37,16 @@ def get_unmatched(results, threshold):
 def order_matches(matches):
     """
     Given a list of results order by the address_id value
+
+    Parameters
+    ----------
+    matches : list of dict
+        order a list of dicts based on the address_id
+    
+    Returns
+    -------
+    matches_sorted : list of dict
+        The ordered list of addresses
     """
     matches_sorted = sorted(matches, key=lambda k: k['address_id']) 
     return matches_sorted
@@ -42,9 +57,10 @@ def setup_geocoder(config_file):
     geocoding algorithm to use, setup the database tables for doing geocoding with the 
     reference data
 
-    Args
+    Parameters
     ----
-    configuration (str): path to the .yml file with the configuration details
+    configuration : str
+        Path to the .yml file with the configuration details
     """
     # open the config file
     with open(config_file, 'r') as setup_details:
@@ -126,7 +142,10 @@ def remove_database(db_name):
     """
     Remove a database from the folder of databases
 
-    db_name (str): title of database (without the extension of folder path)
+    Parameters
+    ----------
+    db_name : str
+        Name of the database
     """
     path_to_model = importlib.resources.files('whereabouts') / 'models'
     path_to_model = str(path_to_model)
@@ -149,12 +168,14 @@ def list_databases():
 
 def download(filename, repo_id):
     """
-    Download a duckdb database from the huggingface hub
+    Download a DuckDB database from the Hugging Face Hub
 
-    Args
+    Parameters
     ----
-    filename (str): the name of the file to download
-    repo_id (str): huggingface repo ID
+    filename : str
+        The name of the file to download
+    repo_id : str 
+        Hugging Face Repo ID
     """
 
     try:        
@@ -178,11 +199,12 @@ def download(filename, repo_id):
 
 def convert_db(filename):
     """
-    Convert duckdb database to joblib format for huggingface upload
+    Convert a DuckDB database to joblib format for Hugging Face upload
 
-    Args
-    ----
-    filename (str): name of the file to upload
+    Parameters
+    ----------
+    filename : 
+        Name of the DuckDB file to upload
     """
     try:
         output_filename = f'{filename[:-3]}.joblib'
@@ -192,15 +214,31 @@ def convert_db(filename):
     except:
         print(f"Could not convert duckdb database to joblib")
 
-# UDF for comparing overlap in numeric tokens between input and candidate addresses
 def list_overlap(list1: list[str], 
                  list2: list[str], 
                  threshold: float) -> bool:
+    """
+    UDF that compares the number of numeric tokens that are common to input and candidate addresses
+
+    Parameters
+    ----------
+    list1 : list
+        list of numeric tokens in one address
+    list2 : list
+        list of numeric tokens in another address
+    threshold : float
+        The threshold that the intersection must satisfy
+
+    Returns
+    -------
+    bool
+        True if the intersection of the number of numeric tokens is above threshold
+    """
     if list1 is None: # in case where there are no numeric tokens in input
         return False
     if list2:
-        overlap = len(set(list1).intersection(set(list2))) / len(list1)
-        if overlap >= threshold:
+        intersection = len(set(list1).intersection(set(list2))) / len(list1)
+        if intersection >= threshold:
             return True
         else:
             return False
@@ -214,6 +252,21 @@ def numeric_overlap(input_numerics: list[str],
     return fraction_overlap
 
 def ngram_jaccard(input_address: str, candidate_address: str) -> float:
+    """
+    Jaccard distance between input and candidate address
+
+    Parameters
+    ----------
+    input_address : str
+        The address to be compared
+    candidate_address : str
+        The candidate address to compare the input address against
+
+    Returns
+    -------
+    jaccard_distance : float
+        The Jaccard distance (based on bigrams and trigrams) between the two addresses
+    """
     # bigrams
     bigrams_input = [input_address[n:n+2] for n in range(0, len(input_address) - 1)]
     bigrams_candidate = [candidate_address[n:n+2] for n in range(0, len(candidate_address) - 1)]
@@ -222,5 +275,6 @@ def ngram_jaccard(input_address: str, candidate_address: str) -> float:
     unigrams_candidate = [candidate_address[n:n+1] for n in range(0, len(candidate_address))]
     ngrams_input_set = set(bigrams_input).union(unigrams_input)
     ngrams_candidate_set = set(bigrams_candidate).union(unigrams_candidate)
-    return len(ngrams_input_set.intersection(ngrams_candidate_set)) / len(ngrams_input_set.union(ngrams_candidate_set))
+    jaccard_distance = len(ngrams_input_set.intersection(ngrams_candidate_set)) / len(ngrams_input_set.union(ngrams_candidate_set))
+    return jaccard_distance
 

@@ -20,21 +20,21 @@ class Matcher:
     Attributes
     ----------
     con : duckdb.DuckDBPyConnection
-        A DuckDB database connection.
+        A DuckDB database connection
     how : str, optional
-        The geocoding algorithm to use, either 'standard', 'trigram', or 'skipphrase'.
-        Defaults to 'standard'.
+        The geocoding algorithm to use, either 'standard', 'trigram', or 'skipphrase'
+        Defaults to 'standard'
     threshold : float, optional
-        The threshold for considering a match valid. Defaults to 0.5.
+        The threshold for considering a match valid. Defaults to 0.5
 
     Methods
     -------
     geocode(addresses, address_ids=None, how=None):
-        Geocodes a list of addresses.
+        Geocodes a list of addresses
     reverse_geocode(points):
-        Finds the nearest addresses for given latitude and longitude coordinates.
+        Finds the nearest addresses for given latitude and longitude coordinates
     query(query):
-        Executes a generic SQL query on the database.
+        Executes a generic SQL query on the database
     """
     
     def __init__(self, db_name, how='standard', threshold=0.5):
@@ -44,11 +44,11 @@ class Matcher:
         Parameters
         ----------
         db_name : str
-            The name of the database to use for geocoding.
+            The name of the database to use for geocoding
         how : str, optional
-            The geocoding algorithm to use. Defaults to 'standard'.
+            The geocoding algorithm to use. Defaults to 'standard'
         threshold : float, optional
-            The threshold for classifying a geocoded result as a match. Defaults to 0.5.
+            The threshold for classifying a geocoded result as a match. Defaults to 0.5
         """
         # Check if the model exists in the folder
         path_to_models = importlib.resources.files('whereabouts').joinpath('models')
@@ -80,16 +80,16 @@ class Matcher:
         Parameters
         ----------
         addresses : list of str or str
-            A list of strings representing addresses or a single address string.
+            A list of strings representing addresses or a single address string
         address_ids : list of int, optional
-            A list of integers representing the IDs of the addresses (default is None).
+            A list of integers representing the IDs of the addresses (default is None)
         how : str, optional
-            The geocoding algorithm to use. If not provided, the default 'how' attribute is used.
+            The geocoding algorithm to use. If not provided, the default 'how' attribute is used
 
         Returns
         -------
-        list of dict
-            A list of dictionaries representing geocoded addresses.
+        results : list
+            A list of dictionaries representing geocoded addresses
         """
         if isinstance(addresses, str):
             addresses = [addresses]
@@ -130,17 +130,17 @@ class Matcher:
 
     def reverse_geocode(self, points):
         """
-        Finds the nearest addresses for given latitude and longitude coordinates.
+        Finds the nearest addresses for given latitude and longitude coordinates
 
         Parameters
         ----------
         points : list of tuple
-            A list of tuples containing latitude and longitude coordinates.
+            A list of (latitude, longitude) tuples representing coordinates
 
         Returns
         -------
-        list of dict
-            A list of dictionaries representing the nearest addresses.
+        results : list of dict
+            A list of dictionaries representing the nearest addresses
         """
         query_indices = self.tree.query(points)[1]
         results = self.reference_data.iloc[query_indices, :]
@@ -158,7 +158,7 @@ class Matcher:
 
         Returns
         -------
-        pd.DataFrame
+        results : pd.DataFrame
             The results of the query as a DataFrame.
         """
         results = self.con.execute(query).df()

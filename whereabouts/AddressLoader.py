@@ -22,11 +22,43 @@ TRIGRAM_STEP3 = importlib.resources.files('whereabouts.queries').joinpath('creat
 TRIGRAM_STEP4 = importlib.resources.files('whereabouts.queries').joinpath('create_trigram_index_step4.sql').read_text()
 
 class AddressLoader:
+    """
+    A class for loading address data and creating a geocoding database.
+    This creates the tables for the addresses and inverted indexes
+
+    Attributes
+    ----------
+    db : str
+        Name of the database
+    con : duckdb.DuckDBPyConnection
+        A DuckDB database connection
+
+    Methods
+    -------
+    load_data(details, state_names=[]):
+        Load the database based on the specified schema
+    create_final_address_table():
+        Create the database table including with a column for full addresses
+    create_geocoder_tables():
+        Create all the preliminary tables needed for creation of inverted indexes
+    create_phrases(phrases=['standard'])
+        Create the 'phrases' which form the tokens needed for record linkage
+    create_inverted_index(phrases=['standard']):
+        Create the inverted index that becomes the blocking key for fast lookup
+    clean_database(phrases):
+        Remove the unncessary tables
+    export_database(db_path):
+        Export the built geocoding database
+    import_database(db_path):
+        Import a built geocoding database into DuckDB
+    create_kdtree(tree_path):
+        Compute a KD-Tree for a given set of (latitude, longitude) tuples and export
+    """
     def __init__(self, db_name):
         self.db = db_name
         self.con = duckdb.connect(database=db_name)
 
-    def load_data(self, details, state_names=['VIC']):
+    def load_data(self, details, state_names=[]):
         id_value = details['schema']['addr_id']
         address_label_value = details['schema']['address_label']
         address_site_name_value = details['schema']['address_site_name']
@@ -120,9 +152,15 @@ class AddressLoader:
                 self.con.execute(TRIGRAM_STEP4, [n])
 
     def create_inverted_index(self, phrases=['standard']):
-        # how to do this in a way that prevents memory issues
+        """
+        Create the inverted index for the database
+
+        Parameters
+        ----------
+        phrases : list of str
+            Types of phrases to create. Each str must be either 'standard', 'trigram' or 'skipphrase'
+        """
         print('Creating inverted index...')
-        # create inverted index
         if 'standard' in phrases:
             self.con.execute(INVERTED_INDEX)
             self.con.execute(CREATE_INDEXES)
@@ -135,6 +173,11 @@ class AddressLoader:
         Once geocoder tables have been created, remove unncessary tables from DB
         to clear up space. Note that DuckDB currently does not free up the space
         so the database has to be exported with tables and then loaded back again
+
+        Parameters
+        ----------
+        phrases : list of str
+            The types of matching to use. Each str is either 'standard', 'trigram' or 'skipphrase'
         """
         
         self.con.execute("""
@@ -161,9 +204,10 @@ class AddressLoader:
         """
         Export the database to the specified folder
 
-        Args
-        ----
-        db_path (str): name of folder to export db to
+        Parameters
+        ----------
+        db_path : str 
+            Name of folder to export DB to
         """
         self.con.execute(f"export database '{db_path}' (format parquet);")
 
@@ -171,9 +215,10 @@ class AddressLoader:
         """
         Import database from specified folders
 
-        Args
-        -----
-        db_path (str): path where database files and queries are located
+        Parameters
+        ----------
+        db_path : str 
+            Path where database files and queries are located
         """
         self.con.execute(f"import database '{db_path}'")
 
@@ -181,10 +226,10 @@ class AddressLoader:
         """
         Create a KD-Tree data structure from the reference data in GNAF
 
-        Args
-        ----
-        tree_path (str): where to put the data structure to
-
+        Parameters
+        ----------
+        tree_path : str
+            Path to export computed KD-Tree
         """
         
         print("Creating KD-Tree for reverse geocoding...")

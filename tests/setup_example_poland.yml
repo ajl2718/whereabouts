@@ -1,0 +1,17 @@
+data:
+    db_name: db_test_poland
+    folder: geodb
+    filepath: tests/test_datapoland.csv
+    sep: ","
+geocoder:
+    matchers: [standard, trigram]
+    states: []
+schema:
+    addr_id: ADDRESS_DETAIL_PID
+    address_label: ADDRESS_LABEL
+    address_site_name: ADDRESS_LABEL
+    locality_name: LOCALITY_NAME
+    postcode: POSTCODE
+    state: STATE
+    latitude: LAT
+    longitude: LON

@@ -2,7 +2,7 @@ with input_addresses_with_numerics as (
     with input_addresses_cleaned as (
         select
         address_id,
-        trim(regexp_replace(regexp_replace(upper(address), '[^A-Z0-9]+', ' ', 'g'), '[ ]+', ' ')) address
+        trim(regexp_replace(regexp_replace(upper(address), '[^A-ZÀÂĀÆÇÉÈÊËÎÏÔŌŒÙÛÜŸ0-9ĄĆĘŁŃÓŚŹŻ]+', ' ', 'g'), '[ ]+', ' ')) address
         from input_addresses
     ),
     tokens as 
@@ -16,7 +16,7 @@ with input_addresses_with_numerics as (
     addresses_grouped as (
         select address_id, address, array_agg(token) numeric_tokens 
         from tokens 
-        where regexp_matches(token, '[0-9]+[A-Z]{0,1}')
+        where regexp_matches(token, '[0-9]+[A-ZÀÂĀÆÇÉÈÊËÎÏÔŌŒÙÛÜŸĄĆĘŁŃÓŚŹŻ]{0,1}')
         group by address_id, address
     )
     select t2.address_id, t2.address, t1.numeric_tokens
@@ -27,7 +27,7 @@ with input_addresses_with_numerics as (
 input_phrases AS (
     with tokens_pre1 as 
     (
-        select address_id, unnest(string_to_array(regexp_replace(trim(address), '[^A-Z0-9]+', ' ', 'g'), ' ')) token
+        select address_id, unnest(string_to_array(regexp_replace(trim(address), '[^A-ZÀÂĀÆÇÉÈÊËÎÏÔŌŒÙÛÜŸ0-9ĄĆĘŁŃÓŚŹŻ]+', ' ', 'g'), ' ')) token
         from input_addresses_with_numerics
     ),
     tokens_pre2 as 
@@ -82,6 +82,7 @@ match AS (
     t3.addr address_matched, 
     case when t3.addr is not null then
     ngram_jaccard(t2.address, t3.addr) * numeric_overlap(t2.numeric_tokens, t3.numeric_tokens)
+ --   jaro_similarity(t2.address, t3.addr) * numeric_overlap(t2.numeric_tokens, t3.numeric_tokens)
     else 0.0 end as similarity 
     from input_proposed_match t1
     left join input_addresses_with_numerics t2 on t1.address_id1=t2.address_id

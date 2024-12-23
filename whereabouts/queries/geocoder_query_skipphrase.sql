@@ -2,7 +2,7 @@ with input_addresses_with_numerics as (
     with input_addresses_cleaned as (
         select
         address_id,
-        trim(regexp_replace(regexp_replace(upper(address), '[^A-Z0-9]+', ' ', 'g'), '[ ]+', ' ')) address
+        trim(regexp_replace(regexp_replace(upper(address), '[^A-ZÀÂĀÆÇÉÈÊËÎÏÔŒÙÛÜŸ0-9]+', ' ', 'g'), '[ ]+', ' ')) address
         from input_addresses
     ),
     tokens as 
@@ -16,7 +16,7 @@ with input_addresses_with_numerics as (
     addresses_grouped as (
         select address_id, address, array_agg(token) numeric_tokens 
         from tokens 
-        where regexp_matches(token, '[0-9]+[A-Z]{0,1}')
+        where regexp_matches(token, '[0-9]+[A-ZÀÂĀÆÇÉÈÊËÎÏÔŒÙÛÜŸ]{0,1}')
         group by address_id, address
     )
     select t2.address_id, t2.address, t1.numeric_tokens
@@ -27,7 +27,7 @@ with input_addresses_with_numerics as (
 input_phrases AS (
     with tokens_pre1 as 
     (
-        select address_id, unnest(string_to_array(regexp_replace(trim(address), '[^A-Z0-9]+', ' ', 'g'), ' ')) token
+        select address_id, unnest(string_to_array(regexp_replace(trim(address), '[^A-ZÀÂĀÆÇÉÈÊËÎÏÔŒÙÛÜŸ0-9]+', ' ', 'g'), ' ')) token
         from input_addresses_with_numerics
     ),
     tokens_pre2 as 

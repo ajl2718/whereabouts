@@ -12,7 +12,7 @@ addrtext_subset as (
 ),
 tokens_pre1 as 
 (
-select addr_id, unnest(string_to_array(regexp_replace(trim(addr), '[^A-Z0-9]+', ' ', 'g'), ' ')) token
+select addr_id, unnest(string_to_array(regexp_replace(trim(addr), '[^A-ZÀÂĀÆÇÉÈÊËÎÏÔŌŒÙÛÜŸ0-9ĄĆĘŁŃÓŚŹŻ]+', ' ', 'g'), ' ')) token
 from addrtext_subset
 ),
 tokens_pre2 as 

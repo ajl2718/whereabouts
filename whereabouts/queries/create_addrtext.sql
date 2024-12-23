@@ -3,14 +3,14 @@ create table addrtext_with_detail as (
     (
         select 
         addr_id addr_id, 
-        trim(regexp_replace(regexp_replace(upper(address_label), '[^A-Z0-9]+', ' ', 'g'), '  ', ' ')) addr,
-        unnest(string_to_array(trim(regexp_replace(regexp_replace(upper(address_label), '[^A-Z0-9]+', ' ', 'g'), '  ', ' ')), ' ')) as token
+        trim(regexp_replace(regexp_replace(upper(address_label), '[\-\.\,\;\:\_\(\)\!]+', ' ', 'g'), '  ', ' ')) addr,
+        unnest(string_to_array(trim(regexp_replace(regexp_replace(upper(address_label), '[\-\.\,\;\:\_\(\)\!]+', ' ', 'g'), '  ', ' ')), ' ')) as token
         from addrtext
     ),
     addrtext_with_detail_pre as (
         select addr_id addr_id, addr, array_agg(token) numeric_tokens 
         from tokens
-        where regexp_matches(token, '[0-9]+[A-Z]{0,1}')
+        where regexp_matches(token, '[0-9]+[A-ZÀÂÆÇÉÈÊËÎÏÔŒÙÛÜŸĄĆĘŁŃÓŚŹŻ]{0,1}')
         group by addr_id, addr
     )
     select t1.*, t2.address_label, t2.locality_name suburb, t2.postcode, t2.latitude, t2.longitude 

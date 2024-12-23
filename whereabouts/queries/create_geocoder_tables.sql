@@ -3,7 +3,7 @@ CREATE TABLE addrtext(
     ADDRESS_LABEL varchar,
     ADDRESS_SITE_NAME varchar,
     LOCALITY_NAME varchar,
-    POSTCODE int,
+    POSTCODE varchar,
     STATE varchar,
     LATITUDE float,
     LONGITUDE float

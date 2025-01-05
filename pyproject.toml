@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "whereabouts"
-version = "0.3.13"
-description = "Open source geocoding in Python"
-authors = ["alex2718 <ajlee3141@gmail.com>"]
+version = "0.3.15"
+description = "Fast, accurate open source geocoding in Python"
+authors = ["Alex Lee"]
 readme = "README.md"
 keywords = ['geocoding', 'geospatial', 'record linkage']
 
@@ -26,6 +26,8 @@ polars = "^1.4.1"
 pytest-ordering = "^0.6"
 ruff = "^0.6.1"
 sphinxcontrib-bibtex = "^2.6.2"
+scikit-learn = "^1.5.2"
+jinja2 = "3.1.5"
 
 [build-system]
 requires = ["poetry-core"]

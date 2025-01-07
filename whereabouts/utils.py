@@ -207,10 +207,11 @@ def convert_db(filename):
         Name of the DuckDB file to upload
     """
     try:
-        output_filename = f'{filename[:-3]}.joblib'
+        output_filename = os.path.join(os.getcwd(), f"{base_name[:-3]}.joblib")
         with open(filename, 'rb') as f:
             data = f.read()
         joblib.dump(data, output_filename)
+        print(f"Converted '{filename}' to '{output_filename}' successfully.")
     except:
         print(f"Could not convert duckdb database to joblib")
 

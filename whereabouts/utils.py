@@ -204,7 +204,7 @@ def download(db_name, repo_id):
         with open(f'{path_to_model}/{output_filename}', 'wb') as f:
             f.write(joblib_file)
         # delete the .joblib file
-       os.remove(f'{filename}')
+        os.remove(f'{filename}')
     except:
         print(f"Could not download {db_name}")
 

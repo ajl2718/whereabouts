@@ -27,13 +27,24 @@ Whereabouts performs well compared with other geocoders, with accuracy just belo
 - Python 3.8+
 - requirements.txt (found in repo)
 
-## Installation: via PIP
+## Installation: via uv / pip / conda
 
-whereabouts can be installed either from this repo using pip / uv / conda
+whereabouts can be installed either from this repo or using pip / uv / conda.
 
 ```
-pip install whereabouts
+uv add whereabouts
 ```
+
+## Installation from this repo
+Firstly, clone the repo
+
+`git clone https://github.com/ajl2718/whereabouts.git`
+
+Then create a uv project via:
+
+`uv venv`
+
+This will install all the required dependences that are listed in the `pyproject.toml` file.
 
 ## Download a geocoder database or create your own
 

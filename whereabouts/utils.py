@@ -193,11 +193,18 @@ def download(db_name, repo_id):
         path_to_model = str(path_to_model)
         
         # write the file in chunks so that we can see the progress bar update
-        with open(f'{path_to_model}/{output_filename}', 'wb') as file, tqdm(desc=output_filename, total=total_size, unit='B', unit_scale=True, unit_divisor=1024) as bar:
+        # write as joblib
+        with open(f'{filename}', 'wb') as file, tqdm(desc=filename, total=total_size, unit='B', unit_scale=True, unit_divisor=1024) as bar:
             for chunk in response.iter_content(chunk_size=1024):
                 if chunk:
                     file.write(chunk)
                     bar.update(len(chunk))    
+        # load the joblib file and convert to duckdb
+        joblib_file = joblib.load(f'{filename}', 'rb')
+        with open(f'{path_to_model}/{output_filename}', 'wb') as f:
+            f.write(joblib_file)
+        # delete the .joblib file
+       os.remove(f'{filename}')
     except:
         print(f"Could not download {db_name}")
 

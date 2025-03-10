@@ -1,10 +1,10 @@
 [project]
 name = "whereabouts"
-version = "0.3.16"
+version = "0.3.18"
 description = "Fast, accurate open source geocoding in Python"
-authors = ["Alex Lee"]
 readme = "README.md"
 keywords = ["geocoding", "geospatial", "record linkage"]
+authors = [{ name = "Alex Lee", email = "ajlee3141@gmail.com" }]
 requires-python = ">=3.12"
 dependencies = [
     "duckdb>=1.2.0",

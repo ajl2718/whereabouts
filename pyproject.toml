@@ -1,8 +1,10 @@
 [project]
-name = "whereabouts-uv"
-version = "0.1.0"
-description = "Add your description here"
+name = "whereabouts"
+version = "0.3.16"
+description = "Fast, accurate open source geocoding in Python"
+authors = ["Alex Lee"]
 readme = "README.md"
+keywords = ["geocoding", "geospatial", "record linkage"]
 requires-python = ">=3.12"
 dependencies = [
     "duckdb>=1.2.0",

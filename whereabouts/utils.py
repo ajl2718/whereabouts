@@ -184,20 +184,14 @@ def download(db_name, repo_id):
         # the path to download the file from
         filename = f"{db_name.split('.')[0]}.joblib"
         url = f'https://huggingface.co/{repo_id}/resolve/main/{filename}'
-        print(f'Connecting to url: {url}')
         response = requests.get(url, stream=True)
-        print(f"Connected to url {url}")
         total_size = int(response.headers.get('content-length', 0))
-        print(f'File size: {total_size}')
 
         # define the path and filename for the output file
         output_filename = f"{db_name}.db"
-        print(f"Output filename: {output_filename}")
         path_to_model = importlib.resources.files('whereabouts') / 'models'
         path_to_model = str(path_to_model)
-        print(f"Output path {path_to_model}")
-        print(f"Full filepath: {path_to_model}/{output_filename}")
-
+        
         # write the file in chunks so that we can see the progress bar update
         with open(f'{path_to_model}/{output_filename}', 'wb') as file, tqdm(desc=output_filename, total=total_size, unit='B', unit_scale=True, unit_divisor=1024) as bar:
             for chunk in response.iter_content(chunk_size=1024):

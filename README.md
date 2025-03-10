@@ -16,7 +16,7 @@ Features:
 - Robust to typographical errors
 
 ## Performance
-Whereabouts performs well compared with other geocoders, generally with accuracy just below Google's geocoding API.
+Whereabouts performs well compared with other geocoders, with accuracy just below Google's geocoding API.
 
 <p align="center">
   <img src="geocoder_comparison_residential_050924.png" alt="Geocoding accuracy on a set residential addresses" width="45%"/>

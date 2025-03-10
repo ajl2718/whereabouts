@@ -38,11 +38,15 @@ uv add whereabouts
 ## Installation from this repo
 Firstly, clone the repo
 
-`git clone https://github.com/ajl2718/whereabouts.git`
+```
+git clone https://github.com/ajl2718/whereabouts.git
+```
 
 Then create a uv project via:
 
-`uv venv`
+```
+uv venv
+```
 
 This will install all the required dependences that are listed in the `pyproject.toml` file.
 
@@ -50,7 +54,7 @@ This will install all the required dependences that are listed in the `pyproject
 
 You will need a geocoding database to match addresses against. You can either download a pre-built database or create your own using a dataset of high quality reference addresses for a given country, state or other geographic region.
 
-### Option 1: Download a geocoder database
+### Option 1: Download a pre-built geocoder database
 
 Pre-built geocoding database are available from [Huggingface](https://www.huggingface.co). The list of available databases can be found [here](https://huggingface.co/saunteringcat/whereabouts-db/tree/main)
 
@@ -77,7 +81,7 @@ Rather than using a pre-built database, you can create your own geocoder databas
 | ADDRESS_SITE_NAME | Name of the site. This is usually null | str |
 | LOCALITY_NAME | Name of the suburb or locality | str |
 | POSTCODE | Postcode of address | int |
-| STATE | State | str |
+| STATE | The state, region or territory for the address | str |
 | LATITUDE | Latitude of geocoded address | float |
 | LONGITUDE | Longitude of geocoded address | float |
 
@@ -86,6 +90,9 @@ These fields should be specified in a `setup.yml` file. Once the `setup.yml` is 
 ```
 python -m whereabouts setup_geocoder setup.yml
 ```
+
+An example `setup.yml` file is provided with this repo. Note that the state names listed are specific to Australia and should be changed according to the country's data you are working with.
+
 ## Geocoding examples
 
 Geocode a list of addresses 

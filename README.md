@@ -15,6 +15,14 @@ Features:
 - Fast (Geocode 1000s / sec depending on your setup)
 - Robust to typographical errors
 
+## Performance
+Whereabouts performs well compared with other geocoders, generally with accuracy just below Google's geocoding API.
+
+<p align="center">
+  <img src="geocoder_comparison_residential_050924.png" alt="Geocoding accuracy on a set residential addresses" width="45%"/>
+  <img src="geocoder_comparison_retail_050924.png" alt="Geocoding accuracy on a set of business addresses" width="45%"/>
+</p>
+
 ## Requirements
 - Python 3.8+
 - requirements.txt (found in repo)

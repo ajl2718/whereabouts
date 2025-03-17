@@ -16,7 +16,7 @@ Features:
 - Robust to typographical errors
 
 ## Performance
-Whereabouts performs well compared with other geocoders, with accuracy just below Google's geocoding API. The charts below show the accuracy when calculated at apartment / unit, house, street and suburb level, comparing Whereabouts with Google, Mapbox and Nominatim.
+Whereabouts performs well compared with other geocoders. The charts below show the accuracy when calculated at apartment / unit, house, street and suburb level, comparing Whereabouts with Google, Mapbox and Nominatim on sets of residential and retail addresses.
 
 <p align="center">
   <img src="geocoder_comparison_residential_050924.png" alt="Geocoding accuracy on a set residential awddresses" width="45%"/>

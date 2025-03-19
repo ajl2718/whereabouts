@@ -29,3 +29,8 @@ dependencies = [
     "scipy>=1.15.2",
     "tqdm>=4.67.1",
 ]
+
+[project.urls]
+Source = "https://github.com/ajl2718/whereabouts"
+Issues = "https://github.com/ajl2718/whereabouts/issues"
+Documentation = "https://whereabouts.readthedocs.io/en/latest"

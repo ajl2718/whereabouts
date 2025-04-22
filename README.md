@@ -23,6 +23,8 @@ Whereabouts performs well compared with other geocoders. The charts below show t
   <img src="geocoder_comparison_retail_050924.png" alt="Geocoding accuracy on a set of business addresses" width="45%"/>
 </p>
 
+Code to produce these results is found in the [whereabouts_testing repo](https://github.com/ajl2718/whereabouts_testing)
+
 ## Requirements
 - Python 3.8+
 - requirements.txt (found in repo)

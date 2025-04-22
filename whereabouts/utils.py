@@ -124,7 +124,8 @@ def setup_geocoder(config_file):
     addressloader.export_database(db_folder)
 
     # delete the old db file
-    os.remove(db_name)
+    try:
+        os.remove(db_name)
 
     print("Importing database")
     del(addressloader)

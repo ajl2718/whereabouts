@@ -26,8 +26,7 @@ Whereabouts performs well compared with other geocoders. The charts below show t
 Code to produce these results is found in the [whereabouts_testing repo](https://github.com/ajl2718/whereabouts_testing)
 
 ## Requirements
-- Python 3.8+
-- requirements.txt (found in repo)
+- Python 3.12+
 
 ## Installation: via uv / pip / conda
 

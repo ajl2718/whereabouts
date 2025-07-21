@@ -1,43 +1,29 @@
-import pandas as pd 
 from time import time
+
+import pandas as pd 
+
 from whereabouts.Matcher import Matcher
+from whereabouts.MatcherPipeline import MatcherPipeline
 
-matcher = Matcher(db_name='gnaf_sa')
+matcher1 = Matcher('au_all_sm')
+matcher2 = Matcher('au_all_lg', how='trigram')
+pipeline = MatcherPipeline([matcher1, matcher2])
 
-# load a dataset
-filename = '/home/alex/Desktop/Data/location_data/sa_propertydatabase.csv'
+filename = '/Users/alexlee/Desktop/Data/test_data/nab_atms_080424.csv'
+filename = '/Users/alexlee/Desktop/Data/test_data/rea_130824.csv'
 
-df = pd.read_csv(filename)
+df = pd.read_csv(filename, sep='\t')
 
-# clean the text fields
-for col in df.columns[:-1]:
-    df[col] = df[col].str.strip().str.replace('[ ]+', ' ', regex=True)
-
-# create full address field
-df['Full_Address'] = df['Address'] + ' ' + df['Suburb_PostCode']
-
-addresslist = df.Full_Address.str.slice(0, -7).str.upper().str.replace('N', '')
-
-# standard geocoding
-t1 = time()
-results = matcher.geocode(addresslist, how='standard')
-t2 = time()
-print(f'Geocoded {len(results)} addresses in {t2 - t1}s')
-
-# trigram geocoding
-df2 = pd.read_csv('adds_200823.csv')
-addresslist = list(df2.address.values)
-addresslist2 = list(df.Full_Address.str.slice(0, -7).str.upper().str.replace('N', '')[:256])
-addresslist3 = addresslist + addresslist2
-results = matcher.geocode(addresslist3, how='trigram')
-
-# reverse geocode
-df = pd.read_excel('/home/alex/Desktop/Data/location_data/current_victorian_licences_by_location_18.xlsx', skiprows=3)
-points = df.loc[:, ['Latitude', 'Longitude']].dropna().values
-
-matcher = Matcher('gnaf_vic')
+addresses = df.address.unique()
 
 t1 = time()
-results = matcher.reverse_geocode(points)
+results = pipeline.geocode(addresses)
 t2 = time()
-print(f'Reverse geocoded {len(results)} locations in {t2 - t1}s')
+print(f'Geocoded {addresses.shape[0]} addresses in {t2 - t1}s')
+
+###
+query = """
+select unnest(string_to_array(regexp_replace(trim('BOLESŁAWIEC'), '[^A-Z0-9ÀÂĀÆÇÉÈÊËÎÏÔŌŒÙÛÜŸĄĆĘŁŃÓŚŹŻ]+', ' ', 'g'), ' ')) token
+"""
+
+addresses = ["WAŁOWA 2B BOLESŁAWIEC", "TADEUSZA KOŚCIUSZKI 56A BOLESŁAWIEC ", "ZIELONA 2 BOLESŁAWIEC "]

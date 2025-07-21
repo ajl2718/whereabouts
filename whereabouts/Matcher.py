@@ -3,6 +3,7 @@ import os
 import importlib.resources
 
 import duckdb
+import numpy as np
 import pandas as pd
 
 from .utils import list_overlap, numeric_overlap, ngram_jaccard
@@ -93,6 +94,13 @@ class Matcher:
         """
         if isinstance(addresses, str):
             addresses = [addresses]
+        elif isinstance(addresses, np.ndarray):
+            addresses = list(addresses)
+        elif isinstance(addresses, pd.Series):
+            if len(addresses.shape) > 1:
+                raise ValueError(f"Incorrect shape for input addresses: {addresses.shape}")
+            else:
+                addresses = list(addresses)
 
         # Use default geocoding algorithm if not specified
         how = how if how else self.how

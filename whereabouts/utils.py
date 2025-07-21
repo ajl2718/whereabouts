@@ -126,6 +126,8 @@ def setup_geocoder(config_file):
     # delete the old db file
     try:
         os.remove(db_name)
+    except:
+        print(f"Could not remove database {db_name}")
 
     print("Importing database")
     del(addressloader)

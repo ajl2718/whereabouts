@@ -23,7 +23,7 @@ dependencies = [
     "pyarrow>=19.0.1",
     "pytest>=8.3.4",
     "pyyaml>=6.0.2",
-    "requests>=2.32.3",
+    "requests==2.32.4",
     "ruff>=0.9.7",
     "scikit-learn>=1.6.1",
     "scipy>=1.15.2",

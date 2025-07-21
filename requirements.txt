@@ -78,4 +78,6 @@ tqdm==4.67.1
 tzdata==2025.2
     # via pandas
 urllib3==2.5.0
-    # via requests
+    # via
+    #   whereabouts (pyproject.toml)
+    #   requests

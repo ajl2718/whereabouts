@@ -28,6 +28,7 @@ dependencies = [
     "scikit-learn>=1.6.1",
     "scipy>=1.15.2",
     "tqdm>=4.67.1",
+    "urllib3==2.5.0",
 ]
 
 [project.urls]

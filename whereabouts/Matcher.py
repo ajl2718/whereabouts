@@ -9,9 +9,9 @@ import pandas as pd
 from .utils import list_overlap, numeric_overlap, ngram_jaccard
 
 # change files to files
-DO_MATCH_BASIC = importlib.resources.files('whereabouts.queries').joinpath('geocoder_query_standard2.sql').read_text(encoding='utf-8')
-DO_MATCH_SKIPPHRASE = importlib.resources.files('whereabouts.queries').joinpath('geocoder_query_skipphrase.sql').read_text(encoding='utf-8')
-DO_MATCH_TRIGRAM = importlib.resources.files('whereabouts.queries').joinpath('geocoder_query_trigramb2.sql').read_text(encoding='utf-8')
+DO_MATCH_BASIC = importlib.resources.files('whereabouts.queries').joinpath('geocoder_query_standard3.sql').read_text(encoding='utf-8')
+DO_MATCH_SKIPPHRASE = importlib.resources.files('whereabouts.queries').joinpath('geocoder_query_skipphrase2.sql').read_text(encoding='utf-8')
+DO_MATCH_TRIGRAM = importlib.resources.files('whereabouts.queries').joinpath('geocoder_query_trigramb3.sql').read_text(encoding='utf-8')
 CREATE_GEOCODER_TABLES = importlib.resources.files('whereabouts.queries').joinpath('create_geocoder_tables.sql').read_text(encoding='utf-8')
     
 class Matcher:
@@ -74,7 +74,7 @@ class Matcher:
         self.how = how
         self.threshold = threshold
 
-    def geocode(self, addresses, address_ids=None, how=None):
+    def geocode(self, addresses, top_n=1, address_ids=None, how=None):
         """
         Geocodes a list of addresses.
 
@@ -82,6 +82,8 @@ class Matcher:
         ----------
         addresses : list of str or str
             A list of strings representing addresses or a single address string
+        top_n : int, default = 1
+            Specify max number of matches to return for each input address
         address_ids : list of int, optional
             A list of integers representing the IDs of the addresses (default is None)
         how : str, optional
@@ -124,11 +126,11 @@ class Matcher:
 
         # Execute the appropriate matching algorithm
         if how == 'skipphrase':
-            answers = self.con.execute(DO_MATCH_SKIPPHRASE).df().sort_values(by='address_id').reset_index(drop=True)
+            answers = self.con.execute(DO_MATCH_SKIPPHRASE, [top_n]).df().sort_values(by='address_id').reset_index(drop=True)
         elif how == 'trigram':
-            answers = self.con.execute(DO_MATCH_TRIGRAM).df().sort_values(by='address_id').reset_index(drop=True)
+            answers = self.con.execute(DO_MATCH_TRIGRAM, [top_n]).df().sort_values(by='address_id').reset_index(drop=True)
         else:
-            answers = self.con.execute(DO_MATCH_BASIC).df().sort_values(by='address_id').reset_index(drop=True)
+            answers = self.con.execute(DO_MATCH_BASIC, [top_n]).df().sort_values(by='address_id').reset_index(drop=True)
         
         self.con.execute("DROP TABLE IF EXISTS input_addresses;")
         self.con.execute("DROP TABLE IF EXISTS input_addresses_with_tokens;")

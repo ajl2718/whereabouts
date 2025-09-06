@@ -51,7 +51,8 @@ def order_matches(matches):
     matches_sorted : list of dict
         The ordered list of addresses
     """
-    matches_sorted = sorted(matches, key=lambda k: k['address_id']) 
+    # sort by id ascending and similarity descending (for case where multiple matches per id)
+    matches_sorted = sorted(matches, key=lambda k: (k['address_id'], -k['similarity'])) 
     return matches_sorted
 
 def setup_geocoder(config_file):

@@ -44,7 +44,7 @@ def order_matches(matches):
     Parameters
     ----------
     matches : list of dict
-        order a list of dicts based on the address_id
+        results of matcher method
     
     Returns
     -------
@@ -54,6 +54,30 @@ def order_matches(matches):
     # sort by id ascending and similarity descending (for case where multiple matches per id)
     matches_sorted = sorted(matches, key=lambda k: (k['address_id'], -k['similarity'])) 
     return matches_sorted
+
+def filter_to_single_response(matches):
+    """
+    Given a list of matches
+
+    Parameters
+    ----------
+    matches : list of dict
+        order a list of dicts based on address_id (ascending) an similarity (descending)
+
+    Returns
+    -------
+    matches_single_address_id : list of dict
+        list of addresses that have been filtered to the max similarity value for each address id
+    """
+    matches_single_address_id = []
+    address_ids = []
+    for match in matches:
+        if match['address_id'] in address_ids:
+            pass 
+        else:
+            matches_single_address_id.append(match)
+            address_ids.append(match['address_id'])
+    return matches_single_address_id
 
 def setup_geocoder(config_file):
     """

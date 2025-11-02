@@ -60,7 +60,7 @@ class AddressLoader:
 
     def load_data(self, details, state_names=[]):
         id_value = details['schema']['addr_id']
-        address_label_value = details['schema']['address_label']
+        address_label_value = details['schema']['full_address']
         address_site_name_value = details['schema']['address_site_name']
         locality_name_value = details['schema']['locality_name']
         postcode_value = details['schema']['postcode']

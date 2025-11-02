@@ -98,7 +98,30 @@ Rather than using a pre-built database, you can create your own geocoder databas
      - Longitude of geocoded address
      - float
 
-These fields should be specified in a ``setup.yml`` file. Once the ``setup.yml`` is created and a reference dataset is available, the geocoding database can be created:
+These fields should be specified in a ``setup.yml`` file, which is structured as follows::
+
+    data:
+        db_name: au_vic_lg
+        folder: geodb
+        filepath: 'address_file.parquet'
+        sep: ","
+    geocoder:
+        matchers: [standard, trigram]
+        states: [VIC]
+    schema:
+        addr_id: ADDRESS_DETAIL_PID
+        full_address: ADDRESS_LABEL
+        address_site_name: ADDRESS_SITE_NAME
+        locality_name: LOCALITY_NAME
+        postcode: POSTCODE
+        state: STATE
+        latitude: LATITUDE
+        longitude: LONGITUDE
+
+``addr_id`` is a unique integer, ``full_address`` contains the full address string while ``locality_name``, ``postcode`` and ``state`` are components of the address.
+
+
+Once the ``setup.yml`` is created and a reference dataset is available, the geocoding database can be created:
 
 .. code-block:: bash
 

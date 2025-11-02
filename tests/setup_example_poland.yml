@@ -8,7 +8,7 @@ geocoder:
     states: []
 schema:
     addr_id: ADDRESS_DETAIL_PID
-    address_label: ADDRESS_LABEL
+    full_address: ADDRESS_LABEL
     address_site_name: ADDRESS_LABEL
     locality_name: LOCALITY_NAME
     postcode: POSTCODE

@@ -21,7 +21,7 @@ def test_config_loader():
     assert details['geocoder']['matchers'] == ['standard', 'trigram']
 
     assert details['schema']['addr_id'] == 'row_num'
-    assert details['schema']['address_label'] == 'ADDRESS_LABEL'
+    assert details['schema']['full_address'] == 'ADDRESS_LABEL'
     assert details['schema']['address_site_name'] == 'ADDRESS_SITE_NAME'
     assert details['schema']['locality_name'] == 'LOCALITY_NAME'
     assert details['schema']['postcode'] == 'POSTCODE'

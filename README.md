@@ -6,7 +6,7 @@
 A light-weight, fast geocoder for Python using DuckDB. Try it out online at [Huggingface](https://huggingface.co/spaces/saunteringcat/whereabouts-geocoding)
 
 ## Description
-Whereabouts is an open-source geocoding library for Python, allowing you to geocode and standardize address data all within your own environment:
+Whereabouts is an open-source geocoding library for Python, allowing you to geocode and standardize address data all within your own environment.
 
 Features:
 - Two line installation
@@ -78,7 +78,7 @@ Rather than using a pre-built database, you can create your own geocoder databas
 | Column name | Description | Data type |
 | ----------- | ----------- | --------- |
 | ADDRESS_DETAIL_PID | Unique identifier for address | int |
-| ADDRESS_LABEL | The full address | str |
+| FULL_ADDRESS | The full address | str |
 | ADDRESS_SITE_NAME | Name of the site. This is usually null | str |
 | LOCALITY_NAME | Name of the suburb or locality | str |
 | POSTCODE | Postcode of address | int |
@@ -86,7 +86,30 @@ Rather than using a pre-built database, you can create your own geocoder databas
 | LATITUDE | Latitude of geocoded address | float |
 | LONGITUDE | Longitude of geocoded address | float |
 
-These fields should be specified in a `setup.yml` file. Once the `setup.yml` is created and a reference dataset is available, the geocoding database can be created:
+These fields should be specified in a `setup.yml` file, which is structured as follows
+```yaml
+data:
+    db_name: au_vic_lg
+    folder: geodb
+    filepath: 'address_file.parquet'
+    sep: ","
+geocoder:
+    matchers: [standard, trigram]
+    states: [VIC]
+schema:
+    addr_id: ADDRESS_DETAIL_PID
+    full_address: ADDRESS_LABEL
+    address_site_name: ADDRESS_SITE_NAME
+    locality_name: LOCALITY_NAME
+    postcode: POSTCODE
+    state: STATE
+    latitude: LATITUDE
+    longitude: LONGITUDE
+```
+
+`addr_id` is a unique integer, `full_address` contains the full address string while `locality_name`, `postcode` and `state` are components of the address.
+
+Once the `setup.yml` is created and a reference dataset is available, the geocoding database can be created:
 
 ```
 python -m whereabouts setup_geocoder setup.yml

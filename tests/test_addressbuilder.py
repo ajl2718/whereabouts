@@ -1,10 +1,12 @@
 import os
 import yaml 
 import pytest
+import shutil
 
 import numpy as np
 
 from whereabouts.AddressLoader import AddressLoader
+from whereabouts.Matcher import Matcher
 
 @pytest.mark.order(1)
 def test_config_loader():
@@ -117,14 +119,24 @@ def test_export_db():
     addressloader = AddressLoader(db_name)
     addressloader.export_database('db_test')
     assert 'db_test' in os.listdir('.')
-    os.remove('db_test.db')
-    del(addressloader)
+  #  os.remove('db_test.db')
+  #  del(addressloader)
 
-#@pytest.mark.order(10)
-#def test_import_db():
-#    db_name = 'whereabouts/models/db_test.db'
-#    addressloader = AddressLoader(db_name)
-#    addressloader.import_database('db_test')
-  #  for filename in os.listdir('db_test'):
-  #      os.remove(f'db_test/{filename}')
-  #  assert 'db_test.db' in os.listdir('whereabouts/models')
+@pytest.mark.order(10)
+def test_geocoding_standard():
+    db_name = 'db_test'
+    matcher = Matcher(db_name)
+    results = matcher.geocode(['115 sydney rd brunswick'])
+    assert results[0]['address_matched'] == '115 SYDNEY RD BRUNSWICK VIC 3056'
+    assert results[0]['suburb'] == 'BRUNSWICK'
+    assert results[0]['postcode'] == 3056
+    assert len(results) == 1
+
+@pytest.mark.order(11)
+def test_remove_db():
+    db_name = 'db_test.db'
+    assert db_name in os.listdir('.')
+    os.remove(db_name)
+    if os.path.exists('db_test') and os.path.isdir('db_test'):
+        shutil.rmtree('db_test')
+    assert db_name not in os.listdir('.')

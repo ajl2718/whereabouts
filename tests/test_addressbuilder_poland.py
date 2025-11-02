@@ -1,6 +1,7 @@
 import os
 import yaml 
 import pytest
+import shutil 
 
 import numpy as np
 
@@ -118,13 +119,6 @@ def test_export_db():
     addressloader.export_database('db_test_poland')
     assert 'db_test_poland' in os.listdir('.')
     os.remove('db_test_poland.db')
+    if os.path.exists('db_test_poland') and os.path.isdir('db_test_poland'):
+        shutil.rmtree('db_test_poland')
     del(addressloader)
-
-#@pytest.mark.order(10)
-#def test_import_db():
-#    db_name = 'whereabouts/models/db_test_poland.db'
-#    addressloader = AddressLoader(db_name)
-#    addressloader.import_database('db_test_poland')
-#    for filename in os.listdir('db_test_poland'):
-#        os.remove(f'db_test_poland/{filename}')
-#    assert 'db_test_poland.db' in os.listdir('whereabouts/models')

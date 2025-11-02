@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "whereabouts"
-version = "0.3.22"
+version = "0.4.1"
 description = "Fast, accurate open source geocoding in Python"
 readme = "README.md"
 keywords = ["geocoding", "geospatial", "record linkage"]

@@ -1,4 +1,5 @@
 from json import loads
+import urllib
 import os
 import importlib.resources
 
@@ -51,18 +52,33 @@ class Matcher:
         threshold : float, optional
             The threshold for classifying a geocoded result as a match. Defaults to 0.5
         """
-        # Check if the model exists in the folder
-        path_to_models = importlib.resources.files('whereabouts').joinpath('models')
+        # check if db_name is a local file path or a remote duckdb database
+        parsed_url = urllib.parse.urlparse(db_name)
+        if parsed_url.scheme in ('http', 'https', 'duckdb'):
+            # use in memory DB and attach remote duckdb database
+            self.con = duckdb.connect()
+            # duckdb.connect(database=db_name)
+            print(f"Attaching remote DuckDB database from URL: {db_name}")
+            self.con.execute(f"ATTACH DATABASE '{db_name}';")
+            # get db name from URL path
+            attached_db_name = os.path.basename(parsed_url.path).replace('.duckdb', '')
+            print(f"Using astached database: {attached_db_name} as default")
+            self.con.execute(f"USE '{attached_db_name}';")
+        elif parsed_url.scheme == '':
+            # Check if the model exists in the folder
+            path_to_models = importlib.resources.files('whereabouts').joinpath('models')
 
-        db_names = [name[:-3] for name in os.listdir(path_to_models) if name.endswith('.db')]
-        if db_name in db_names:
-            self.con = duckdb.connect(database=f'{path_to_models}/{db_name}.db')
+            db_names = [name[:-3] for name in os.listdir(path_to_models) if name.endswith('.db')]
+            if db_name in db_names:
+                self.con = duckdb.connect(database=f'{path_to_models}/{db_name}.db')
+            else:
+                print(f"Could not find database {db_name}")
+                print("The following geocoding databases are installed:")
+                for name in db_names:
+                    print(name)
         else:
-            print(f"Could not find database {db_name}")
-            print("The following geocoding databases are installed:")
-            for name in db_names:
-                print(name)
-        
+            raise ValueError(f"Invalid database name or URL: {db_name}")
+
         # Create custom functions in DuckDB connection
         try:
             self.con.create_function('list_overlap', list_overlap)

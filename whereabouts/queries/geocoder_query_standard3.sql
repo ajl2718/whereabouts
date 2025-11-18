@@ -48,7 +48,7 @@ input_phrases AS (
 input_phrase_matched_lists as (
     SELECT l.tokenphrase, l.address_id AS address_id1, r.addr_ids AS address_ids2
     FROM input_phrases AS l 
-    LEFT JOIN phraseinverted AS r 
+    LEFT JOIN remote.phraseinverted AS r
     ON l.tokenphrase=r.tokenphrase AND r.frequency < 1000
 ),
 input_phrase_matched_pre as (
@@ -86,7 +86,7 @@ match AS (
     else 0.0 end as similarity 
     from input_proposed_match t1
     left join input_addresses_with_numerics t2 on t1.address_id1=t2.address_id
-    left join addrtext_with_detail t3 on t1.address_id2=t3.addr_id
+    left join remote.addrtext_with_detail t3 on t1.address_id2=t3.addr_id
 ),
 match_ranked as (
     with match_ranked_pre as (
@@ -103,7 +103,7 @@ match_ranked as (
         LONGITUDE longitude,
         similarity 
         from match
-        left join addrtext_with_detail t4 on match.address_id2=t4.addr_id
+        left join remote.addrtext_with_detail t4 on match.address_id2=t4.addr_id
     )
     select * from match_ranked_pre where
     list_overlap(input_numerics, match_numerics, 0.5) -- 

@@ -57,13 +57,8 @@ class Matcher:
         if parsed_url.scheme in ('http', 'https', 'duckdb'):
             # use in memory DB and attach remote duckdb database
             self.con = duckdb.connect()
-            # duckdb.connect(database=db_name)
             print(f"Attaching remote DuckDB database from URL: {db_name}")
-            self.con.execute(f"ATTACH DATABASE '{db_name}';")
-            # get db name from URL path
-            attached_db_name = os.path.basename(parsed_url.path).replace('.duckdb', '')
-            print(f"Using astached database: {attached_db_name} as default")
-            self.con.execute(f"USE '{attached_db_name}';")
+            self.con.execute(f"ATTACH DATABASE '{db_name}' as remote;")
         elif parsed_url.scheme == '':
             # Check if the model exists in the folder
             path_to_models = importlib.resources.files('whereabouts').joinpath('models')

@@ -1,5 +1,5 @@
 from json import loads
-import urllib
+import urllib.parse
 import os
 import importlib.resources
 

@@ -67,7 +67,7 @@ input_phrase_matched_lists as (
     SELECT l.trigramphrase, l.addr_id AS address_id1, r.addr_ids AS address_ids2
     FROM input_trigramphrases AS l 
     LEFT JOIN remote.trigramphraseinverted3 AS r
-    ON l.trigramphrase=r.trigramphrase AND r.frequency < 10000
+    ON l.trigramphrase=cast(r.trigramphrase as integer) AND r.frequency < 10000
 ),
 input_phrase_matched_pre as (
     select 

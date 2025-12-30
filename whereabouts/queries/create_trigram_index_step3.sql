@@ -15,7 +15,7 @@ create table trigramphraseinverted2 as (
 );
 
 CREATE TABLE trigramphraseinverted3(
-    trigramphrase text not null,
+    trigramphrase integer not null,
     addr_ids integer[] not null,
     frequency bigint not null
 );

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "whereabouts"
-version = "0.4.2"
+version = "0.4.4"
 description = "Fast, accurate open source geocoding in Python"
 readme = "README.md"
 keywords = ["geocoding", "geospatial", "record linkage"]
@@ -12,7 +12,7 @@ authors = [{ name = "Alex Lee", email = "ajlee3141@gmail.com" }]
 requires-python = ">=3.12"
 license = { file = "LICENSE" }  # This ensures the correct metadata is used
 dependencies = [
-    "duckdb>=1.2.0",
+    "duckdb==1.4.2",
     "fastparquet>=2024.11.0",
     "jinja2>=3.1.5",
     "joblib>=1.4.2",
@@ -28,7 +28,7 @@ dependencies = [
     "scikit-learn>=1.6.1",
     "scipy>=1.15.2",
     "tqdm>=4.67.1",
-    "urllib3==2.6.0",
+    "urllib3==2.6.3",
 ]
 
 [project.urls]

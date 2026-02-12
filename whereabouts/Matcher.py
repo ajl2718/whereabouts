@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from json import loads
 import urllib.parse
 import os
@@ -39,8 +41,12 @@ class Matcher:
     query(query):
         Executes a generic SQL query on the database
     """
-    
-    def __init__(self, db_name, how='standard', threshold=0.5):
+
+    con: duckdb.DuckDBPyConnection
+    how: str
+    threshold: float
+
+    def __init__(self, db_name: str, how: str = 'standard', threshold: float = 0.5) -> None:
         """
         Initialize the Matcher object.
 
@@ -85,7 +91,7 @@ class Matcher:
         self.how = how
         self.threshold = threshold
 
-    def geocode(self, addresses, top_n=1, address_ids=None, how=None):
+    def geocode(self, addresses: list[str] | str | np.ndarray | pd.Series, top_n: int = 1, address_ids: list[int] | None = None, how: str | None = None) -> list[dict]:
         """
         Geocodes a list of addresses.
 
@@ -149,7 +155,7 @@ class Matcher:
         results = list(answers.T.to_dict().values())
         return results
 
-    def reverse_geocode(self, points):
+    def reverse_geocode(self, points: list[tuple[float, float]]) -> list[dict]:
         """
         Finds the nearest addresses for given latitude and longitude coordinates
 
@@ -168,7 +174,7 @@ class Matcher:
         results = loads(results.to_json(orient='table'))['data']
         return results
 
-    def query(self, query):
+    def query(self, query: str) -> pd.DataFrame:
         """
         Executes a generic SQL query using the matcher's database.
 

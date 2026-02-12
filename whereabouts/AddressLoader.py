@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from typing import Any
+
 import duckdb
 from scipy.spatial import KDTree
 import pickle
@@ -54,11 +58,14 @@ class AddressLoader:
     create_kdtree(tree_path):
         Compute a KD-Tree for a given set of (latitude, longitude) tuples and export
     """
-    def __init__(self, db_name):
+    db: str
+    con: duckdb.DuckDBPyConnection
+
+    def __init__(self, db_name: str) -> None:
         self.db = db_name
         self.con = duckdb.connect(database=db_name)
 
-    def load_data(self, details, state_names=[]):
+    def load_data(self, details: dict[str, Any], state_names: list[str] = []) -> None:
         id_value = details['schema']['addr_id']
         address_label_value = details['schema']['full_address']
         address_site_name_value = details['schema']['address_site_name']
@@ -115,14 +122,14 @@ class AddressLoader:
                 """
                 self.con.execute(query)
         
-    def create_final_address_table(self):
+    def create_final_address_table(self) -> None:
         self.con.execute(MAKE_ADDRESSES)
-        
-    def create_geocoder_tables(self):
+
+    def create_geocoder_tables(self) -> None:
         print("Creating geocoder tables...")
         self.con.execute(CREATE_GEOCODER_TABLES)
         
-    def create_phrases(self, phrases=['standard']):
+    def create_phrases(self, phrases: list[str] = ['standard']) -> None:
         if 'standard' in phrases:
             print('Creating phrases...')
             # create the phrases in chunks to prevent memory errors
@@ -151,7 +158,7 @@ class AddressLoader:
                 print(f'Creating trigram phrases for chunk {n}...')
                 self.con.execute(TRIGRAM_STEP4, [n])
 
-    def create_inverted_index(self, phrases=['standard']):
+    def create_inverted_index(self, phrases: list[str] = ['standard']) -> None:
         """
         Create the inverted index for the database
 
@@ -168,7 +175,7 @@ class AddressLoader:
             self.con.execute(INVERTED_INDEX_SKIPPHRASE)
           #  self.con.execute(CREATE_INDEXES_SKIPPHRASE)
 
-    def clean_database(self, phrases):
+    def clean_database(self, phrases: list[str]) -> None:
         """
         Once geocoder tables have been created, remove unncessary tables from DB
         to clear up space. Note that DuckDB currently does not free up the space
@@ -200,7 +207,7 @@ class AddressLoader:
             drop table trigramphraseinverted2;
             """)
 
-    def export_database(self, db_path):
+    def export_database(self, db_path: str) -> None:
         """
         Export the database to the specified folder
 
@@ -211,7 +218,7 @@ class AddressLoader:
         """
         self.con.execute(f"export database '{db_path}' (format parquet);")
 
-    def import_database(self, db_path):
+    def import_database(self, db_path: str) -> None:
         """
         Import database from specified folders
 
@@ -222,7 +229,7 @@ class AddressLoader:
         """
         self.con.execute(f"import database '{db_path}'")
 
-    def create_kdtree(self, tree_path):
+    def create_kdtree(self, tree_path: str) -> None:
         """
         Create a KD-Tree data structure from the reference data in GNAF
 

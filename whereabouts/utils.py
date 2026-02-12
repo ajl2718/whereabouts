@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import os
 import importlib.resources
 from time import time
@@ -9,7 +11,7 @@ from tqdm import tqdm
 
 from .AddressLoader import AddressLoader
 
-def get_unmatched(results, threshold):
+def get_unmatched(results: list[dict], threshold: float) -> tuple[list[dict], list[dict]]:
     """
     Given results (outputs from Matcher), filter out those that are correctly matched 
     and those that are not.
@@ -37,7 +39,7 @@ def get_unmatched(results, threshold):
     return matched, unmatched
 
 
-def order_matches(matches):
+def order_matches(matches: list[dict]) -> list[dict]:
     """
     Given a list of results order by the address_id value
 
@@ -55,7 +57,7 @@ def order_matches(matches):
     matches_sorted = sorted(matches, key=lambda k: (k['address_id'], -k['similarity'])) 
     return matches_sorted
 
-def filter_to_single_response(matches):
+def filter_to_single_response(matches: list[dict]) -> list[dict]:
     """
     Given a list of matches
 
@@ -79,7 +81,7 @@ def filter_to_single_response(matches):
             address_ids.append(match['address_id'])
     return matches_single_address_id
 
-def setup_geocoder(config_file):
+def setup_geocoder(config_file: str) -> None:
     """
     Given a configuration file containing details of the reference data and the type of
     geocoding algorithm to use, setup the database tables for doing geocoding with the 
@@ -169,7 +171,7 @@ def setup_geocoder(config_file):
     t2 = time()
     print(f'Created reference database in {t2-t1}s.')
 
-def remove_database(db_name):
+def remove_database(db_name: str) -> None:
     """
     Remove a database from the folder of databases
 
@@ -186,7 +188,7 @@ def remove_database(db_name):
     else:
         print(f"Could not find database with name {db_name}")
 
-def list_databases():
+def list_databases() -> None:
     """
     List all the reference databases that have been installed
     """
@@ -197,7 +199,7 @@ def list_databases():
     for db in all_dbs:
         print(db)
 
-def download(db_name, repo_id):
+def download(db_name: str, repo_id: str) -> None:
     """
     Download a DuckDB database from the Hugging Face Hub
 
@@ -236,7 +238,7 @@ def download(db_name, repo_id):
     except:
         print(f"Could not download {db_name}")
 
-def convert_db(filename):
+def convert_db(filename: str) -> None:
     """
     Convert a DuckDB database to joblib format for Hugging Face upload
 

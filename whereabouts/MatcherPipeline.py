@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+from .Matcher import Matcher
 from .utils import get_unmatched, order_matches
 
 class MatcherPipeline:
@@ -15,7 +18,9 @@ class MatcherPipeline:
         Geocode a list of addresses using the Matcher objects in sequence.
     """
     
-    def __init__(self, matchers):
+    matchers: list[Matcher]
+
+    def __init__(self, matchers: list[Matcher]) -> None:
         """
         Initialize a MatcherPipeline object.
 
@@ -27,7 +32,7 @@ class MatcherPipeline:
         if matchers:
             self.matchers = matchers
 
-    def set_matches(self, matchers):
+    def set_matches(self, matchers: list[Matcher]) -> None:
         """
         Set the list of Matcher objects for the pipeline.
 
@@ -38,7 +43,7 @@ class MatcherPipeline:
         """
         self.matchers = matchers
 
-    def geocode(self, addresses, address_ids=None):
+    def geocode(self, addresses: list[str], address_ids: list[int] | None = None) -> list[dict]:
         """
         Geocode a list of addresses by passing them through each Matcher object in the pipeline.
 

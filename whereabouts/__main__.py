@@ -10,10 +10,10 @@ def main():
     if command == "setup_geocoder":
         config_path = sys.argv[2]
         setup_geocoder(config_path)
-    if command == "remove_database":
+    elif command == "remove_database":
         db_name = sys.argv[2]
         remove_database(db_name)
-    if command == "download":
+    elif command == "download":
         db_name = sys.argv[2]
         download(db_name, 'saunteringcat/whereabouts-db')
     else:

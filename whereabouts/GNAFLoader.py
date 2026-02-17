@@ -1,12 +1,13 @@
 from __future__ import annotations
 
+import pickle
 from pathlib import Path
+
 import duckdb
 from scipy.spatial import KDTree
-import pickle
 
 MAKE_ADDRESSES = Path('whereabouts/queries/create_addrtext.sql').read_text()
-DO_MATCH_BASIC = Path("whereabouts/queries/geocoder_query_standard.sql").read_text() # threshold 500 - for fast matching
+DO_MATCH_BASIC = Path("whereabouts/queries/geocoder_query_standard.sql").read_text()
 
 CREATE_GEOCODER_TABLES = Path("whereabouts/queries/create_geocoder_tables.sql").read_text()
 
@@ -53,7 +54,6 @@ class GNAFLoader:
 
     def create_geocoder_tables(self) -> None:
         print("Creating geocoder tables...")
-      #  self.con.execute(CREATE_TABLES)
         self.con.execute(CREATE_GEOCODER_TABLES)
         
     def create_phrases(self, phrases: list[str] = ['standard']) -> None:
@@ -79,18 +79,21 @@ class GNAFLoader:
                 self.con.execute(TRIGRAM_STEP4, [n])
 
     def create_inverted_index(self, phrases: list[str] = ['standard']) -> None:
-        # how to do this in a way that prevents memory issues
         print('Creating inverted index...')
-        # create inverted index
         if 'standard' in phrases:
             self.con.execute(INVERTED_INDEX)
             self.con.execute(CREATE_INDEXES)
 
     def clean_database(self, phrases: list[str]) -> None:
         """
-        Once geocoder tables have been created, remove unncessary tables from DB
+        Once geocoder tables have been created, remove unnecessary tables from DB
         to clear up space. Note that DuckDB currently does not free up the space
-        so the database has to be exported with tables and then loaded back again
+        so the database has to be exported with tables and then loaded back again.
+
+        Parameters
+        ----------
+        phrases : list of str
+            The types of matching to use. Each str is either 'standard' or 'trigram'.
         """
         
         self.con.execute("""
@@ -113,32 +116,34 @@ class GNAFLoader:
 
     def export_database(self, db_path: str) -> None:
         """
-        Export the database to the specified folder
+        Export the database to the specified folder.
 
-        Args
-        ----
-        db_path (str): name of folder to export db to
+        Parameters
+        ----------
+        db_path : str
+            Name of folder to export DB to.
         """
         self.con.execute(f"export database '{db_path}' (format parquet);")
 
     def import_database(self, db_path: str) -> None:
         """
-        Import database from specified folders
+        Import database from specified folder.
 
-        Args
-        -----
-        db_path (str): path where database files and queries are located
+        Parameters
+        ----------
+        db_path : str
+            Path where database files and queries are located.
         """
         self.con.execute(f"import database '{db_path}'")
 
     def create_kdtree(self, tree_path: str) -> None:
         """
-        Create a KD-Tree data structure from the reference data in GNAF
+        Create a KD-Tree data structure from the reference data in GNAF.
 
-        Args
-        ----
-        tree_path (str): where to put the data structure to
-
+        Parameters
+        ----------
+        tree_path : str
+            Path to export computed KD-Tree.
         """
         
         print("Creating KD-Tree for reverse geocoding...")

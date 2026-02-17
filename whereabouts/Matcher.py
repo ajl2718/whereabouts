@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from json import loads
-import urllib.parse
-import os
 import importlib.resources
+import os
+import urllib.parse
+from json import loads
 
 import duckdb
 import numpy as np
@@ -12,7 +12,6 @@ import pandas as pd
 from .utils import list_overlap, numeric_overlap, ngram_jaccard
 from .errors import InvalidDatabaseError
 
-# change files to files
 DO_MATCH_BASIC = importlib.resources.files('whereabouts.queries').joinpath('geocoder_query_standard3.sql').read_text(encoding='utf-8')
 DO_MATCH_SKIPPHRASE = importlib.resources.files('whereabouts.queries').joinpath('geocoder_query_skipphrase2.sql').read_text(encoding='utf-8')
 DO_MATCH_TRIGRAM = importlib.resources.files('whereabouts.queries').joinpath('geocoder_query_trigramb3.sql').read_text(encoding='utf-8')
@@ -25,21 +24,12 @@ class Matcher:
     Attributes
     ----------
     con : duckdb.DuckDBPyConnection
-        A DuckDB database connection
-    how : str, optional
-        The geocoding algorithm to use, either 'standard', 'trigram', or 'skipphrase'
-        Defaults to 'standard'
-    threshold : float, optional
-        The threshold for considering a match valid. Defaults to 0.5
-
-    Methods
-    -------
-    geocode(addresses, address_ids=None, how=None):
-        Geocodes a list of addresses
-    reverse_geocode(points):
-        Finds the nearest addresses for given latitude and longitude coordinates
-    query(query):
-        Executes a generic SQL query on the database
+        A DuckDB database connection.
+    how : str
+        The geocoding algorithm to use, either 'standard', 'trigram', or 'skipphrase'.
+        Defaults to 'standard'.
+    threshold : float
+        The threshold for considering a match valid. Defaults to 0.5.
     """
 
     con: duckdb.DuckDBPyConnection
@@ -53,11 +43,11 @@ class Matcher:
         Parameters
         ----------
         db_name : str
-            The name of the database to use for geocoding
+            The name of the database to use for geocoding.
         how : str, optional
-            The geocoding algorithm to use. Defaults to 'standard'
+            The geocoding algorithm to use. Defaults to 'standard'.
         threshold : float, optional
-            The threshold for classifying a geocoded result as a match. Defaults to 0.5
+            The threshold for classifying a geocoded result as a match. Defaults to 0.5.
         """
         # create a working local DB
         self.con = duckdb.connect()
@@ -93,23 +83,23 @@ class Matcher:
 
     def geocode(self, addresses: list[str] | str | np.ndarray | pd.Series, top_n: int = 1, address_ids: list[int] | None = None, how: str | None = None) -> list[dict]:
         """
-        Geocodes a list of addresses.
+        Geocode a list of addresses.
 
         Parameters
         ----------
         addresses : list of str or str
-            A list of strings representing addresses or a single address string
-        top_n : int, default = 1
-            Specify max number of matches to return for each input address
+            A list of strings representing addresses or a single address string.
+        top_n : int, optional
+            Max number of matches to return for each input address. Defaults to 1.
         address_ids : list of int, optional
-            A list of integers representing the IDs of the addresses (default is None)
+            A list of integers representing the IDs of the addresses. Defaults to None.
         how : str, optional
-            The geocoding algorithm to use. If not provided, the default 'how' attribute is used
+            The geocoding algorithm to use. If not provided, the default 'how' attribute is used.
 
         Returns
         -------
-        results : list
-            A list of dictionaries representing geocoded addresses
+        results : list of dict
+            A list of dictionaries representing geocoded addresses.
         """
         if isinstance(addresses, str):
             addresses = [addresses]
@@ -157,26 +147,49 @@ class Matcher:
 
     def reverse_geocode(self, points: list[tuple[float, float]]) -> list[dict]:
         """
-        Finds the nearest addresses for given latitude and longitude coordinates
+        Find the nearest addresses for given latitude and longitude coordinates.
 
         Parameters
         ----------
         points : list of tuple
-            A list of (latitude, longitude) tuples representing coordinates
+            A list of (latitude, longitude) tuples representing coordinates.
 
         Returns
         -------
         results : list of dict
-            A list of dictionaries representing the nearest addresses
+            A list of dictionaries representing the nearest addresses.
         """
+        if not hasattr(self, 'tree') or not hasattr(self, 'reference_data'):
+            raise AttributeError(
+                "reverse_geocode requires a KDTree and reference data. "
+                "Use AddressLoader.create_kdtree() to build the tree first, "
+                "then load it with Matcher.load_tree()."
+            )
         query_indices = self.tree.query(points)[1]
         results = self.reference_data.iloc[query_indices, :]
         results = loads(results.to_json(orient='table'))['data']
         return results
 
+    def load_tree(self, tree_path: str) -> None:
+        """
+        Load a pre-built KDTree and its reference data for reverse geocoding.
+
+        Parameters
+        ----------
+        tree_path : str
+            Path to the pickled KDTree file created by AddressLoader.create_kdtree().
+        """
+        import pickle
+        with open(tree_path, 'rb') as f:
+            self.tree = pickle.load(f)
+        self.reference_data = self.con.execute("""
+        SELECT addr_id AS address_id, addr AS address, latitude, longitude
+        FROM remote.addresses
+        """).df()
+
     def query(self, query: str) -> pd.DataFrame:
         """
-        Executes a generic SQL query using the matcher's database.
+        Execute a generic SQL query using the matcher's database.
 
         Parameters
         ----------

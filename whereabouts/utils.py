@@ -13,20 +13,21 @@ from .AddressLoader import AddressLoader
 
 def get_unmatched(results: list[dict], threshold: float) -> tuple[list[dict], list[dict]]:
     """
-    Given results (outputs from Matcher), filter out those that are correctly matched 
-    and those that are not.
-    
+    Filter results into matched and unmatched based on a similarity threshold.
+
     Parameters
     ----------
-    results : list
+    results : list of dict
         A list of dictionaries where each dictionary contains a 'similarity' key.
     threshold : float
         The similarity threshold to determine if a result is matched.
-    
+
     Returns
     -------
-    tuple : 
-        A tuple containing two lists - matched and unmatched results.
+    matched : list of dict
+        Results with similarity >= threshold.
+    unmatched : list of dict
+        Results with similarity < threshold.
     """
     matched = []
     unmatched = []
@@ -41,17 +42,17 @@ def get_unmatched(results: list[dict], threshold: float) -> tuple[list[dict], li
 
 def order_matches(matches: list[dict]) -> list[dict]:
     """
-    Given a list of results order by the address_id value
+    Given a list of results, order by the address_id value.
 
     Parameters
     ----------
     matches : list of dict
-        results of matcher method
-    
+        Results of matcher method.
+
     Returns
     -------
     matches_sorted : list of dict
-        The ordered list of addresses
+        The ordered list of addresses.
     """
     # sort by id ascending and similarity descending (for case where multiple matches per id)
     matches_sorted = sorted(matches, key=lambda k: (k['address_id'], -k['similarity'])) 
@@ -59,17 +60,17 @@ def order_matches(matches: list[dict]) -> list[dict]:
 
 def filter_to_single_response(matches: list[dict]) -> list[dict]:
     """
-    Given a list of matches
+    Filter a list of matches to keep only the highest similarity result per address_id.
 
     Parameters
     ----------
     matches : list of dict
-        order a list of dicts based on address_id (ascending) an similarity (descending)
+        A list of dicts ordered by address_id (ascending) and similarity (descending).
 
     Returns
     -------
     matches_single_address_id : list of dict
-        list of addresses that have been filtered to the max similarity value for each address id
+        List of addresses filtered to the max similarity value for each address_id.
     """
     matches_single_address_id = []
     address_ids = []
@@ -83,14 +84,12 @@ def filter_to_single_response(matches: list[dict]) -> list[dict]:
 
 def setup_geocoder(config_file: str) -> None:
     """
-    Given a configuration file containing details of the reference data and the type of
-    geocoding algorithm to use, setup the database tables for doing geocoding with the 
-    reference data
+    Set up the database tables for geocoding using a configuration file.
 
     Parameters
-    ----
-    configuration : str
-        Path to the .yml file with the configuration details
+    ----------
+    config_file : str
+        Path to the .yml file with the configuration details.
     """
     # open the config file
     with open(config_file, 'r') as setup_details:
@@ -99,14 +98,15 @@ def setup_geocoder(config_file: str) -> None:
         except yaml.YAMLError as exc:
             print(exc)
 
-    try:            
+    try:
         # get all the info from the config file
         db_name = details['data']['db_name']
         db_folder = details['data']['folder']
         states = details['geocoder']['states']
         matchers = details['geocoder']['matchers']
-    except:
-        print("Some details missing from configuration file")
+    except (KeyError, TypeError) as e:
+        print(f"Some details missing from configuration file: {e}")
+        return
 
 
     t1 = time()
@@ -153,8 +153,8 @@ def setup_geocoder(config_file: str) -> None:
     # delete the old db file
     try:
         os.remove(db_name)
-    except:
-        print(f"Could not remove database {db_name}")
+    except OSError as e:
+        print(f"Could not remove database {db_name}: {e}")
 
     print("Importing database")
     del(addressloader)
@@ -173,12 +173,12 @@ def setup_geocoder(config_file: str) -> None:
 
 def remove_database(db_name: str) -> None:
     """
-    Remove a database from the folder of databases
+    Remove a database from the folder of databases.
 
     Parameters
     ----------
     db_name : str
-        Name of the database
+        Name of the database.
     """
     path_to_model = importlib.resources.files('whereabouts') / 'models'
     path_to_model = str(path_to_model)
@@ -190,7 +190,7 @@ def remove_database(db_name: str) -> None:
 
 def list_databases() -> None:
     """
-    List all the reference databases that have been installed
+    List all the reference databases that have been installed.
     """
     path_to_models = importlib.resources.files('whereabouts') / 'models'
     path_to_models = str(path_to_models)
@@ -201,14 +201,14 @@ def list_databases() -> None:
 
 def download(db_name: str, repo_id: str) -> None:
     """
-    Download a DuckDB database from the Hugging Face Hub
+    Download a DuckDB database from the Hugging Face Hub.
 
     Parameters
-    ----
+    ----------
     db_name : str
-        The name of the database to download
-    repo_id : str 
-        Hugging Face repo ID
+        The name of the database to download.
+    repo_id : str
+        Hugging Face repo ID.
     """
     try:    
         # the path to download the file from
@@ -235,17 +235,17 @@ def download(db_name: str, repo_id: str) -> None:
             f.write(joblib_file)
         # delete the .joblib file
         os.remove(f'{filename}')
-    except:
-        print(f"Could not download {db_name}")
+    except Exception as e:
+        print(f"Could not download {db_name}: {e}")
 
 def convert_db(filename: str) -> None:
     """
-    Convert a DuckDB database to joblib format for Hugging Face upload
+    Convert a DuckDB database to joblib format for Hugging Face upload.
 
     Parameters
     ----------
-    filename : 
-        Name of the DuckDB file to upload
+    filename : str
+        Name of the DuckDB file to convert.
     """
     try:
         output_filename = os.path.join(os.getcwd(), f"{filename[:-3]}.joblib")
@@ -254,28 +254,28 @@ def convert_db(filename: str) -> None:
             data = f.read()
         joblib.dump(data, output_filename)
         print(f"Converted '{input_filename}' to '{output_filename}' successfully.")
-    except:
-        print(f"Could not convert duckdb database to joblib")
+    except Exception as e:
+        print(f"Could not convert duckdb database to joblib: {e}")
 
 def list_overlap(list1: list[str], 
                  list2: list[str], 
                  threshold: float) -> bool:
     """
-    UDF that compares the number of numeric tokens that are common to input and candidate addresses
+    Compare the number of numeric tokens common to input and candidate addresses.
 
     Parameters
     ----------
-    list1 : list
-        list of numeric tokens in one address
-    list2 : list
-        list of numeric tokens in another address
+    list1 : list of str
+        Numeric tokens in one address.
+    list2 : list of str
+        Numeric tokens in another address.
     threshold : float
-        The threshold that the intersection must satisfy
+        The threshold that the intersection must satisfy.
 
     Returns
     -------
     bool
-        True if the intersection of the number of numeric tokens is above threshold
+        True if the intersection of the number of numeric tokens is above threshold.
     """
     if list1 is None: # in case where there are no numeric tokens in input
         return False
@@ -288,27 +288,42 @@ def list_overlap(list1: list[str],
     else:
         return False
     
-def numeric_overlap(input_numerics: list[str], 
+def numeric_overlap(input_numerics: list[str],
                     candidate_numerics: list[str]) -> float:
+    """
+    Compute the fraction of numeric tokens in the input that appear in the candidate.
+
+    Parameters
+    ----------
+    input_numerics : list of str
+        Numeric tokens from the input address.
+    candidate_numerics : list of str
+        Numeric tokens from the candidate address.
+
+    Returns
+    -------
+    float
+        Fraction of input numeric tokens found in the candidate.
+    """
     num_overlap = len(set(input_numerics).intersection(set(candidate_numerics)))
     fraction_overlap = num_overlap / len(set(input_numerics))
     return fraction_overlap
 
 def ngram_jaccard(input_address: str, candidate_address: str) -> float:
     """
-    Jaccard distance between input and candidate address
+    Compute the Jaccard similarity between input and candidate address using n-grams.
 
     Parameters
     ----------
     input_address : str
-        The address to be compared
+        The address to be compared.
     candidate_address : str
-        The candidate address to compare the input address against
+        The candidate address to compare the input address against.
 
     Returns
     -------
     jaccard_distance : float
-        The Jaccard distance (based on bigrams and trigrams) between the two addresses
+        The Jaccard similarity (based on unigrams and bigrams) between the two addresses.
     """
     # bigrams
     bigrams_input = [input_address[n:n+2] for n in range(0, len(input_address) - 1)]

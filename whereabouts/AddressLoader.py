@@ -1,11 +1,11 @@
 from __future__ import annotations
 
+import importlib.resources
+import pickle
 from typing import Any
 
 import duckdb
 from scipy.spatial import KDTree
-import pickle
-import importlib.resources
 
 MAKE_ADDRESSES = importlib.resources.files('whereabouts.queries').joinpath('create_addrtext.sql').read_text(encoding='utf-8')
 DO_MATCH_BASIC = importlib.resources.files('whereabouts.queries').joinpath('geocoder_query_standard.sql').read_text(encoding='utf-8')
@@ -28,35 +28,13 @@ TRIGRAM_STEP4 = importlib.resources.files('whereabouts.queries').joinpath('creat
 class AddressLoader:
     """
     A class for loading address data and creating a geocoding database.
-    This creates the tables for the addresses and inverted indexes
 
     Attributes
     ----------
     db : str
-        Name of the database
+        Name of the database.
     con : duckdb.DuckDBPyConnection
-        A DuckDB database connection
-
-    Methods
-    -------
-    load_data(details, state_names=[]):
-        Load the database based on the specified schema
-    create_final_address_table():
-        Create the database table including with a column for full addresses
-    create_geocoder_tables():
-        Create all the preliminary tables needed for creation of inverted indexes
-    create_phrases(phrases=['standard'])
-        Create the 'phrases' which form the tokens needed for record linkage
-    create_inverted_index(phrases=['standard']):
-        Create the inverted index that becomes the blocking key for fast lookup
-    clean_database(phrases):
-        Remove the unncessary tables
-    export_database(db_path):
-        Export the built geocoding database
-    import_database(db_path):
-        Import a built geocoding database into DuckDB
-    create_kdtree(tree_path):
-        Compute a KD-Tree for a given set of (latitude, longitude) tuples and export
+        A DuckDB database connection.
     """
     db: str
     con: duckdb.DuckDBPyConnection
@@ -86,7 +64,7 @@ class AddressLoader:
             load_function = f"read_csv_auto('{file_path}', delim='{sep}')"
 
         if len(state_names) == 0:
-            print(f"Loading data")
+            print("Loading data")
             query = f"""
             insert into addrtext 
             select 
@@ -160,12 +138,12 @@ class AddressLoader:
 
     def create_inverted_index(self, phrases: list[str] = ['standard']) -> None:
         """
-        Create the inverted index for the database
+        Create the inverted index for the database.
 
         Parameters
         ----------
         phrases : list of str
-            Types of phrases to create. Each str must be either 'standard', 'trigram' or 'skipphrase'
+            Types of phrases to create. Each str must be either 'standard', 'trigram', or 'skipphrase'.
         """
         print('Creating inverted index...')
         if 'standard' in phrases:
@@ -177,14 +155,14 @@ class AddressLoader:
 
     def clean_database(self, phrases: list[str]) -> None:
         """
-        Once geocoder tables have been created, remove unncessary tables from DB
+        Once geocoder tables have been created, remove unnecessary tables from DB
         to clear up space. Note that DuckDB currently does not free up the space
-        so the database has to be exported with tables and then loaded back again
+        so the database has to be exported with tables and then loaded back again.
 
         Parameters
         ----------
         phrases : list of str
-            The types of matching to use. Each str is either 'standard', 'trigram' or 'skipphrase'
+            The types of matching to use. Each str is either 'standard', 'trigram', or 'skipphrase'.
         """
         
         self.con.execute("""
@@ -209,34 +187,34 @@ class AddressLoader:
 
     def export_database(self, db_path: str) -> None:
         """
-        Export the database to the specified folder
+        Export the database to the specified folder.
 
         Parameters
         ----------
-        db_path : str 
-            Name of folder to export DB to
+        db_path : str
+            Name of folder to export DB to.
         """
         self.con.execute(f"export database '{db_path}' (format parquet);")
 
     def import_database(self, db_path: str) -> None:
         """
-        Import database from specified folders
+        Import database from specified folder.
 
         Parameters
         ----------
-        db_path : str 
-            Path where database files and queries are located
+        db_path : str
+            Path where database files and queries are located.
         """
         self.con.execute(f"import database '{db_path}'")
 
     def create_kdtree(self, tree_path: str) -> None:
         """
-        Create a KD-Tree data structure from the reference data in GNAF
+        Create a KD-Tree data structure from the reference data.
 
         Parameters
         ----------
         tree_path : str
-            Path to export computed KD-Tree
+            Path to export computed KD-Tree.
         """
         
         print("Creating KD-Tree for reverse geocoding...")

@@ -1,13 +1,13 @@
 data:
-    db_name: au_vic_lg
+    db_name: au_nsw_sm
     folder: geodb
-    filepath: 'address_file.parquet'
+    filepath: '/Users/alexlee/Desktop/Data/geo/gnaf_november2025/GNAF_CORE2.parquet'
     sep: ","
 geocoder:
-    matchers: [standard, trigram]
-    states: [VIC]
+    matchers: [standard]
+    states: [NSW]
 schema:
-    addr_id: ADDRESS_DETAIL_PID
+    addr_id: addressid
     full_address: ADDRESS_LABEL
     address_site_name: ADDRESS_SITE_NAME
     locality_name: LOCALITY_NAME

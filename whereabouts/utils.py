@@ -110,6 +110,9 @@ def setup_geocoder(config_file: str) -> None:
 
 
     t1 = time()
+    # remove any db with this name in current folder
+    if os.path.exists(f'{db_name}.db'):
+        os.remove(f'{db_name}.db')
     print("Creating reference database")
     # create the database
     db_name += '.db'

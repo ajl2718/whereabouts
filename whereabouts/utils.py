@@ -316,6 +316,33 @@ def numeric_overlap(input_numerics: list[str],
 
     return len(input_set & candidate_set) / len(input_set)
 
+def numeric_overlap2(input_numerics: list[str],
+                    candidate_numerics: list[str]) -> float:
+    """
+    Compute the fraction of numeric tokens in the input that appear in the candidate.
+
+    Uses intersection over union rather than intersection over input length
+
+    Parameters
+    ----------
+    input_numerics : list of str
+        Numeric tokens from the input address.
+    candidate_numerics : list of str
+        Numeric tokens from the candidate address.
+
+    Returns
+    -------
+    float
+        Fraction of input numeric tokens found in the candidate.
+    """
+    if not input_numerics:
+        return 0.0
+
+    input_set = set(input_numerics)
+    candidate_set = set(candidate_numerics)
+
+    return len(input_set & candidate_set) / len(input_set | candidate_set)
+
 def ngram_jaccard(input_address: str, candidate_address: str) -> float:
     """
     Compute the Jaccard similarity between input and candidate address using n-grams.

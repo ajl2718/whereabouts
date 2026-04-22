@@ -9,7 +9,7 @@ import duckdb
 import numpy as np
 import pandas as pd
 
-from .utils import list_overlap, numeric_overlap, ngram_jaccard
+from .utils import list_overlap, numeric_overlap, numeric_overlap2, ngram_jaccard
 from .errors import InvalidDatabaseError
 
 DO_MATCH_BASIC = importlib.resources.files('whereabouts.queries').joinpath('geocoder_query_standard3.sql').read_text(encoding='utf-8')
@@ -74,6 +74,7 @@ class Matcher:
             try:
                 self.con.create_function('list_overlap', list_overlap)
                 self.con.create_function('numeric_overlap', numeric_overlap)
+                self.con.create_function('numeric_overlap2', numeric_overlap2)
                 self.con.create_function('ngram_jaccard', ngram_jaccard)
             except Exception:
                 pass

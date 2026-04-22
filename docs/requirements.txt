@@ -24,7 +24,7 @@ joblib==1.5.3
     # via
     #   whereabouts (pyproject.toml)
     #   scikit-learn
-lxml==6.0.2
+lxml==6.1.0
     # via whereabouts (pyproject.toml)
 markupsafe==3.0.3
     # via jinja2

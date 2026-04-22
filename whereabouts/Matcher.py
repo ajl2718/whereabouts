@@ -121,6 +121,7 @@ class Matcher:
             df = pd.DataFrame({'address_id': address_ids, 'address': addresses})
         else:
             df = pd.DataFrame({'address_id': range(1, len(addresses) + 1), 'address': addresses})
+        df['address'] = df['address'].astype(object)
         
         self.con.execute("DROP TABLE IF EXISTS input_addresses;")
         self.con.execute("DROP TABLE IF EXISTS input_addresses_with_tokens;")

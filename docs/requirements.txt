@@ -59,7 +59,7 @@ pytz==2025.2
     # via pandas
 pyyaml==6.0.3
     # via whereabouts (pyproject.toml)
-requests==2.32.4
+requests==2.33.0
     # via whereabouts (pyproject.toml)
 ruff==0.14.11
     # via whereabouts (pyproject.toml)

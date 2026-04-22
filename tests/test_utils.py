@@ -1,5 +1,11 @@
 import numpy as np
-from whereabouts.utils import order_matches, get_unmatched
+from whereabouts.utils import (
+    order_matches,
+    get_unmatched,
+    filter_to_single_response,
+    list_overlap,
+    numeric_overlap,
+)
 
 def example_match_result():
     return [{'address_id': 3, 
@@ -57,3 +63,61 @@ def test_get_unmatched():
     assert matched[0]['address_id'] == 3
     assert matched[1]['address_id'] == 1
     assert unmatched[0]['address_id'] == 2
+
+
+def test_filter_to_single_response_keeps_highest_similarity():
+    matches = [
+        {'address_id': 0, 'similarity': 0.9},
+        {'address_id': 0, 'similarity': 0.6},
+        {'address_id': 1, 'similarity': 0.8},
+    ]
+    # pre-sorted as order_matches would produce
+    result = filter_to_single_response(matches)
+    assert len(result) == 2
+    assert result[0]['address_id'] == 0
+    assert result[0]['similarity'] == 0.9
+    assert result[1]['address_id'] == 1
+
+
+def test_filter_to_single_response_empty():
+    assert filter_to_single_response([]) == []
+
+
+def test_list_overlap_above_threshold():
+    assert list_overlap(['1', '2'], ['1', '2', '3'], 0.5) is True
+
+
+def test_list_overlap_below_threshold():
+    assert list_overlap(['1', '2', '3'], ['4'], 0.5) is False
+
+
+def test_list_overlap_none_input():
+    assert list_overlap(None, ['1'], 0.5) is False
+
+
+def test_list_overlap_empty_list1():
+    assert list_overlap([], ['1'], 0.5) is False
+
+
+def test_list_overlap_empty_list2():
+    assert list_overlap(['1'], [], 0.5) is False
+
+
+def test_numeric_overlap_full_match():
+    assert numeric_overlap(['1', '2'], ['1', '2', '3']) == 1.0
+
+
+def test_numeric_overlap_partial_match():
+    assert numeric_overlap(['1', '2'], ['1']) == 0.5
+
+
+def test_numeric_overlap_no_match():
+    assert numeric_overlap(['1'], ['2']) == 0.0
+
+
+def test_numeric_overlap_empty_input():
+    assert numeric_overlap([], ['1']) == 0.0
+
+
+def test_numeric_overlap_none_input():
+    assert numeric_overlap(None, ['1']) == 0.0

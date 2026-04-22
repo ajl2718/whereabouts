@@ -73,13 +73,11 @@ def filter_to_single_response(matches: list[dict]) -> list[dict]:
         List of addresses filtered to the max similarity value for each address_id.
     """
     matches_single_address_id = []
-    address_ids = []
+    seen_ids = set()
     for match in matches:
-        if match['address_id'] in address_ids:
-            pass 
-        else:
+        if match['address_id'] not in seen_ids:
             matches_single_address_id.append(match)
-            address_ids.append(match['address_id'])
+            seen_ids.add(match['address_id'])
     return matches_single_address_id
 
 def setup_geocoder(config_file: str) -> None:
@@ -97,6 +95,7 @@ def setup_geocoder(config_file: str) -> None:
             details = yaml.safe_load(setup_details)
         except yaml.YAMLError as exc:
             print(exc)
+            return
 
     try:
         # get all the info from the config file
@@ -217,7 +216,8 @@ def download(db_name: str, repo_id: str) -> None:
         # the path to download the file from
         filename = f"{db_name.split('.')[0]}.joblib"
         url = f'https://huggingface.co/{repo_id}/resolve/main/{filename}'
-        response = requests.get(url, stream=True)
+        response = requests.get(url, stream=True, timeout=60)
+        response.raise_for_status()
         total_size = int(response.headers.get('content-length', 0))
 
         # define the path and filename for the output file
@@ -233,7 +233,7 @@ def download(db_name: str, repo_id: str) -> None:
                     file.write(chunk)
                     bar.update(len(chunk))    
         # load the joblib file and convert to duckdb
-        joblib_file = joblib.load(f'{filename}', 'rb')
+        joblib_file = joblib.load(f'{filename}')
         with open(f'{path_to_model}/{output_filename}', 'wb') as f:
             f.write(joblib_file)
         # delete the .joblib file
@@ -280,7 +280,7 @@ def list_overlap(list1: list[str],
     bool
         True if the intersection of the number of numeric tokens is above threshold.
     """
-    if list1 is None: # in case where there are no numeric tokens in input
+    if not list1:
         return False
     if list2:
         intersection = len(set(list1).intersection(set(list2))) / len(list1)

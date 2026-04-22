@@ -314,7 +314,7 @@ def numeric_overlap(input_numerics: list[str],
     input_set = set(input_numerics)
     candidate_set = set(candidate_numerics)
 
-    return len(input_set & candidate_set) / len(input_set | candidate_set)
+    return len(input_set & candidate_set) / len(input_set)
 
 def ngram_jaccard(input_address: str, candidate_address: str) -> float:
     """

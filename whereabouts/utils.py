@@ -308,9 +308,13 @@ def numeric_overlap(input_numerics: list[str],
     float
         Fraction of input numeric tokens found in the candidate.
     """
-    num_overlap = len(set(input_numerics).intersection(set(candidate_numerics)))
-    fraction_overlap = num_overlap / len(set(input_numerics))
-    return fraction_overlap
+    if not input_numerics:
+        return 0.0
+
+    input_set = set(input_numerics)
+    candidate_set = set(candidate_numerics)
+
+    return len(input_set & candidate_set) / len(input_set | candidate_set)
 
 def ngram_jaccard(input_address: str, candidate_address: str) -> float:
     """
@@ -325,17 +329,16 @@ def ngram_jaccard(input_address: str, candidate_address: str) -> float:
 
     Returns
     -------
-    jaccard_distance : float
-        The Jaccard similarity (based on unigrams and bigrams) between the two addresses.
+    The Jaccard similarity (float) between the two addresses.
     """
-    # bigrams
-    bigrams_input = [input_address[n:n+2] for n in range(0, len(input_address) - 1)]
-    bigrams_candidate = [candidate_address[n:n+2] for n in range(0, len(candidate_address) - 1)]
-    # unigrams
-    unigrams_input = [input_address[n:n+1] for n in range(0, len(input_address))]
-    unigrams_candidate = [candidate_address[n:n+1] for n in range(0, len(candidate_address))]
-    ngrams_input_set = set(bigrams_input).union(unigrams_input)
-    ngrams_candidate_set = set(bigrams_candidate).union(unigrams_candidate)
-    jaccard_distance = len(ngrams_input_set.intersection(ngrams_candidate_set)) / len(ngrams_input_set.union(ngrams_candidate_set))
-    return jaccard_distance
+    def ngrams(s: str, n: int):
+        return {s[i:i+n] for i in range(len(s) - n + 1)}
 
+    input_ngrams = ngrams(input_address, 1) | ngrams(input_address, 2)
+    candidate_ngrams = ngrams(candidate_address, 1) | ngrams(candidate_address, 2)
+
+    union = input_ngrams | candidate_ngrams
+    if not union:
+        return 0.0
+
+    return len(input_ngrams & candidate_ngrams) / len(union)

@@ -9,10 +9,10 @@ import duckdb
 import numpy as np
 import pandas as pd
 
-from .utils import list_overlap, numeric_overlap, numeric_overlap2, ngram_jaccard
+from .utils import list_overlap, numeric_overlap, numeric_overlap2, multiset_jaccard, ngram_jaccard
 from .errors import InvalidDatabaseError
 
-DO_MATCH_BASIC = importlib.resources.files('whereabouts.queries').joinpath('geocoder_query_standard5.sql').read_text(encoding='utf-8')
+DO_MATCH_BASIC = importlib.resources.files('whereabouts.queries').joinpath('geocoder_query_standard6.sql').read_text(encoding='utf-8')
 DO_MATCH_SKIPPHRASE = importlib.resources.files('whereabouts.queries').joinpath('geocoder_query_skipphrase2.sql').read_text(encoding='utf-8')
 DO_MATCH_TRIGRAM = importlib.resources.files('whereabouts.queries').joinpath('geocoder_query_trigramb3.sql').read_text(encoding='utf-8')
 CREATE_GEOCODER_TABLES = importlib.resources.files('whereabouts.queries').joinpath('create_geocoder_tables.sql').read_text(encoding='utf-8')
@@ -75,9 +75,11 @@ class Matcher:
                 self.con.create_function('list_overlap', list_overlap)
                 self.con.create_function('numeric_overlap', numeric_overlap)
                 self.con.create_function('numeric_overlap2', numeric_overlap2)
+                self.con.create_function('multiset_jaccard', multiset_jaccard)
                 self.con.create_function('ngram_jaccard', ngram_jaccard)
-            except Exception:
-                pass
+            except Exception as e:
+                print(f"Error creating custom functions: {e}")
+                raise e
         
         self.how = how
         self.threshold = threshold

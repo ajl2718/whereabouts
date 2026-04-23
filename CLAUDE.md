@@ -47,7 +47,7 @@ Each corresponds to a SQL file loaded at module import time:
 
 | `how=` | SQL file | Index table | Notes |
 |--------|----------|-------------|-------|
-| `standard` | `geocoder_query_standard3.sql` | `phraseinverted` | Token-pair phrases; fastest |
+| `standard` | `geocoder_query_standard6.sql` | `phraseinverted` | Token-pair phrases; fastest |
 | `skipphrase` | `geocoder_query_skipphrase2.sql` | `skipphraseinverted` | Token-pairs with one token skipped; handles word-order variation |
 | `trigram` | `geocoder_query_trigramb3.sql` | trigram tables | Character-level; most typo-tolerant; requires large DB |
 
@@ -65,7 +65,7 @@ The `Matcher` connects to the database as `remote` (attached DuckDB), while inpu
 
 ### SQL queries
 
-All SQL is in `whereabouts/queries/` and loaded via `importlib.resources` at import time. The numbered variants (e.g., `geocoder_query_standard3.sql`) are successive iterations — the highest-numbered file is the one actually used. `geocoder_query_standard5.sql` in the project root is an in-progress query, not yet wired in.
+All SQL is in `whereabouts/queries/` and loaded via `importlib.resources` at import time. The numbered variants (e.g., `geocoder_query_standard3.sql`) are successive iterations — the highest-numbered file is the one actually used. `geocoder_query_standard6.sql` in the project root is an in-progress query, not yet wired in.
 
 ### Similarity functions
 The matching algorithm depends on a user-defined similarity function. This is important for ranking candidate matches; different choices of similarity function have significant impacts on precision and recall of the matching algorithm.

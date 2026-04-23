@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from collections import Counter 
+
 import os
 import importlib.resources
 from time import time
@@ -342,6 +344,24 @@ def numeric_overlap2(input_numerics: list[str],
     candidate_set = set(candidate_numerics)
 
     return len(input_set & candidate_set) / len(input_set | candidate_set)
+
+def multiset_jaccard(l1: list[str], l2: list[str]) -> float:
+    """
+    Compute the proportion of matching pairs between two lists, accounting for duplicates.
+    """
+    c1 = Counter(l1)
+    c2 = Counter(l2)
+    
+    # unique elements across both lists
+    keys = set(c1) | set(c2)
+    
+    # total number of matching pairs between l1 and l2
+    matches = sum(min(c1[k], c2[k]) for k in keys)
+
+    # total number of pairs in the union of l1 and l2
+    total = sum(max(c1[k], c2[k]) for k in keys)
+    
+    return matches / total
 
 def ngram_jaccard(input_address: str, candidate_address: str) -> float:
     """

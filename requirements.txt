@@ -5,7 +5,7 @@ duckdb==1.4.2
 et-xmlfile==2.0.0
 fastparquet==2026.3.0
 fsspec==2026.3.0
-idna==3.12
+idna==3.15
 iniconfig==2.3.0
 jinja2==3.1.6
 joblib==1.5.3
@@ -28,5 +28,5 @@ scipy==1.17.1
 six==1.17.0
 threadpoolctl==3.6.0
 tqdm==4.67.3
-urllib3==2.6.3
--e file:///Users/alexlee/Desktop/Github/whereabouts
+urllib3==2.7.0
+-e file:///Users/alexanderlee/Desktop/Github/whereabouts

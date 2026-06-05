@@ -14,6 +14,7 @@ license = { file = "LICENSE" }  # This ensures the correct metadata is used
 dependencies = [
     "duckdb==1.4.2",
     "fastparquet>=2024.11.0",
+    "idna==3.15",
     "jinja2>=3.1.5",
     "joblib>=1.4.2",
     "lxml>=5.3.1",
@@ -29,7 +30,7 @@ dependencies = [
     "scikit-learn>=1.6.1",
     "scipy>=1.15.2",
     "tqdm>=4.67.1",
-    "urllib3==2.6.3",
+    "urllib3==2.7.0",
 ]
 
 [project.optional-dependencies]

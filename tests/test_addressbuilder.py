@@ -8,7 +8,7 @@ import numpy as np
 import numpy.typing as npt
 
 from whereabouts.AddressLoader import AddressLoader
-from whereabouts.Matcher import Matcher
+from whereabouts import Matcher
 
 @pytest.mark.order(1)
 def test_config_loader() -> None:
@@ -78,13 +78,14 @@ def test_create_final_address_table() -> None:
                                         'suburb',
                                         'POSTCODE',
                                         'LATITUDE',
-                                        'LONGITUDE'])
+                                        'LONGITUDE',
+                                        'STATE'])
 
     addressloader: AddressLoader = AddressLoader(db_name)
     addressloader.create_final_address_table()
     assert addressloader.con.execute('show tables;').df().shape[0]
     assert addressloader.con.execute('select * from addrtext_with_detail').df().shape[0] == 18687
-    assert addressloader.con.execute('select * from addrtext_with_detail').df().shape[1] == 8
+    assert addressloader.con.execute('select * from addrtext_with_detail').df().shape[1] == 9
     assert (addressloader.con.execute('select * from addrtext_with_detail').df().columns == colnames_full_addresses).all()
 
 
@@ -93,7 +94,7 @@ def test_create_standard_phrases() -> None:
     db_name: str = 'db_test.db'
     addressloader: AddressLoader = AddressLoader(db_name)
     addressloader.create_phrases()
-    assert addressloader.con.execute('select count(*) from phrase').df().values[0, 0] == 114827
+    assert addressloader.con.execute('select count(*) from phrase').df().values[0, 0] == 143076
     assert addressloader.con.execute('select * from phrase limit 3;').df().shape[1] == 2
 
 # test create inverted index
@@ -103,7 +104,7 @@ def test_create_inverted_index() -> None:
     addressloader: AddressLoader = AddressLoader(db_name)
     addressloader.create_inverted_index()
     assert addressloader.con.execute('select * from phraseinverted').df().shape[1] == 3
-    assert addressloader.con.execute('select count(*) from phraseinverted').df().values[0, 0] == 17149
+    assert addressloader.con.execute('select count(*) from phraseinverted').df().values[0, 0] == 21927
 
 # test clean database
 @pytest.mark.order(8)

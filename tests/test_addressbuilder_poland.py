@@ -75,13 +75,14 @@ def test_create_final_address_table():
                                         'suburb',
                                         'POSTCODE', 
                                         'LATITUDE', 
-                                        'LONGITUDE'])
+                                        'LONGITUDE',
+                                        'STATE'])
     
     addressloader = AddressLoader(db_name)
     addressloader.create_final_address_table()
     assert addressloader.con.execute('show tables;').df().shape[0]
     assert addressloader.con.execute('select * from addrtext_with_detail').df().shape[0] == 121
-    assert addressloader.con.execute('select * from addrtext_with_detail').df().shape[1] == 8
+    assert addressloader.con.execute('select * from addrtext_with_detail').df().shape[1] == 9
     assert (addressloader.con.execute('select * from addrtext_with_detail').df().columns == colnames_full_addresses).all()
 
 
@@ -100,7 +101,7 @@ def test_create_inverted_index():
     addressloader = AddressLoader(db_name)
     addressloader.create_inverted_index()
     assert addressloader.con.execute('select * from phraseinverted').df().shape[1] == 3
-    assert addressloader.con.execute('select count(*) from phraseinverted').df().values[0, 0] == 245
+    assert addressloader.con.execute('select count(*) from phraseinverted').df().values[0, 0] == 247
 
 # test clean database
 @pytest.mark.order(8)

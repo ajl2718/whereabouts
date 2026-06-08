@@ -2,6 +2,7 @@ __pycache__/
 *.pyc
 .DS_Store
 *.db
+!whereabouts/models/db_test.db
 au_all_sm/
 db_test/
 .venv/

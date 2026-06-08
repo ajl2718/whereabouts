@@ -11,6 +11,8 @@ class MatcherPipeline:
     ----------
     matchers : list of Matcher
         A list of Matcher objects used for geocoding addresses.
+    query_types : list of str
+        Specify for each matcher which query type to use, e.g., 'standard', 'trigram', or 'skipphrase'
 
     Methods
     -------
@@ -19,8 +21,9 @@ class MatcherPipeline:
     """
     
     matchers: list[Matcher]
+    query_types: list[str]
 
-    def __init__(self, matchers: list[Matcher]) -> None:
+    def __init__(self, matchers: list[Matcher], query_types: list[str]) -> None:
         """
         Initialize a MatcherPipeline object.
 
@@ -28,9 +31,17 @@ class MatcherPipeline:
         ----------
         matchers : list of Matcher
             A list of Matcher objects to be used in the pipeline.
+        query_types : list of str
+            A list of strings specifying the query type for each matcher (default is None, which uses the default query type for each matcher).
         """
         if matchers:
             self.matchers = matchers
+        if query_types:
+            if len(query_types) != len(matchers):
+                raise ValueError("Length of query_types must match the number of matchers.")
+            self.query_types = query_types
+        else:
+            self.query_types = ['standard' for _ in matchers]
 
     def set_matches(self, matchers: list[Matcher]) -> None:
         """
@@ -63,7 +74,8 @@ class MatcherPipeline:
 
         # Geocode with the first matcher
         matcher = self.matchers[0]
-        results = matcher.geocode(addresses)
+        query_type = self.query_types[0]
+        results = matcher.geocode(addresses, how=query_type)
         threshold = matcher.threshold
 
         matched, unmatched = get_unmatched(results, threshold)
@@ -73,10 +85,10 @@ class MatcherPipeline:
         all_results.extend(matched)
 
         # Process unmatched addresses with the remaining matchers
-        for matcher in self.matchers[1:]:
+        for matcher, query_type in zip(self.matchers[1:], self.query_types[1:]):
             if not unmatched:
                 break
-            results = matcher.geocode(addresses0, address_ids0)
+            results = matcher.geocode(addresses0, address_ids=address_ids0, how=query_type)
             threshold = matcher.threshold
             matched, unmatched = get_unmatched(results, threshold)
 

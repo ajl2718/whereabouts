@@ -7,11 +7,15 @@ from typing import Any
 import duckdb
 from scipy.spatial import KDTree
 
-MAKE_ADDRESSES = importlib.resources.files('whereabouts.queries').joinpath('create_addrtext.sql').read_text(encoding='utf-8')
+MAKE_ADDRESSES = importlib.resources.files('whereabouts.queries').joinpath('create_addrtext2.sql').read_text(encoding='utf-8')
+
+from .constants import MAX_PHRASE_CHUNKS
 DO_MATCH_BASIC = importlib.resources.files('whereabouts.queries').joinpath('geocoder_query_standard.sql').read_text(encoding='utf-8')
 CREATE_GEOCODER_TABLES = importlib.resources.files('whereabouts.queries').joinpath('create_geocoder_tables.sql').read_text(encoding='utf-8')
 
-CREATE_PHRASES = importlib.resources.files('whereabouts.queries').joinpath('create_phrases.sql').read_text(encoding='utf-8')
+# use next-to-nearest neighbour phrases as well
+CREATE_PHRASES = importlib.resources.files('whereabouts.queries').joinpath('create_phrases2.sql').read_text(encoding='utf-8')
+# CREATE_PHRASES = importlib.resources.files('whereabouts.queries').joinpath('create_phrases.sql').read_text(encoding='utf-8')
 INVERTED_INDEX = importlib.resources.files('whereabouts.queries').joinpath('phrase_inverted.sql').read_text(encoding='utf-8')
 CREATE_INDEXES = importlib.resources.files('whereabouts.queries').joinpath('create_indexes.sql').read_text(encoding='utf-8')
 
@@ -42,8 +46,9 @@ class AddressLoader:
     def __init__(self, db_name: str) -> None:
         self.db = db_name
         self.con = duckdb.connect(database=db_name)
+        self.con.sql("INSTALL splink_udfs FROM community; LOAD splink_udfs;")
 
-    def load_data(self, details: dict[str, Any], state_names: list[str] = []) -> None:
+    def load_data(self, details: dict[str, Any], state_names: list[str] | None = None) -> None:
         id_value = details['schema']['addr_id']
         address_label_value = details['schema']['full_address']
         address_site_name_value = details['schema']['address_site_name']
@@ -62,6 +67,9 @@ class AddressLoader:
             load_function = f"read_parquet('{file_path}')"
         elif filetype == "csv":
             load_function = f"read_csv_auto('{file_path}', delim='{sep}')"
+
+        if state_names is None:
+            state_names = []
 
         if len(state_names) == 0:
             print("Loading data")
@@ -96,9 +104,9 @@ class AddressLoader:
                 {longitude_value} longitude
                 from
                 {load_function}
-                where state='{state_name}'
+                where state=$1
                 """
-                self.con.execute(query)
+                self.con.execute(query, [state_name])
         
     def create_final_address_table(self) -> None:
         self.con.execute(MAKE_ADDRESSES)
@@ -107,44 +115,45 @@ class AddressLoader:
         print("Creating geocoder tables...")
         self.con.execute(CREATE_GEOCODER_TABLES)
         
-    def create_phrases(self, phrases: list[str] = ['standard']) -> None:
+    def create_phrases(self, phrases: list[str] | None = None) -> None:
+        if phrases is None:
+            phrases = ['standard']
         if 'standard' in phrases:
             print('Creating phrases...')
-            # create the phrases in chunks to prevent memory errors
-            # this still takes a looooong time
-            for n in range(100): # change based on size of db
+            for n in range(MAX_PHRASE_CHUNKS):
                 print(f'Creating phrases for chunk {n}...')
                 self.con.execute(CREATE_PHRASES, [n])
         if 'skipphrase' in phrases:
             print('Creating skipphrases...')
-            # create the phrases in chunks to prevent memory errors
-            # this still takes a looooong time
-            for n in range(100): # change based on size of db
+            for n in range(MAX_PHRASE_CHUNKS):
                 print(f'Creating skipphrases for chunk {n}...')
                 self.con.execute(CREATE_SKIPPHRASES, [n])
         if 'trigram' in phrases:
             print("Add row number to phrase inverted index...")
             self.con.execute(TRIGRAM_STEP1)
             print("Creating trigram inverted phrases. Step 1...")
-            for n in range(100):
+            for n in range(MAX_PHRASE_CHUNKS):
                 print(f'Creating trigram phrases for chunk {n}...')
                 self.con.execute(TRIGRAM_STEP2, [n])
             print("Creating trigram inverted phrases. Step 2...")
             self.con.execute(TRIGRAM_STEP3)
             print("Creating trigram inverted phrases. Step 3...")
-            for n in range(100):
+            for n in range(MAX_PHRASE_CHUNKS):
                 print(f'Creating trigram phrases for chunk {n}...')
                 self.con.execute(TRIGRAM_STEP4, [n])
 
-    def create_inverted_index(self, phrases: list[str] = ['standard']) -> None:
+    def create_inverted_index(self, phrases: list[str] | None = None) -> None:
         """
         Create the inverted index for the database.
 
         Parameters
         ----------
-        phrases : list of str
+        phrases : list of str, optional
             Types of phrases to create. Each str must be either 'standard', 'trigram', or 'skipphrase'.
+            Defaults to ['standard'].
         """
+        if phrases is None:
+            phrases = ['standard']
         print('Creating inverted index...')
         if 'standard' in phrases:
             self.con.execute(INVERTED_INDEX)

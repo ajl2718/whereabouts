@@ -95,6 +95,6 @@ def process_gnaf_core(filename_in, filename_out):
         else:
             print("Schema invalid")
             return False
-    except:
+    except Exception:
         print(f'Could not load filename {filename_in}')
         return False

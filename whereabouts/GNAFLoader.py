@@ -1,26 +1,28 @@
 from __future__ import annotations
 
+import importlib.resources
 import pickle
-from pathlib import Path
 
 import duckdb
 from scipy.spatial import KDTree
 
-MAKE_ADDRESSES = Path('whereabouts/queries/create_addrtext.sql').read_text()
-DO_MATCH_BASIC = Path("whereabouts/queries/geocoder_query_standard.sql").read_text()
+MAKE_ADDRESSES = importlib.resources.files('whereabouts.queries').joinpath('create_addrtext.sql').read_text(encoding='utf-8')
+DO_MATCH_BASIC = importlib.resources.files('whereabouts.queries').joinpath('geocoder_query_standard.sql').read_text(encoding='utf-8')
 
-CREATE_GEOCODER_TABLES = Path("whereabouts/queries/create_geocoder_tables.sql").read_text()
+CREATE_GEOCODER_TABLES = importlib.resources.files('whereabouts.queries').joinpath('create_geocoder_tables.sql').read_text(encoding='utf-8')
 
-CREATE_PHRASES = Path("whereabouts/queries/create_phrases.sql").read_text()
-INVERTED_INDEX = Path("whereabouts/queries/phrase_inverted.sql").read_text()
-CREATE_INDEXES = Path("whereabouts/queries/create_indexes.sql").read_text()
+CREATE_PHRASES = importlib.resources.files('whereabouts.queries').joinpath('create_phrases.sql').read_text(encoding='utf-8')
+INVERTED_INDEX = importlib.resources.files('whereabouts.queries').joinpath('phrase_inverted.sql').read_text(encoding='utf-8')
+CREATE_INDEXES = importlib.resources.files('whereabouts.queries').joinpath('create_indexes.sql').read_text(encoding='utf-8')
 
-CREATE_TRIGRAM_PHRASES = Path("whereabouts/queries/create_trigramphrases.sql").read_text()
+CREATE_TRIGRAM_PHRASES = importlib.resources.files('whereabouts.queries').joinpath('create_trigramphrases.sql').read_text(encoding='utf-8')
 
-TRIGRAM_STEP1 = Path("whereabouts/queries/create_trigram_index_step1.sql").read_text()
-TRIGRAM_STEP2 = Path("whereabouts/queries/create_trigram_index_step2.sql").read_text()
-TRIGRAM_STEP3 = Path("whereabouts/queries/create_trigram_index_step3.sql").read_text()
-TRIGRAM_STEP4 = Path("whereabouts/queries/create_trigram_index_step4.sql").read_text()
+TRIGRAM_STEP1 = importlib.resources.files('whereabouts.queries').joinpath('create_trigram_index_step1.sql').read_text(encoding='utf-8')
+TRIGRAM_STEP2 = importlib.resources.files('whereabouts.queries').joinpath('create_trigram_index_step2.sql').read_text(encoding='utf-8')
+TRIGRAM_STEP3 = importlib.resources.files('whereabouts.queries').joinpath('create_trigram_index_step3.sql').read_text(encoding='utf-8')
+TRIGRAM_STEP4 = importlib.resources.files('whereabouts.queries').joinpath('create_trigram_index_step4.sql').read_text(encoding='utf-8')
+
+from .constants import MAX_PHRASE_CHUNKS
 
 class GNAFLoader:
     con: duckdb.DuckDBPyConnection
@@ -29,7 +31,9 @@ class GNAFLoader:
         self.db = db_name
         self.con = duckdb.connect(database=db_name)
 
-    def load_gnaf_data(self, gnaf_path: str, state_names: list[str] = ['VIC']) -> None:
+    def load_gnaf_data(self, gnaf_path: str, state_names: list[str] | None = None) -> None:
+        if state_names is None:
+            state_names = ['VIC']
         for state_name in state_names:
             print(f"Loading data for {state_name}")
             query = f"""
@@ -45,9 +49,9 @@ class GNAFLoader:
             LONGITUDE 
             from
             read_csv_auto('{gnaf_path}', delim='|')
-            where state='{state_name}'
+            where state=$1
             """
-            self.con.execute(query)
+            self.con.execute(query, [state_name])
 
     def create_final_address_table(self) -> None:
         self.con.execute(MAKE_ADDRESSES)
@@ -56,29 +60,31 @@ class GNAFLoader:
         print("Creating geocoder tables...")
         self.con.execute(CREATE_GEOCODER_TABLES)
         
-    def create_phrases(self, phrases: list[str] = ['standard']) -> None:
+    def create_phrases(self, phrases: list[str] | None = None) -> None:
+        if phrases is None:
+            phrases = ['standard']
         if 'standard' in phrases:
             print('Creating phrases...')
-            # create the phrases in chunks to prevent memory errors
-            # this still takes a looooong time
-            for n in range(100): # change based on size of db
+            for n in range(MAX_PHRASE_CHUNKS):
                 print(f'Creating phrases for chunk {n}...')
                 self.con.execute(CREATE_PHRASES, [n])
         if 'trigram' in phrases:
             print("Add row number to phrase inverted index...")
             self.con.execute(TRIGRAM_STEP1)
             print("Creating trigram inverted phrases. Step 1...")
-            for n in range(100):
+            for n in range(MAX_PHRASE_CHUNKS):
                 print(f'Creating trigram phrases for chunk {n}...')
                 self.con.execute(TRIGRAM_STEP2, [n])
             print("Creating trigram inverted phrases. Step 2...")
             self.con.execute(TRIGRAM_STEP3)
             print("Creating trigram inverted phrases. Step 3...")
-            for n in range(100):
+            for n in range(MAX_PHRASE_CHUNKS):
                 print(f'Creating trigram phrases for chunk {n}...')
                 self.con.execute(TRIGRAM_STEP4, [n])
 
-    def create_inverted_index(self, phrases: list[str] = ['standard']) -> None:
+    def create_inverted_index(self, phrases: list[str] | None = None) -> None:
+        if phrases is None:
+            phrases = ['standard']
         print('Creating inverted index...')
         if 'standard' in phrases:
             self.con.execute(INVERTED_INDEX)

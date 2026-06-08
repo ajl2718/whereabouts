@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from collections import Counter 
+from collections import Counter
 
 import os
 import importlib.resources
@@ -13,7 +13,10 @@ from tqdm import tqdm
 
 from .AddressLoader import AddressLoader
 
-def get_unmatched(results: list[dict], threshold: float) -> tuple[list[dict], list[dict]]:
+
+def get_unmatched(
+    results: list[dict], threshold: float
+) -> tuple[list[dict], list[dict]]:
     """
     Filter results into matched and unmatched based on a similarity threshold.
 
@@ -34,7 +37,7 @@ def get_unmatched(results: list[dict], threshold: float) -> tuple[list[dict], li
     matched = []
     unmatched = []
     for result in results:
-        if result['similarity'] >= threshold:
+        if result["similarity"] >= threshold:
             matched.append(result)
         else:
             unmatched.append(result)
@@ -57,8 +60,9 @@ def order_matches(matches: list[dict]) -> list[dict]:
         The ordered list of addresses.
     """
     # sort by id ascending and similarity descending (for case where multiple matches per id)
-    matches_sorted = sorted(matches, key=lambda k: (k['address_id'], -k['similarity'])) 
+    matches_sorted = sorted(matches, key=lambda k: (k["address_id"], -k["similarity"]))
     return matches_sorted
+
 
 def filter_to_single_response(matches: list[dict]) -> list[dict]:
     """
@@ -77,10 +81,11 @@ def filter_to_single_response(matches: list[dict]) -> list[dict]:
     matches_single_address_id = []
     seen_ids = set()
     for match in matches:
-        if match['address_id'] not in seen_ids:
+        if match["address_id"] not in seen_ids:
             matches_single_address_id.append(match)
-            seen_ids.add(match['address_id'])
+            seen_ids.add(match["address_id"])
     return matches_single_address_id
+
 
 def setup_geocoder(config_file: str) -> None:
     """
@@ -92,7 +97,7 @@ def setup_geocoder(config_file: str) -> None:
         Path to the .yml file with the configuration details.
     """
     # open the config file
-    with open(config_file, 'r') as setup_details:
+    with open(config_file, "r") as setup_details:
         try:
             details = yaml.safe_load(setup_details)
         except yaml.YAMLError as exc:
@@ -101,24 +106,23 @@ def setup_geocoder(config_file: str) -> None:
 
     try:
         # get all the info from the config file
-        db_name = details['data']['db_name']
-        db_folder = details['data']['folder']
-        states = details['geocoder']['states']
-        matchers = details['geocoder']['matchers']
+        db_name = details["data"]["db_name"]
+        db_folder = details["data"]["folder"]
+        states = details["geocoder"]["states"]
+        matchers = details["geocoder"]["matchers"]
     except (KeyError, TypeError) as e:
         print(f"Some details missing from configuration file: {e}")
         return
 
-
     t1 = time()
     # remove any db with this name in current folder
-    if os.path.exists(f'{db_name}.db'):
-        os.remove(f'{db_name}.db')
+    if os.path.exists(f"{db_name}.db"):
+        os.remove(f"{db_name}.db")
     print("Creating reference database")
     # create the database
-    db_name += '.db'
+    db_name += ".db"
     addressloader = AddressLoader(db_name)
-    
+
     print("Create geocoder tables")
     addressloader.create_geocoder_tables()
     if states:
@@ -129,27 +133,27 @@ def setup_geocoder(config_file: str) -> None:
 
     addressloader.create_final_address_table()
 
-    if 'standard' in matchers:
+    if "standard" in matchers:
         print("Create standard phrases")
         addressloader.create_phrases()
         addressloader.create_inverted_index()
 
-    if 'skipphrase' in matchers:
+    if "skipphrase" in matchers:
         print("Create skipphrases")
-        addressloader.create_phrases(['skipphrase'])
-        addressloader.create_inverted_index(['skipphrase'])
+        addressloader.create_phrases(["skipphrase"])
+        addressloader.create_inverted_index(["skipphrase"])
 
     # trigram phrases
-    if 'trigram' in matchers:
+    if "trigram" in matchers:
         print("Create trigram phrases")
-        addressloader.create_phrases(['trigram'])
+        addressloader.create_phrases(["trigram"])
     #    addressloader.create_inverted_index()
 
     print("Cleaning database")
-    if 'trigram' in matchers:
-        addressloader.clean_database(phrases=['standard', 'trigram'])
+    if "trigram" in matchers:
+        addressloader.clean_database(phrases=["standard", "trigram"])
     else:
-        addressloader.clean_database(phrases=['standard'])
+        addressloader.clean_database(phrases=["standard"])
 
     print("Exporting database")
     addressloader.export_database(db_folder)
@@ -161,19 +165,20 @@ def setup_geocoder(config_file: str) -> None:
         print(f"Could not remove database {db_name}: {e}")
 
     print("Importing database")
-    del(addressloader)
-    path_to_model = importlib.resources.files('whereabouts') / 'models'
+    del addressloader
+    path_to_model = importlib.resources.files("whereabouts") / "models"
     path_to_model = str(path_to_model)
 
-    addressloader = AddressLoader(f'{path_to_model}/{db_name}')
+    addressloader = AddressLoader(f"{path_to_model}/{db_name}")
     addressloader.import_database(db_folder)
-    
+
     # remove all files created in export of db
     for filename in os.listdir(db_folder):
-        os.remove(f'{db_folder}/{filename}')
+        os.remove(f"{db_folder}/{filename}")
     os.rmdir(db_folder)
     t2 = time()
-    print(f'Created reference database in {t2-t1}s.')
+    print(f"Created reference database in {t2 - t1}s.")
+
 
 def remove_database(db_name: str) -> None:
     """
@@ -184,24 +189,30 @@ def remove_database(db_name: str) -> None:
     db_name : str
         Name of the database.
     """
-    path_to_model = importlib.resources.files('whereabouts') / 'models'
+    path_to_model = importlib.resources.files("whereabouts") / "models"
     path_to_model = str(path_to_model)
     all_dbs = os.listdir(path_to_model)
-    if f'{db_name}.db' in all_dbs:
-        os.remove(f'{path_to_model}/{db_name}.db')
+    if f"{db_name}.db" in all_dbs:
+        os.remove(f"{path_to_model}/{db_name}.db")
     else:
         print(f"Could not find database with name {db_name}")
+
 
 def list_databases() -> None:
     """
     List all the reference databases that have been installed.
     """
-    path_to_models = importlib.resources.files('whereabouts') / 'models'
+    path_to_models = importlib.resources.files("whereabouts") / "models"
     path_to_models = str(path_to_models)
-    all_dbs = [filename[:-3] for filename in os.listdir(path_to_models) if filename.endswith('.db')]
-    print('The following reference databases are installed')
+    all_dbs = [
+        filename[:-3]
+        for filename in os.listdir(path_to_models)
+        if filename.endswith(".db")
+    ]
+    print("The following reference databases are installed")
     for db in all_dbs:
         print(db)
+
 
 def download(db_name: str, repo_id: str) -> None:
     """
@@ -214,34 +225,44 @@ def download(db_name: str, repo_id: str) -> None:
     repo_id : str
         Hugging Face repo ID.
     """
-    try:    
+    try:
         # the path to download the file from
         filename = f"{db_name.split('.')[0]}.joblib"
-        url = f'https://huggingface.co/{repo_id}/resolve/main/{filename}'
+        url = f"https://huggingface.co/{repo_id}/resolve/main/{filename}"
         response = requests.get(url, stream=True, timeout=60)
         response.raise_for_status()
-        total_size = int(response.headers.get('content-length', 0))
+        total_size = int(response.headers.get("content-length", 0))
 
         # define the path and filename for the output file
         output_filename = f"{db_name}.db"
-        path_to_model = importlib.resources.files('whereabouts') / 'models'
+        path_to_model = importlib.resources.files("whereabouts") / "models"
         path_to_model = str(path_to_model)
-        
+
         # write the file in chunks so that we can see the progress bar update
         # write as joblib
-        with open(f'{filename}', 'wb') as file, tqdm(desc=filename, total=total_size, unit='B', unit_scale=True, unit_divisor=1024) as bar:
+        with (
+            open(f"{filename}", "wb") as file,
+            tqdm(
+                desc=filename,
+                total=total_size,
+                unit="B",
+                unit_scale=True,
+                unit_divisor=1024,
+            ) as bar,
+        ):
             for chunk in response.iter_content(chunk_size=1024):
                 if chunk:
                     file.write(chunk)
-                    bar.update(len(chunk))    
+                    bar.update(len(chunk))
         # load the joblib file and convert to duckdb
-        joblib_file = joblib.load(f'{filename}')
-        with open(f'{path_to_model}/{output_filename}', 'wb') as f:
+        joblib_file = joblib.load(f"{filename}")
+        with open(f"{path_to_model}/{output_filename}", "wb") as f:
             f.write(joblib_file)
         # delete the .joblib file
-        os.remove(f'{filename}')
+        os.remove(f"{filename}")
     except Exception as e:
         print(f"Could not download {db_name}: {e}")
+
 
 def convert_db(filename: str) -> None:
     """
@@ -255,16 +276,15 @@ def convert_db(filename: str) -> None:
     try:
         output_filename = os.path.join(os.getcwd(), f"{filename[:-3]}.joblib")
         input_filename = os.path.join(os.getcwd(), f"{filename}")
-        with open(input_filename, 'rb') as f:
+        with open(input_filename, "rb") as f:
             data = f.read()
         joblib.dump(data, output_filename)
         print(f"Converted '{input_filename}' to '{output_filename}' successfully.")
     except Exception as e:
         print(f"Could not convert duckdb database to joblib: {e}")
 
-def list_overlap(list1: list[str], 
-                 list2: list[str], 
-                 threshold: float) -> bool:
+
+def list_overlap(list1: list[str], list2: list[str], threshold: float) -> bool:
     """
     Compare the number of numeric tokens common to input and candidate addresses.
 
@@ -292,9 +312,9 @@ def list_overlap(list1: list[str],
             return False
     else:
         return False
-    
-def numeric_overlap(input_numerics: list[str],
-                    candidate_numerics: list[str]) -> float:
+
+
+def numeric_overlap(input_numerics: list[str], candidate_numerics: list[str]) -> float:
     """
     Compute the fraction of numeric tokens in the input that appear in the candidate.
 
@@ -318,8 +338,8 @@ def numeric_overlap(input_numerics: list[str],
 
     return len(input_set & candidate_set) / len(input_set)
 
-def numeric_overlap2(input_numerics: list[str],
-                    candidate_numerics: list[str]) -> float:
+
+def numeric_overlap2(input_numerics: list[str], candidate_numerics: list[str]) -> float:
     """
     Compute the fraction of numeric tokens in the input that appear in the candidate.
 
@@ -345,23 +365,72 @@ def numeric_overlap2(input_numerics: list[str],
 
     return len(input_set & candidate_set) / len(input_set | candidate_set)
 
+def IOU_min(input_tokens: list[str|int], candidate_tokens: list[str|int]) -> float:
+    """
+    Compute the Intersection over Union (IoU) for alphabetic tokens.
+
+    Parameters
+    ----------
+    input_tokens : list of str or int
+        Alphabetic tokens from the input address.
+    candidate_tokens : list of str or int
+        Alphabetic tokens from the candidate address.
+
+    Returns
+    -------
+    float
+        IoU of alphabetic tokens between input and candidate.
+    """
+    if not input_tokens:
+        return 0.0
+
+    input_set = set(input_tokens)
+    candidate_set = set(candidate_tokens)
+
+    return len(input_set & candidate_set) / min(len(input_set), len(candidate_set))
+
+def IOU(input_tokens: list[str|int], candidate_tokens: list[str|int]) -> float:
+    """
+    Compute the Intersection over Union (IoU) for alphabetic tokens.
+
+    Parameters
+    ----------
+    input_tokens : list of str or int
+        Alphabetic tokens from the input address.
+    candidate_tokens : list of str or int
+        Alphabetic tokens from the candidate address.
+
+    Returns
+    -------
+    float
+        IoU of alphabetic tokens between input and candidate.
+    """
+    if not input_tokens:
+        return 0.0
+
+    input_set = set(input_tokens)
+    candidate_set = set(candidate_tokens)
+
+    return len(input_set & candidate_set) / len(input_set | candidate_set)
+
 def multiset_jaccard(l1: list[str], l2: list[str]) -> float:
     """
     Compute the proportion of matching pairs between two lists, accounting for duplicates.
     """
     c1 = Counter(l1)
     c2 = Counter(l2)
-    
+
     # unique elements across both lists
     keys = set(c1) | set(c2)
-    
+
     # total number of matching pairs between l1 and l2
     matches = sum(min(c1[k], c2[k]) for k in keys)
 
     # total number of pairs in the union of l1 and l2
     total = sum(max(c1[k], c2[k]) for k in keys)
-    
-    return matches / total
+
+    return (matches / total) if total > 0 else 0.0
+
 
 def ngram_jaccard(input_address: str, candidate_address: str) -> float:
     """
@@ -378,8 +447,9 @@ def ngram_jaccard(input_address: str, candidate_address: str) -> float:
     -------
     The Jaccard similarity (float) between the two addresses.
     """
+
     def ngrams(s: str, n: int):
-        return {s[i:i+n] for i in range(len(s) - n + 1)}
+        return {s[i : i + n] for i in range(len(s) - n + 1)}
 
     input_ngrams = ngrams(input_address, 1) | ngrams(input_address, 2)
     candidate_ngrams = ngrams(candidate_address, 1) | ngrams(candidate_address, 2)

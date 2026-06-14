@@ -7,17 +7,13 @@ from typing import Any
 import duckdb
 from scipy.spatial import KDTree
 
-MAKE_ADDRESSES = importlib.resources.files('whereabouts.queries').joinpath('create_addrtext2.sql').read_text(encoding='utf-8')
-
+from .QueryStep import QueryStep
+from .matching_queries.addrtext_with_detail import build_address_detail_pipeline
+from .matching_queries.phrases import insert_standard_phrases, insert_inverted_index, create_standard_indexes
 from .constants import MAX_PHRASE_CHUNKS
+
 DO_MATCH_BASIC = importlib.resources.files('whereabouts.queries').joinpath('geocoder_query_standard.sql').read_text(encoding='utf-8')
 CREATE_GEOCODER_TABLES = importlib.resources.files('whereabouts.queries').joinpath('create_geocoder_tables.sql').read_text(encoding='utf-8')
-
-# use next-to-nearest neighbour phrases as well
-CREATE_PHRASES = importlib.resources.files('whereabouts.queries').joinpath('create_phrases2.sql').read_text(encoding='utf-8')
-# CREATE_PHRASES = importlib.resources.files('whereabouts.queries').joinpath('create_phrases.sql').read_text(encoding='utf-8')
-INVERTED_INDEX = importlib.resources.files('whereabouts.queries').joinpath('phrase_inverted.sql').read_text(encoding='utf-8')
-CREATE_INDEXES = importlib.resources.files('whereabouts.queries').joinpath('create_indexes.sql').read_text(encoding='utf-8')
 
 CREATE_SKIPPHRASES = importlib.resources.files('whereabouts.queries').joinpath('create_skipphrases.sql').read_text(encoding='utf-8')
 INVERTED_INDEX_SKIPPHRASE = importlib.resources.files('whereabouts.queries').joinpath('skipphrase_inverted.sql').read_text(encoding='utf-8')
@@ -28,6 +24,7 @@ TRIGRAM_STEP1 = importlib.resources.files('whereabouts.queries').joinpath('creat
 TRIGRAM_STEP2 = importlib.resources.files('whereabouts.queries').joinpath('create_trigram_index_step2b.sql').read_text(encoding='utf-8')
 TRIGRAM_STEP3 = importlib.resources.files('whereabouts.queries').joinpath('create_trigram_index_step3.sql').read_text(encoding='utf-8')
 TRIGRAM_STEP4 = importlib.resources.files('whereabouts.queries').joinpath('create_trigram_index_step4.sql').read_text(encoding='utf-8')
+
 
 class AddressLoader:
     """
@@ -47,6 +44,17 @@ class AddressLoader:
         self.db = db_name
         self.con = duckdb.connect(database=db_name)
         self.con.sql("INSTALL splink_udfs FROM community; LOAD splink_udfs;")
+
+    def _execute_step(self, step: QueryStep, parameters: list | None = None) -> None:
+        """Execute a QueryStep as a standalone SQL statement (not as a CTE)."""
+        if isinstance(step.input_table_names, dict):
+            sql = step.query_template.format(**step.input_table_names)
+        else:
+            sql = step.query_template
+        if parameters is not None:
+            self.con.execute(sql, parameters)
+        else:
+            self.con.execute(sql)
 
     def load_data(self, details: dict[str, Any], state_names: list[str] | None = None) -> None:
         id_value = details['schema']['addr_id']
@@ -109,7 +117,9 @@ class AddressLoader:
                 self.con.execute(query, [state_name])
         
     def create_final_address_table(self) -> None:
-        self.con.execute(MAKE_ADDRESSES)
+        pipeline = build_address_detail_pipeline(self.con)
+        cte_sql = pipeline.createCTEs()
+        self.con.execute(f"CREATE TABLE addrtext_with_detail AS ({cte_sql})")
 
     def create_geocoder_tables(self) -> None:
         print("Creating geocoder tables...")
@@ -122,7 +132,7 @@ class AddressLoader:
             print('Creating phrases...')
             for n in range(MAX_PHRASE_CHUNKS):
                 print(f'Creating phrases for chunk {n}...')
-                self.con.execute(CREATE_PHRASES, [n])
+                self._execute_step(insert_standard_phrases, [n])
         if 'skipphrase' in phrases:
             print('Creating skipphrases...')
             for n in range(MAX_PHRASE_CHUNKS):
@@ -156,8 +166,8 @@ class AddressLoader:
             phrases = ['standard']
         print('Creating inverted index...')
         if 'standard' in phrases:
-            self.con.execute(INVERTED_INDEX)
-            self.con.execute(CREATE_INDEXES)
+            self._execute_step(insert_inverted_index)
+            self._execute_step(create_standard_indexes)
         if 'skipphrase' in phrases:
             self.con.execute(INVERTED_INDEX_SKIPPHRASE)
           #  self.con.execute(CREATE_INDEXES_SKIPPHRASE)

@@ -9,7 +9,7 @@ import duckdb
 import numpy as np
 import pandas as pd
 
-from .matching_queries import create_matching_query
+from .matching_queries import create_matching_query, load_libraries, register_functions
 
 
 from .utils import (
@@ -107,16 +107,8 @@ class Matcher:
         self.con.execute(f"ATTACH DATABASE '{whereabouts_db}' as remote;")
 
         # Register custom UDFs and extensions
-        self.con.create_function("list_overlap", list_overlap)
-        self.con.create_function("numeric_overlap", numeric_overlap)
-        self.con.create_function("numeric_overlap2", numeric_overlap2)
-        self.con.create_function("multiset_jaccard", multiset_jaccard)
-        self.con.create_function("ngram_jaccard", ngram_jaccard)
-        self.con.create_function("IOU", IOU)
-        self.con.create_function("IOU_min", IOU_min)
-        self.con.execute(
-            "INSTALL splink_udfs FROM community; LOAD splink_udfs;"
-        )
+        register_functions(self.con)
+        load_libraries(self.con)
 
         # Build the standard matching pipeline
         self.pipeline = create_matching_query(self.con)

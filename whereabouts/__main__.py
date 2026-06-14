@@ -1,5 +1,5 @@
 import sys
-from .utils import setup_geocoder, remove_database, download
+from .utils import setup_geocoder, remove_database, download, convert_db
 
 USAGE = """\
 Usage: python -m whereabouts <command> [options]
@@ -10,6 +10,7 @@ Commands:
   remove_database <db_name>                 Remove an installed database
   list_databases                            List installed databases
   benchmark <db_name> <csv_path> [options]  Benchmark geocoder against a test set
+  convert_db <db_file>                      Convert a .db file to .joblib format
 
 Benchmark options:
   --how <algorithm>       Matching algorithm: standard, skipphrase, trigram (default: standard)
@@ -27,7 +28,7 @@ def main():
 
     command = sys.argv[1]
 
-    if command in ("setup_geocoder", "remove_database", "download") and len(sys.argv) < 3:
+    if command in ("setup_geocoder", "remove_database", "download", "convert_db") and len(sys.argv) < 3:
         print(USAGE)
         sys.exit(1)
 
@@ -43,6 +44,9 @@ def main():
     elif command == "list_databases":
         from .utils import list_databases
         list_databases()
+    elif command == "convert_db":
+        db_file = sys.argv[2]
+        convert_db(db_file)
     elif command == "benchmark":
         if len(sys.argv) < 4:
             print("Usage: python -m whereabouts benchmark <db_name> <csv_path> [--how standard] [--threshold 0.5]")

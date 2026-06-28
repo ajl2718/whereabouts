@@ -64,13 +64,7 @@ You will need a geocoding database to match addresses against. You can either do
 
 Pre-built geocoding databases are available from [Hugging Face](https://www.huggingface.co). The list of available databases can be found [here](https://huggingface.co/saunteringcat/whereabouts-db/tree/main).
 
-As an example, to install the small-size geocoder database for California:
-
-```bash
-uv run python -m whereabouts download us_ca_sm
-```
-
-Or for the small-size geocoder database for all of Australia:
+As an example, to install the small-size geocoder database for Australia:
 
 ```bash
 uv run python -m whereabouts download au_all_sm
@@ -100,7 +94,7 @@ data:
     filepath: 'address_file.parquet'
     sep: ","
 geocoder:
-    matchers: [standard, trigram]
+    matchers: [standard]
     states: [VIC]
 schema:
     addr_id: ADDRESS_DETAIL_PID

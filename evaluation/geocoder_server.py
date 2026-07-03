@@ -5,6 +5,7 @@ Run with:  uv run python geocoder_server.py
 
 import io
 import os
+import re
 import time
 from pathlib import Path
 
@@ -103,11 +104,21 @@ class SaveQueryRequest(BaseModel):
 
 @app.post("/api/queries")
 def save_query(req: SaveQueryRequest):
-    safe = req.name.strip().replace(" ", "_")
-    if not safe:
+    raw_name = req.name.strip()
+    if not raw_name:
         raise HTTPException(400, "Name is empty")
+
+    safe = raw_name.replace(" ", "_")
+    if not re.fullmatch(r"[A-Za-z0-9_-]+", safe):
+        raise HTTPException(400, "Name contains invalid characters")
+
     filename = f"geocoder_query_{safe}.sql"
-    (QUERIES_DIR / filename).write_text(req.sql)
+    base_dir = QUERIES_DIR.resolve()
+    target = (base_dir / filename).resolve()
+    if base_dir not in target.parents:
+        raise HTTPException(400, "Invalid query path")
+
+    target.write_text(req.sql)
     return {"filename": filename}
 
 

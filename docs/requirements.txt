@@ -36,7 +36,7 @@ python-dateutil==2.9.0.post0
 pytz==2026.1.post1 ; python_full_version >= '3.14'
 pyyaml==6.0.3
 requests==2.33.0
-ruff==0.15.11
+ruff==0.16.1
 scikit-learn==1.8.0
 scipy==1.17.1
 six==1.17.0

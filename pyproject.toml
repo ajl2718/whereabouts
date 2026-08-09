@@ -19,15 +19,13 @@ dependencies = [
     "jinja2>=3.1.5",
     "joblib>=1.4.2",
     "lxml>=5.3.1",
-    "numpy==2.2.3",
+    "numpy>=2.2.3",
     "openpyxl>=3.1.5",
     "pandas>=2.2.3",
     "pyarrow>=19.0.1",
     "pygments>=2.20.0",
-    "pytest>=8.3.4",
     "pyyaml>=6.0.2",
     "requests==2.33.0",
-    "ruff>=0.9.7",
     "scikit-learn>=1.6.1",
     "scipy>=1.15.2",
     "starlette==1.3.1",
@@ -36,12 +34,14 @@ dependencies = [
     "uvicorn>=0.45.0",
 ]
 
-[project.optional-dependencies]
-dev = [
-    "pytest-order>=1.3.0",
-]
-
 [project.urls]
 Source = "https://github.com/ajl2718/whereabouts"
 Issues = "https://github.com/ajl2718/whereabouts/issues"
 Documentation = "https://whereabouts.readthedocs.io/en/latest"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.4",
+    "pytest-order>=1.3.0",
+    "ruff>=0.9.7",
+]

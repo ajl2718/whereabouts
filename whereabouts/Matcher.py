@@ -12,15 +12,6 @@ import pandas as pd
 from .matching_queries import create_matching_query, load_libraries, register_functions
 
 
-from .utils import (
-    list_overlap,
-    numeric_overlap,
-    numeric_overlap2,
-    multiset_jaccard,
-    ngram_jaccard,
-    IOU,
-    IOU_min
-)
 from .errors import InvalidDatabaseError
 
 VALID_HOW_VALUES = frozenset({"standard", "skipphrase", "trigram"})

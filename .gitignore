@@ -9,3 +9,4 @@ db_test/
 *.egg-info/
 dist/
 build/
+experiments/

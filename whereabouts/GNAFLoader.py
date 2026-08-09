@@ -6,23 +6,68 @@ import pickle
 import duckdb
 from scipy.spatial import KDTree
 
-MAKE_ADDRESSES = importlib.resources.files('whereabouts.queries').joinpath('create_addrtext.sql').read_text(encoding='utf-8')
-DO_MATCH_BASIC = importlib.resources.files('whereabouts.queries').joinpath('geocoder_query_standard.sql').read_text(encoding='utf-8')
-
-CREATE_GEOCODER_TABLES = importlib.resources.files('whereabouts.queries').joinpath('create_geocoder_tables.sql').read_text(encoding='utf-8')
-
-CREATE_PHRASES = importlib.resources.files('whereabouts.queries').joinpath('create_phrases.sql').read_text(encoding='utf-8')
-INVERTED_INDEX = importlib.resources.files('whereabouts.queries').joinpath('phrase_inverted.sql').read_text(encoding='utf-8')
-CREATE_INDEXES = importlib.resources.files('whereabouts.queries').joinpath('create_indexes.sql').read_text(encoding='utf-8')
-
-CREATE_TRIGRAM_PHRASES = importlib.resources.files('whereabouts.queries').joinpath('create_trigramphrases.sql').read_text(encoding='utf-8')
-
-TRIGRAM_STEP1 = importlib.resources.files('whereabouts.queries').joinpath('create_trigram_index_step1.sql').read_text(encoding='utf-8')
-TRIGRAM_STEP2 = importlib.resources.files('whereabouts.queries').joinpath('create_trigram_index_step2.sql').read_text(encoding='utf-8')
-TRIGRAM_STEP3 = importlib.resources.files('whereabouts.queries').joinpath('create_trigram_index_step3.sql').read_text(encoding='utf-8')
-TRIGRAM_STEP4 = importlib.resources.files('whereabouts.queries').joinpath('create_trigram_index_step4.sql').read_text(encoding='utf-8')
-
 from .constants import MAX_PHRASE_CHUNKS
+
+MAKE_ADDRESSES = (
+    importlib.resources.files("whereabouts.queries")
+    .joinpath("create_addrtext.sql")
+    .read_text(encoding="utf-8")
+)
+DO_MATCH_BASIC = (
+    importlib.resources.files("whereabouts.queries")
+    .joinpath("geocoder_query_standard.sql")
+    .read_text(encoding="utf-8")
+)
+
+CREATE_GEOCODER_TABLES = (
+    importlib.resources.files("whereabouts.queries")
+    .joinpath("create_geocoder_tables.sql")
+    .read_text(encoding="utf-8")
+)
+
+CREATE_PHRASES = (
+    importlib.resources.files("whereabouts.queries")
+    .joinpath("create_phrases.sql")
+    .read_text(encoding="utf-8")
+)
+INVERTED_INDEX = (
+    importlib.resources.files("whereabouts.queries")
+    .joinpath("phrase_inverted.sql")
+    .read_text(encoding="utf-8")
+)
+CREATE_INDEXES = (
+    importlib.resources.files("whereabouts.queries")
+    .joinpath("create_indexes.sql")
+    .read_text(encoding="utf-8")
+)
+
+CREATE_TRIGRAM_PHRASES = (
+    importlib.resources.files("whereabouts.queries")
+    .joinpath("create_trigramphrases.sql")
+    .read_text(encoding="utf-8")
+)
+
+TRIGRAM_STEP1 = (
+    importlib.resources.files("whereabouts.queries")
+    .joinpath("create_trigram_index_step1.sql")
+    .read_text(encoding="utf-8")
+)
+TRIGRAM_STEP2 = (
+    importlib.resources.files("whereabouts.queries")
+    .joinpath("create_trigram_index_step2.sql")
+    .read_text(encoding="utf-8")
+)
+TRIGRAM_STEP3 = (
+    importlib.resources.files("whereabouts.queries")
+    .joinpath("create_trigram_index_step3.sql")
+    .read_text(encoding="utf-8")
+)
+TRIGRAM_STEP4 = (
+    importlib.resources.files("whereabouts.queries")
+    .joinpath("create_trigram_index_step4.sql")
+    .read_text(encoding="utf-8")
+)
+
 
 class GNAFLoader:
     con: duckdb.DuckDBPyConnection
@@ -31,22 +76,24 @@ class GNAFLoader:
         self.db = db_name
         self.con = duckdb.connect(database=db_name)
 
-    def load_gnaf_data(self, gnaf_path: str, state_names: list[str] | None = None) -> None:
+    def load_gnaf_data(
+        self, gnaf_path: str, state_names: list[str] | None = None
+    ) -> None:
         if state_names is None:
-            state_names = ['VIC']
+            state_names = ["VIC"]
         for state_name in state_names:
             print(f"Loading data for {state_name}")
             query = f"""
-            insert into addrtext 
-            select 
-            ADDRESS_DETAIL_PID addr_id, 
+            insert into addrtext
+            select
+            ADDRESS_DETAIL_PID addr_id,
             ADDRESS_LABEL address_label,
             ADDRESS_SITE_NAME address_site_name,
             LOCALITY_NAME locality_name,
             POSTCODE postcode,
             STATE state,
             LATITUDE latitude,
-            LONGITUDE 
+            LONGITUDE
             from
             read_csv_auto('{gnaf_path}', delim='|')
             where state=$1
@@ -59,34 +106,34 @@ class GNAFLoader:
     def create_geocoder_tables(self) -> None:
         print("Creating geocoder tables...")
         self.con.execute(CREATE_GEOCODER_TABLES)
-        
+
     def create_phrases(self, phrases: list[str] | None = None) -> None:
         if phrases is None:
-            phrases = ['standard']
-        if 'standard' in phrases:
-            print('Creating phrases...')
+            phrases = ["standard"]
+        if "standard" in phrases:
+            print("Creating phrases...")
             for n in range(MAX_PHRASE_CHUNKS):
-                print(f'Creating phrases for chunk {n}...')
+                print(f"Creating phrases for chunk {n}...")
                 self.con.execute(CREATE_PHRASES, [n])
-        if 'trigram' in phrases:
+        if "trigram" in phrases:
             print("Add row number to phrase inverted index...")
             self.con.execute(TRIGRAM_STEP1)
             print("Creating trigram inverted phrases. Step 1...")
             for n in range(MAX_PHRASE_CHUNKS):
-                print(f'Creating trigram phrases for chunk {n}...')
+                print(f"Creating trigram phrases for chunk {n}...")
                 self.con.execute(TRIGRAM_STEP2, [n])
             print("Creating trigram inverted phrases. Step 2...")
             self.con.execute(TRIGRAM_STEP3)
             print("Creating trigram inverted phrases. Step 3...")
             for n in range(MAX_PHRASE_CHUNKS):
-                print(f'Creating trigram phrases for chunk {n}...')
+                print(f"Creating trigram phrases for chunk {n}...")
                 self.con.execute(TRIGRAM_STEP4, [n])
 
     def create_inverted_index(self, phrases: list[str] | None = None) -> None:
         if phrases is None:
-            phrases = ['standard']
-        print('Creating inverted index...')
-        if 'standard' in phrases:
+            phrases = ["standard"]
+        print("Creating inverted index...")
+        if "standard" in phrases:
             self.con.execute(INVERTED_INDEX)
             self.con.execute(CREATE_INDEXES)
 
@@ -101,18 +148,18 @@ class GNAFLoader:
         phrases : list of str
             The types of matching to use. Each str is either 'standard' or 'trigram'.
         """
-        
+
         self.con.execute("""
         drop table addrtext;
         drop table skipphrase;
         drop table skipphraseinverted;
         """)
 
-        if 'standard' in phrases:
+        if "standard" in phrases:
             self.con.execute("""
             drop table phrase;
             """)
-        if 'trigram' in phrases:
+        if "trigram" in phrases:
             self.con.execute("""
             drop table trigramphrase;
             drop table tg_distinct;
@@ -151,17 +198,17 @@ class GNAFLoader:
         tree_path : str
             Path to export computed KD-Tree.
         """
-        
+
         print("Creating KD-Tree for reverse geocoding...")
-        
+
         # extract address texts and lat, long coords from db
         self.reference_data = self.con.execute("""
-        select 
+        select
         at.addr_id address_id,
         at.addr address,
         av.latitude latitude,
         av.longitude longitude
-        from 
+        from
         addrtext at
         inner join
         address_view av
@@ -169,5 +216,5 @@ class GNAFLoader:
         """).df()
 
         # create kdtree
-        tree = KDTree(self.reference_data[['latitude', 'longitude']].values)
-        pickle.dump(tree, open(tree_path, 'wb'))
+        tree = KDTree(self.reference_data[["latitude", "longitude"]].values)
+        pickle.dump(tree, open(tree_path, "wb"))

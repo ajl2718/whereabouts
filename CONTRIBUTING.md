@@ -1,34 +1,37 @@
-# How to contribute
+# Contributing to whereabouts
 
-It would be great to have others contribute to this [whereabouts](https://https://github.com/ajl2718/whereabouts) particularly those who have experience working with geospatial data from countries outside of Australia. This document
-explains how you can contribute to the project.
+Thanks for your interest in contributing! Contributions are welcome from people working with geospatial data in and outside Australia.
 
-Firstly:
+## Development setup
 
-  * Familiarise yourself with the [codebase](https://https://github.com/ajl2718/whereabouts)
-  * If you have any questions, first consult the [documentation](https://whereabouts.readthedocs.io/en/latest/)
+Clone the repo and install dependencies (including dev tools):
 
-## Testing
+    git clone https://github.com/ajl2718/whereabouts.git
+    cd whereabouts
+    uv sync
 
-I have created some unit tests and more are being added to ensure that any changes don't break existing features.
+Install the pre-commit hooks so formatting and linting run automatically:
+
+    uvx pre-commit install
+
+## Before you open a pull request
+
+Run the same checks CI runs:
+
+    uv run ruff check .
+    uv run ruff format --check .
+    uv run pytest
+
+All three must pass. New features should come with tests.
 
 ## Submitting changes
 
-Please send a [GitHub Pull Request to whereabouts](https://github.com/ajl2718/whereabouts/pull/new/master) with a clear list of what you've done (read more about [pull requests](http://help.github.com/pull-requests/)). When you send a pull request, we will love you forever if you include RSpec examples. We can always use more test coverage. Please follow our coding conventions (below) and make sure all of your commits are atomic (one feature per commit).
+Open a pull request against `main` with a clear description of what
+changed and why. Keep commits focused — one logical change per commit,
+with a descriptive message.
 
-Always write a clear log message for your commits. One-line messages are fine for small changes, but bigger changes should look like this:
+## Code style
 
-    $ git commit -m "A brief summary of the commit
-    > 
-    > A paragraph describing what changed and its impact."
-
-## Coding conventions
-
-Start reading the code to get an idea of the coding conventions for the project.
-
-  * We indent using two spaces (soft tabs)
-  * We ALWAYS put spaces after list items and method parameters (`[1, 2, 3]`, not `[1,2,3]`), around operators (`x += 1`, not `x+=1`), and around hash arrows.
-  * This is open source software. Consider the people who will read your code, and make it look nice for them. 
-
-Thanks,
-Alex Lee
+Formatting and linting are handled by Ruff (configured in pyproject.toml),
+so you don't need to format by hand — just run the commands above or let
+pre-commit do it.

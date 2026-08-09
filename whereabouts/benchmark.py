@@ -1,15 +1,16 @@
 from __future__ import annotations
 
-import importlib.resources
 from dataclasses import dataclass, field
+import importlib.resources
 from pathlib import Path
 from time import time
 
 import pandas as pd
 
-_RESULTS_DIR = Path(str(importlib.resources.files("whereabouts"))) / "benchmark_results"
-
 from .Matcher import Matcher
+
+
+_RESULTS_DIR = Path(str(importlib.resources.files("whereabouts"))) / "benchmark_results"
 
 # ANSI colour codes
 _GREEN = "\033[32m"

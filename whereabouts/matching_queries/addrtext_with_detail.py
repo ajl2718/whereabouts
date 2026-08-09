@@ -4,7 +4,9 @@ from ..QueryStep import query_step
 from ..QueryPipeline import QueryPipeline
 
 
-def create_addrtext_with_detail(con: DuckDBPyConnection, filename: str) -> QueryPipeline:
+def create_addrtext_with_detail(
+    con: DuckDBPyConnection, filename: str
+) -> QueryPipeline:
     """
     Creates a query pipeline to process the input address data and create a detailed address table.
 
@@ -18,7 +20,7 @@ def create_addrtext_with_detail(con: DuckDBPyConnection, filename: str) -> Query
     Returns
     -------
     QueryPipeline
-        A QueryPipeline instance containing the steps to process the address data and create the addrtext_with_detail table.    
+        A QueryPipeline instance containing the steps to process the address data and create the addrtext_with_detail table.
     """
     load_data = query_step(
         query_template="""
@@ -58,7 +60,7 @@ def create_addrtext_with_detail(con: DuckDBPyConnection, filename: str) -> Query
 
     clean_addresses = query_step(
         query_template="""
-        SELECT 
+        SELECT
         addr_id addr_id,
         trim(regexp_replace(regexp_replace(unaccent(upper(address)), '[^A-Z0-9]+', ' ', 'g'), '[ ]+', ' ')) AS addr
         FROM {input_addresses}
@@ -71,7 +73,7 @@ def create_addrtext_with_detail(con: DuckDBPyConnection, filename: str) -> Query
 
     create_tokens = query_step(
         query_template="""
-        SELECT 
+        SELECT
         addr_id addr_id,
         addr,
         unnest(string_to_array(addr, ' ')) AS token
@@ -85,7 +87,7 @@ def create_addrtext_with_detail(con: DuckDBPyConnection, filename: str) -> Query
 
     create_numeric_tokens = query_step(
         query_template="""
-        SELECT 
+        SELECT
         addr_id,
         addr,
         array_agg(token) numeric_tokens
@@ -101,7 +103,7 @@ def create_addrtext_with_detail(con: DuckDBPyConnection, filename: str) -> Query
 
     create_addrtext_with_detail = query_step(
         query_template="""
-        SELECT 
+        SELECT
         t1.addr_id,
         t1.addr,
         t1.numeric_tokens,
@@ -114,22 +116,26 @@ def create_addrtext_with_detail(con: DuckDBPyConnection, filename: str) -> Query
         LEFT JOIN {addrtext} t2 ON t1.addr_id = t2.addr_id
         """,
         output_table_name="addrtext_with_detail",
-        input_table_names={"tokens": "address_tokens_with_numerics", "addrtext": "addrtext"},
+        input_table_names={
+            "tokens": "address_tokens_with_numerics",
+            "addrtext": "addrtext",
+        },
         step_name="Aggregate address tokens and join with original data",
         step_description="Aggregates numeric tokens and joins with original address data.",
     )
 
     pipeline = QueryPipeline(
-        con=con, 
+        con=con,
         steps=[
             load_data,
             insert_address_id,
             clean_addresses,
             create_tokens,
             create_numeric_tokens,
-            create_addrtext_with_detail
-        ])
-    
+            create_addrtext_with_detail,
+        ],
+    )
+
     return pipeline
 
 

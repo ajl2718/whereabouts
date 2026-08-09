@@ -28,7 +28,10 @@ def main():
 
     command = sys.argv[1]
 
-    if command in ("setup_geocoder", "remove_database", "download", "convert_db") and len(sys.argv) < 3:
+    if (
+        command in ("setup_geocoder", "remove_database", "download", "convert_db")
+        and len(sys.argv) < 3
+    ):
         print(USAGE)
         sys.exit(1)
 
@@ -40,20 +43,23 @@ def main():
         remove_database(db_name)
     elif command == "download":
         db_name = sys.argv[2]
-        download(db_name, 'saunteringcat/whereabouts-db')
+        download(db_name, "saunteringcat/whereabouts-db")
     elif command == "list_databases":
         from .utils import list_databases
+
         list_databases()
     elif command == "convert_db":
         db_file = sys.argv[2]
         convert_db(db_file)
     elif command == "benchmark":
         if len(sys.argv) < 4:
-            print("Usage: python -m whereabouts benchmark <db_name> <csv_path> [--how standard] [--threshold 0.5]")
+            print(
+                "Usage: python -m whereabouts benchmark <db_name> <csv_path> [--how standard] [--threshold 0.5]"
+            )
             sys.exit(1)
         _run_benchmark_cli(sys.argv[2:])
     else:
-        print(f'Unknown command: {command}')
+        print(f"Unknown command: {command}")
         print(USAGE)
         sys.exit(1)
 

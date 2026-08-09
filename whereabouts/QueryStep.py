@@ -25,15 +25,18 @@ class QueryStep:
     step_description : str
         A human-readable description of what the step does.
     """
-    def __init__(self, 
-                 query_template: str,
-                 output_table_name: str,
-                 input_table_names: str | dict[str, str],
-                 starting_step: bool = False,
-                 ending_step: bool = False,
-                 direct_execution: bool = False,
-                 step_name: str | None = None, 
-                 step_description: str | None = None):
+
+    def __init__(
+        self,
+        query_template: str,
+        output_table_name: str,
+        input_table_names: str | dict[str, str],
+        starting_step: bool = False,
+        ending_step: bool = False,
+        direct_execution: bool = False,
+        step_name: str | None = None,
+        step_description: str | None = None,
+    ):
         self.query_template = query_template
         self.output_table_name = output_table_name
         self.input_table_names = input_table_names
@@ -41,30 +44,42 @@ class QueryStep:
         self.ending_step = ending_step
         self.direct_execution = direct_execution
         self.step_name = step_name if step_name else output_table_name
-        self.step_description = step_description if step_description else f"Query step for {output_table_name}"
-        self.validate_sql_and_mappings(query_template, input_table_names, output_table_name)
+        self.step_description = (
+            step_description
+            if step_description
+            else f"Query step for {output_table_name}"
+        )
+        self.validate_sql_and_mappings(
+            query_template, input_table_names, output_table_name
+        )
 
     @staticmethod
-    def validate_sql_and_mappings(query_template: str, 
-                                  input_table_names: str | dict[str, str],
-                                  output_table_name: str) -> bool:
+    def validate_sql_and_mappings(
+        query_template: str,
+        input_table_names: str | dict[str, str],
+        output_table_name: str,
+    ) -> bool:
         """Validates that the input and output table names are correctly referenced in the SQL query."""
 
         # Check if all input table names are referenced in the SQL query
         if isinstance(input_table_names, dict):
             input_table_names = input_table_names.keys()
         for input_table_name in input_table_names:
-            if f'{{{input_table_name}}}' not in query_template:
-                raise ValueError(f"Input table name '{input_table_name}' is not referenced in the SQL query.")
+            if f"{{{input_table_name}}}" not in query_template:
+                raise ValueError(
+                    f"Input table name '{input_table_name}' is not referenced in the SQL query."
+                )
         if output_table_name in input_table_names:
-            raise ValueError(f"Output table name '{output_table_name}' cannot be the same as any of the input table names.")
+            raise ValueError(
+                f"Output table name '{output_table_name}' cannot be the same as any of the input table names."
+            )
         if output_table_name is None:
             raise ValueError("Output table name cannot be None.")
         return True
-    
+
     def __str__(self):
         return f"QueryStep(name={self.step_name}, description={self.step_description})"
-    
+
     def createCTE(self, *, is_first: bool | None = None, is_last: bool | None = None):
         """
         Creates a Common Table Expression (CTE) for this query step.
@@ -95,7 +110,8 @@ class QueryStep:
             return f""",\n{self.output_table_name} AS (\t{formatted}\n)\nSELECT * FROM {self.output_table_name}""".strip()
         else:
             return f""",\n{self.output_table_name} AS (\t{formatted}\n)""".strip()
-        
+
+
 def query_step(
     query_template: str,
     output_table_name: str,

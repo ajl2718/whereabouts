@@ -5,6 +5,7 @@ This module provides the same functionality as AddressLoader but organises
 all SQL operations around the QueryStep and QueryPipeline abstractions,
 following the same pattern used by Matcher.py and matching_queries/standard.py.
 """
+
 from __future__ import annotations
 
 import pickle
@@ -328,6 +329,7 @@ DROP TABLE trigramphraseinverted2""",
 # Address detail pipeline — a genuine QueryPipeline (CTE chain)
 # ---------------------------------------------------------------------------
 
+
 def _build_address_detail_pipeline(con: duckdb.DuckDBPyConnection) -> QueryPipeline:
     """Build a QueryPipeline that generates the addrtext_with_detail CTE chain.
 
@@ -382,6 +384,7 @@ def _build_address_detail_pipeline(con: duckdb.DuckDBPyConnection) -> QueryPipel
 # LoadAddresses class
 # ---------------------------------------------------------------------------
 
+
 class LoadAddresses:
     """
     A class for loading address data and creating a geocoding database,
@@ -398,6 +401,7 @@ class LoadAddresses:
     con : duckdb.DuckDBPyConnection
         A DuckDB database connection.
     """
+
     db: str
     con: duckdb.DuckDBPyConnection
 
@@ -431,7 +435,9 @@ class LoadAddresses:
         print("Creating geocoder tables...")
         self._execute_step(self.con, _create_geocoder_tables)
 
-    def load_data(self, details: dict[str, Any], state_names: list[str] | None = None) -> None:
+    def load_data(
+        self, details: dict[str, Any], state_names: list[str] | None = None
+    ) -> None:
         """Load address data from a file (CSV or Parquet) into the addrtext table.
 
         Parameters

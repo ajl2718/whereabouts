@@ -73,19 +73,19 @@ def create_matching_query(con: DuckDBPyConnection) -> QueryPipeline:
 
     create_input_phrases = query_step(
         query_template="""
-        SELECT 
+        SELECT
         address_id, arr[i] || ' ' || arr[i + 1] AS tokenphrase
-        FROM 
+        FROM
         (
-            SELECT 
-            address_id, string_to_array(address, ' ') AS arr 
+            SELECT
+            address_id, string_to_array(address, ' ') AS arr
             FROM {input_table}
         ),
         unnest(generate_series(1, array_length(arr, 1) - 1)) AS gs(i)
         UNION ALL
         SELECT address_id, arr[i] || ' ' || arr[i + 2] AS tokenphrase
         FROM (
-            SELECT address_id, string_to_array(address, ' ') AS arr 
+            SELECT address_id, string_to_array(address, ' ') AS arr
             FROM {input_table}
         ),
         unnest(generate_series(1, len(arr) - 2)) AS gs(i)
@@ -98,22 +98,25 @@ def create_matching_query(con: DuckDBPyConnection) -> QueryPipeline:
 
     first_matching_step = query_step(
         query_template=f"""
-        SELECT 
-        l.address_id AS address_id1, 
+        SELECT
+        l.address_id AS address_id1,
         r.addr_ids AS address_ids2
         FROM {{input_table1}} AS l
         LEFT JOIN {{input_table2}} AS r
         ON l.tokenphrase = r.tokenphrase AND r.frequency < {MAX_PHRASE_FREQUENCY}""",
         output_table_name="matched_address_ids",
-        input_table_names={"input_table1": "input_phrases", "input_table2": "remote.phraseinverted"},
+        input_table_names={
+            "input_table1": "input_phrases",
+            "input_table2": "remote.phraseinverted",
+        },
         step_name="First matching step",
         step_description=f"Joins the input phrases with inverted index in geocode database to find potential matches. Filter to those with frequency less than {MAX_PHRASE_FREQUENCY} to avoid very common phrases.",
     )
 
     unnest_match_candidates = query_step(
         query_template="""
-        SELECT DISTINCT 
-        address_id1, 
+        SELECT DISTINCT
+        address_id1,
         unnest(address_ids2) AS address_id2
         FROM {input_table}
         WHERE address_ids2 IS NOT NULL""",
@@ -144,7 +147,11 @@ def create_matching_query(con: DuckDBPyConnection) -> QueryPipeline:
         INNER JOIN {input_table3} t3 ON t1.address_id2 = t3.addr_id
         WHERE list_overlap(t2.numeric_tokens, t3.numeric_tokens, 0.2)""",
         output_table_name="unnested_addresses_with_details",
-        input_table_names={"input_table1": "unnested_matches", "input_table2": "input_addresses_with_alpha_tokens", "input_table3": "remote.addrtext_with_detail"},
+        input_table_names={
+            "input_table1": "unnested_matches",
+            "input_table2": "input_addresses_with_alpha_tokens",
+            "input_table3": "remote.addrtext_with_detail",
+        },
         step_name="Extract match candidate details",
         step_description="Extracts detailed information for the matched address candidates.",
     )
@@ -153,7 +160,7 @@ def create_matching_query(con: DuckDBPyConnection) -> QueryPipeline:
         query_template="""
         SELECT *
         FROM (
-            SELECT 
+            SELECT
             *,
             row_number() OVER (
                 PARTITION BY address_id1
@@ -218,7 +225,7 @@ def create_matching_query(con: DuckDBPyConnection) -> QueryPipeline:
         latitude,
         longitude,
         similarity,
-        match_numerics, 
+        match_numerics,
         match_alpha_tokens,
         input_numerics,
         input_alpha_tokens,
@@ -242,7 +249,7 @@ def create_matching_query(con: DuckDBPyConnection) -> QueryPipeline:
         t2.latitude,
         t2.longitude,
         t2.similarity,
-        t2.match_numerics, 
+        t2.match_numerics,
         t2.match_alpha_tokens,
         t2.input_numerics,
         t2.input_alpha_tokens,
@@ -251,26 +258,30 @@ def create_matching_query(con: DuckDBPyConnection) -> QueryPipeline:
         ON t1.address_id = t2.address_id
         ORDER BY t1.address_id""",
         output_table_name="all_addresses_with_matches",
-        input_table_names={"input_table1": "input_addresses_with_numerics", "input_table2": "final_matched_addresses"},
+        input_table_names={
+            "input_table1": "input_addresses_with_numerics",
+            "input_table2": "final_matched_addresses",
+        },
         step_name="Rejoin all inputs",
         step_description="Left-joins matches back to input addresses so unmatched rows are preserved.",
     )
 
     pipeline = QueryPipeline(
-        con=con, 
+        con=con,
         steps=[
-            clean_addresses, 
-            create_address_numerics, 
+            clean_addresses,
+            create_address_numerics,
             create_address_alpha_tokens,
-            create_input_phrases, 
-            first_matching_step, 
+            create_input_phrases,
+            first_matching_step,
             unnest_match_candidates,
             extract_match_candidate_details,
             filter_to_top50_candidates,
             compute_similarity,
             rank_by_similarity,
             select_current,
-            rejoin_all_inputs]
-        )
+            rejoin_all_inputs,
+        ],
+    )
 
     return pipeline

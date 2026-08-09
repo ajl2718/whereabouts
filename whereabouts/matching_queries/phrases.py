@@ -3,10 +3,11 @@ from duckdb import DuckDBPyConnection
 from ..QueryStep import query_step
 from ..QueryPipeline import QueryPipeline
 
+
 def create_address_phrases(con: DuckDBPyConnection, filename: str) -> QueryPipeline:
     create_phrase_table = query_step(
         query_template="""
-        CREATE TABLE IF NOT EXISTS {output_table_name} 
+        CREATE TABLE IF NOT EXISTS {output_table_name}
         (
             addr_id INTEGER NOT NULL,
             tokenphrase TEXT NOT NULL
@@ -107,18 +108,19 @@ def create_address_phrases(con: DuckDBPyConnection, filename: str) -> QueryPipel
     )
 
     pipeline = QueryPipeline(
-        con=con, 
+        con=con,
         steps=[
-            create_phrase_table, 
-            select_address_subset, 
-            create_tokens, 
-            add_row_numbers, 
-            add_row_numbers_per_address, 
+            create_phrase_table,
+            select_address_subset,
+            create_tokens,
+            add_row_numbers,
+            add_row_numbers_per_address,
             create_phrases,
             create_inverted_index,
             create_indexes,
-            ])
-    
+        ],
+    )
+
     return pipeline
 
 

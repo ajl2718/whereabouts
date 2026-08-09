@@ -13,9 +13,8 @@ class QueryPipeline:
     Attributes:
         steps (list[QueryStep]): A list of QueryStep instances that make up the pipeline.
     """
-    def __init__(self, 
-                 con: DuckDBPyConnection,
-                 steps: list[QueryStep]):
+
+    def __init__(self, con: DuckDBPyConnection, steps: list[QueryStep]):
         self.con = con
         self.steps = steps
 
@@ -50,7 +49,9 @@ class QueryPipeline:
         Returns:
             A string representing the combined CTE definitions for all query steps in the pipeline.
         """
-        cte_steps = [step for step in self.steps if not getattr(step, 'direct_execution', False)]
+        cte_steps = [
+            step for step in self.steps if not getattr(step, "direct_execution", False)
+        ]
         parts: list[str] = []
         for idx, step in enumerate(cte_steps):
             is_first = idx == 0
@@ -61,7 +62,7 @@ class QueryPipeline:
     def _execute_direct_steps(self, verbose: bool = False) -> None:
         """Execute all direct_execution steps in order."""
         for step in self.steps:
-            if getattr(step, 'direct_execution', False):
+            if getattr(step, "direct_execution", False):
                 if verbose:
                     print(f"  [direct] {step.step_name} -> {step.step_description}")
                 if isinstance(step.input_table_names, dict):
@@ -76,7 +77,9 @@ class QueryPipeline:
         print("---------------------------------------")
         max_len = max(len(step.step_name) for step in self.steps)
         for step_number, step in enumerate(self.steps, start=1):
-            marker = "[direct]" if getattr(step, 'direct_execution', False) else "[CTE]   "
+            marker = (
+                "[direct]" if getattr(step, "direct_execution", False) else "[CTE]   "
+            )
             print(
                 f"{step_number:>2}. {marker} "
                 f"{step.step_name:<{max_len}} "
@@ -86,9 +89,9 @@ class QueryPipeline:
                 print("    ↓")
         print("---------------------------------------\n")
 
-    def execute(self, 
-                parameters: list | None = None,
-                verbose: bool = False) -> pd.DataFrame:
+    def execute(
+        self, parameters: list | None = None, verbose: bool = False
+    ) -> pd.DataFrame:
         """
         Executes all the query steps in the pipeline in sequence.
         Direct-execution steps run first, then the CTE chain is built and executed.
@@ -113,11 +116,10 @@ class QueryPipeline:
         results = self.con.sql(full_query).df()
 
         return results
-    
-    def execute_as_table(self, 
-                         table_name: str,
-                         parameters: list | None = None,
-                         verbose: bool = False):
+
+    def execute_as_table(
+        self, table_name: str, parameters: list | None = None, verbose: bool = False
+    ):
         """
         Executes the query pipeline and saves the results as a new table in the database.
         Direct-execution steps run first, then the CTE chain is materialised as a table.

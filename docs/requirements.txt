@@ -11,7 +11,7 @@ colorama==0.4.6 ; sys_platform == 'win32' or platform_system == 'Windows'
 cramjam==2.11.0
 duckdb==1.4.2
 et-xmlfile==2.0.0
-fastapi==0.136.0
+fastapi==0.141.1
 fastparquet==2026.3.0
 fsspec==2026.3.0
 h11==0.16.0

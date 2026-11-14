@@ -124,14 +124,14 @@ Geocode a list of addresses:
 ```python
 from whereabouts.Matcher import Matcher
 
-matcher = Matcher(db_name='au_all_sm')
-matcher.geocode(addresslist, how='standard')
+matcher = Matcher(db_name="au_all_sm")
+matcher.geocode(addresslist, how="standard")
 ```
 
 For more accurate geocoding you can use trigram phrases rather than token phrases. Note that you will need one of the large databases to use trigram geocoding:
 
 ```python
-matcher.geocode(addresslist, how='trigram')
+matcher.geocode(addresslist, how="trigram")
 ```
 ## Benchmarking
 

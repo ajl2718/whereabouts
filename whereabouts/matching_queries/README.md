@@ -39,7 +39,7 @@ Extends the standard pipeline with a geographic neighbour correction step. After
 
 ### Skipphrase
 
-**SQL file:** `queries/geocoder_query_skipphrase2.sql`
+**Module:** `skipphrase.py`
 
 Uses skip-phrases (pairs of tokens with a gap of one word between them) rather than adjacent bigrams. This provides broader matching by capturing relationships between non-adjacent tokens.
 
@@ -53,7 +53,7 @@ Uses skip-phrases (pairs of tokens with a gap of one word between them) rather t
 
 ### Trigram
 
-**SQL file:** `queries/geocoder_query_trigramb3.sql`
+**Module:** `trigram.py`
 
 Uses character-level trigrams (3-character substrings) rather than word-level tokens. This makes it robust to typographical errors and character-level variations.
 
@@ -75,8 +75,46 @@ Uses character-level trigrams (3-character substrings) rather than word-level to
 | Typo tolerance | Low | Low | Medium | High |
 | Database requirement | Standard | Standard + neighbours table | Skipphrase index | Trigram index (large DB) |
 
+## Pipeline construction
+
+All algorithms are built from `QueryStep` objects. `create_matching_pipeline`
+selects standard, skipphrase, or trigram for `Matcher`. Skipphrase and trigram
+reuse input processing and candidate scoring/ranking helpers in
+`phrase_matching.py`, with their original normalization, numeric filters,
+scores, and result columns preserved.
+
+`Matcher(how="skipphrase")` now executes the skipphrase pipeline rather than
+falling through to standard. Skipphrase and trigram support `top_n`; standard
+retains its existing top-one behavior.
+
+Database-building pipelines live in `database.py`, `phrases.py`, and
+`addrtext_with_detail.py`. `AddressLoader` and `LoadAddresses` share these
+implementations. `GNAFLoader` retains its legacy address-table columns and
+adjacent-only standard phrases, but now builds integer trigram hashes compatible
+with the current trigram matcher instead of obsolete MD5 strings.
+
+Use `QueryPipeline.execute()` for CTE results, `execute_as_table()` to create a
+table, and `execute_into_table()` to insert results into an existing table.
+These methods bind parameters to the CTE query. `execute_direct()` executes a
+pipeline containing only direct DDL/DML steps; parameters may be bound when it
+contains a single step. Mixed pipelines run their direct steps before the CTEs.
+
+No external SQL files are loaded. Previous query versions remain in Git history.
+
 ## Adding a new query type
 
 1. Create a new module in this package (e.g. `my_query.py`).
 2. Use `from ..QueryStep import query_step` and `from ..QueryPipeline import QueryPipeline` to access the pipeline infrastructure.
 3. Define your pipeline function and export it from `__init__.py`.
+
+## Testing standard matching
+
+Standard-algorithm regression tests in
+[test_algorithm_pipelines.py](../../tests/test_algorithm_pipelines.py) use isolated
+reference databases to check normalization, building/unit ranking, numeric and
+phrase-frequency filter boundaries, duplicate/unmatched inputs, and the
+50-candidate budget with deterministic reference-ID tie-breaking.
+
+```bash
+uv run pytest tests/test_algorithm_pipelines.py -k standard
+```

@@ -139,7 +139,9 @@ def create_addrtext_with_detail(
     return pipeline
 
 
-def build_address_detail_pipeline(con: DuckDBPyConnection) -> QueryPipeline:
+def build_address_detail_pipeline(
+    con: DuckDBPyConnection, include_state: bool = True
+) -> QueryPipeline:
     """
     Creates a query pipeline to build the addrtext_with_detail table from an
     existing ``addrtext`` table.
@@ -184,11 +186,12 @@ def build_address_detail_pipeline(con: DuckDBPyConnection) -> QueryPipeline:
         step_description="Aggregates numeric tokens per address for downstream matching.",
     )
 
+    state_column = ", t2.state" if include_state else ""
     join_detail = query_step(
-        query_template="""
-        SELECT t1.*, t2.address_label, t2.locality_name suburb, t2.postcode, t2.latitude, t2.longitude, t2.state
-        FROM {pre} t1
-        LEFT JOIN {source} t2 ON t1.addr_id = t2.addr_id""",
+        query_template=f"""
+        SELECT t1.*, t2.address_label, t2.locality_name suburb, t2.postcode, t2.latitude, t2.longitude{state_column}
+        FROM {{pre}} t1
+        LEFT JOIN {{source}} t2 ON t1.addr_id = t2.addr_id""",
         output_table_name="address_detail_final",
         input_table_names={"pre": "addrtext_with_detail_pre", "source": "addrtext"},
         step_name="Join with original metadata",

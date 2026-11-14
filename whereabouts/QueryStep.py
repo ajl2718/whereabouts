@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from duckdb import DuckDBPyConnection
+
 
 class QueryStep:
     """
@@ -36,7 +38,7 @@ class QueryStep:
         direct_execution: bool = False,
         step_name: str | None = None,
         step_description: str | None = None,
-    ):
+    ) -> None:
         self.query_template = query_template
         self.output_table_name = output_table_name
         self.input_table_names = input_table_names
@@ -62,14 +64,17 @@ class QueryStep:
         """Validates that the input and output table names are correctly referenced in the SQL query."""
 
         # Check if all input table names are referenced in the SQL query
-        if isinstance(input_table_names, dict):
-            input_table_names = input_table_names.keys()
-        for input_table_name in input_table_names:
+        input_names = (
+            input_table_names.keys()
+            if isinstance(input_table_names, dict)
+            else input_table_names
+        )
+        for input_table_name in input_names:
             if f"{{{input_table_name}}}" not in query_template:
                 raise ValueError(
                     f"Input table name '{input_table_name}' is not referenced in the SQL query."
                 )
-        if output_table_name in input_table_names:
+        if output_table_name in input_names:
             raise ValueError(
                 f"Output table name '{output_table_name}' cannot be the same as any of the input table names."
             )
@@ -77,10 +82,20 @@ class QueryStep:
             raise ValueError("Output table name cannot be None.")
         return True
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"QueryStep(name={self.step_name}, description={self.step_description})"
 
-    def createCTE(self, *, is_first: bool | None = None, is_last: bool | None = None):
+    def render(self) -> str:
+        if isinstance(self.input_table_names, dict):
+            return self.query_template.format(**self.input_table_names)
+        return self.query_template
+
+    def execute(self, con: DuckDBPyConnection, parameters: list | None = None) -> None:
+        con.execute(self.render(), parameters)
+
+    def createCTE(
+        self, *, is_first: bool | None = None, is_last: bool | None = None
+    ) -> str:
         """
         Creates a Common Table Expression (CTE) for this query step.
 
@@ -101,7 +116,7 @@ class QueryStep:
         starting = self.starting_step if is_first is None else is_first
         ending = self.ending_step if is_last is None else is_last
 
-        formatted = self.query_template.format(**self.input_table_names)
+        formatted = self.render()
         if starting and ending:
             return f"""WITH {self.output_table_name} AS (\t{formatted}\n)\nSELECT * FROM {self.output_table_name}""".strip()
         elif starting:

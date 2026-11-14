@@ -3,6 +3,7 @@ from __future__ import annotations
 from .Matcher import Matcher
 from .utils import get_unmatched, order_matches
 
+
 class MatcherPipeline:
     """
     MatcherPipeline class for concatenating Matcher objects to improve the recall of addresses.
@@ -11,16 +12,19 @@ class MatcherPipeline:
     ----------
     matchers : list of Matcher
         A list of Matcher objects used for geocoding addresses.
+    query_types : list of str
+        Specify for each matcher which query type to use, e.g., 'standard', 'trigram', or 'skipphrase'
 
     Methods
     -------
     geocode(addresses, address_ids=None) :
         Geocode a list of addresses using the Matcher objects in sequence.
     """
-    
-    matchers: list[Matcher]
 
-    def __init__(self, matchers: list[Matcher]) -> None:
+    matchers: list[Matcher]
+    query_types: list[str]
+
+    def __init__(self, matchers: list[Matcher], query_types: list[str]) -> None:
         """
         Initialize a MatcherPipeline object.
 
@@ -28,9 +32,19 @@ class MatcherPipeline:
         ----------
         matchers : list of Matcher
             A list of Matcher objects to be used in the pipeline.
+        query_types : list of str
+            A list of strings specifying the query type for each matcher (default is None, which uses the default query type for each matcher).
         """
         if matchers:
             self.matchers = matchers
+        if query_types:
+            if len(query_types) != len(matchers):
+                raise ValueError(
+                    "Length of query_types must match the number of matchers."
+                )
+            self.query_types = query_types
+        else:
+            self.query_types = ["standard" for _ in matchers]
 
     def set_matches(self, matchers: list[Matcher]) -> None:
         """
@@ -43,7 +57,9 @@ class MatcherPipeline:
         """
         self.matchers = matchers
 
-    def geocode(self, addresses: list[str], address_ids: list[int] | None = None) -> list[dict]:
+    def geocode(
+        self, addresses: list[str], address_ids: list[int] | None = None
+    ) -> list[dict]:
         """
         Geocode a list of addresses by passing them through each Matcher object in the pipeline.
 
@@ -63,7 +79,8 @@ class MatcherPipeline:
 
         # Geocode with the first matcher
         matcher = self.matchers[0]
-        results = matcher.geocode(addresses)
+        query_type = self.query_types[0]
+        results = matcher.geocode(addresses, how=query_type)
         threshold = matcher.threshold
 
         matched, unmatched = get_unmatched(results, threshold)
@@ -73,10 +90,12 @@ class MatcherPipeline:
         all_results.extend(matched)
 
         # Process unmatched addresses with the remaining matchers
-        for matcher in self.matchers[1:]:
+        for matcher, query_type in zip(self.matchers[1:], self.query_types[1:]):
             if not unmatched:
                 break
-            results = matcher.geocode(addresses0, address_ids0)
+            results = matcher.geocode(
+                addresses0, address_ids=address_ids0, how=query_type
+            )
             threshold = matcher.threshold
             matched, unmatched = get_unmatched(results, threshold)
 

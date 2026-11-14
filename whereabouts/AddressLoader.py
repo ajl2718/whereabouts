@@ -1,29 +1,26 @@
 from __future__ import annotations
 
-import importlib.resources
 import pickle
 from typing import Any
 
 import duckdb
 from scipy.spatial import KDTree
 
-MAKE_ADDRESSES = importlib.resources.files('whereabouts.queries').joinpath('create_addrtext.sql').read_text(encoding='utf-8')
-DO_MATCH_BASIC = importlib.resources.files('whereabouts.queries').joinpath('geocoder_query_standard.sql').read_text(encoding='utf-8')
-CREATE_GEOCODER_TABLES = importlib.resources.files('whereabouts.queries').joinpath('create_geocoder_tables.sql').read_text(encoding='utf-8')
+from .QueryStep import QueryStep
+from .matching_queries.addrtext_with_detail import build_address_detail_pipeline
+from .matching_queries.database import (
+    cleanup_pipeline,
+    create_geocoder_tables,
+    inverted_index_pipeline,
+    load_data_pipeline,
+    prepare_trigram_index,
+    prepare_trigram_merge,
+    trigram_chunk_pipeline,
+    trigram_merge_pipeline,
+)
+from .matching_queries.phrases import build_phrase_pipeline
+from .constants import MAX_PHRASE_CHUNKS
 
-CREATE_PHRASES = importlib.resources.files('whereabouts.queries').joinpath('create_phrases.sql').read_text(encoding='utf-8')
-INVERTED_INDEX = importlib.resources.files('whereabouts.queries').joinpath('phrase_inverted.sql').read_text(encoding='utf-8')
-CREATE_INDEXES = importlib.resources.files('whereabouts.queries').joinpath('create_indexes.sql').read_text(encoding='utf-8')
-
-CREATE_SKIPPHRASES = importlib.resources.files('whereabouts.queries').joinpath('create_skipphrases.sql').read_text(encoding='utf-8')
-INVERTED_INDEX_SKIPPHRASE = importlib.resources.files('whereabouts.queries').joinpath('skipphrase_inverted.sql').read_text(encoding='utf-8')
-
-CREATE_TRIGRAM_PHRASES = importlib.resources.files('whereabouts.queries').joinpath('create_trigramphrases.sql').read_text(encoding='utf-8')
-
-TRIGRAM_STEP1 = importlib.resources.files('whereabouts.queries').joinpath('create_trigram_index_step1.sql').read_text(encoding='utf-8')
-TRIGRAM_STEP2 = importlib.resources.files('whereabouts.queries').joinpath('create_trigram_index_step2b.sql').read_text(encoding='utf-8')
-TRIGRAM_STEP3 = importlib.resources.files('whereabouts.queries').joinpath('create_trigram_index_step3.sql').read_text(encoding='utf-8')
-TRIGRAM_STEP4 = importlib.resources.files('whereabouts.queries').joinpath('create_trigram_index_step4.sql').read_text(encoding='utf-8')
 
 class AddressLoader:
     """
@@ -36,122 +33,90 @@ class AddressLoader:
     con : duckdb.DuckDBPyConnection
         A DuckDB database connection.
     """
+
     db: str
     con: duckdb.DuckDBPyConnection
 
     def __init__(self, db_name: str) -> None:
         self.db = db_name
         self.con = duckdb.connect(database=db_name)
+        self.con.sql("INSTALL splink_udfs FROM community; LOAD splink_udfs;")
 
-    def load_data(self, details: dict[str, Any], state_names: list[str] = []) -> None:
-        id_value = details['schema']['addr_id']
-        address_label_value = details['schema']['full_address']
-        address_site_name_value = details['schema']['address_site_name']
-        locality_name_value = details['schema']['locality_name']
-        postcode_value = details['schema']['postcode']
-        state_value = details['schema']['state']
-        latitude_value = details['schema']['latitude']
-        longitude_value = details['schema']['longitude']
-        file_path = details['data']['filepath']
-        sep = details['data']['sep']
+    def _execute_step(self, step: QueryStep, parameters: list | None = None) -> None:
+        """Execute a QueryStep as a standalone SQL statement (not as a CTE)."""
+        step.execute(self.con, parameters)
 
-        # check the extension of the file
-        # either read_csv_auto or read_parquet
-        filetype = file_path.split('.')[-1]
-        if filetype == "parquet":
-            load_function = f"read_parquet('{file_path}')"
-        elif filetype == "csv":
-            load_function = f"read_csv_auto('{file_path}', delim='{sep}')"
-
+    def load_data(
+        self, details: dict[str, Any], state_names: list[str] | None = None
+    ) -> None:
+        if state_names is None:
+            state_names = []
         if len(state_names) == 0:
             print("Loading data")
-            query = f"""
-            insert into addrtext 
-            select 
-            {id_value} addr_id, 
-            {address_label_value} address_label,
-            {address_site_name_value} address_site_name,
-            {locality_name_value} locality_name,
-            {postcode_value} postcode,
-            {state_value} state,
-            {latitude_value} latitude,
-            {longitude_value} longitude
-            from
-            {load_function}
-            """
-            self.con.execute(query)
+            load_data_pipeline(self.con, details).execute_direct()
         else:
             for state_name in state_names:
                 print(f"Loading data for {state_name}")
-                query = f"""
-                insert into addrtext 
-                select 
-                {id_value} addr_id, 
-                {address_label_value} address_label,
-                {address_site_name_value} address_site_name,
-                {locality_name_value} locality_name,
-                {postcode_value} postcode,
-                {state_value} state,
-                {latitude_value} latitude,
-                {longitude_value} longitude
-                from
-                {load_function}
-                where state='{state_name}'
-                """
-                self.con.execute(query)
-        
+                load_data_pipeline(self.con, details, filter_state=True).execute_direct(
+                    [state_name]
+                )
+
     def create_final_address_table(self) -> None:
-        self.con.execute(MAKE_ADDRESSES)
+        pipeline = build_address_detail_pipeline(self.con)
+        pipeline.execute_as_table("addrtext_with_detail")
 
     def create_geocoder_tables(self) -> None:
         print("Creating geocoder tables...")
-        self.con.execute(CREATE_GEOCODER_TABLES)
-        
-    def create_phrases(self, phrases: list[str] = ['standard']) -> None:
-        if 'standard' in phrases:
-            print('Creating phrases...')
-            # create the phrases in chunks to prevent memory errors
-            # this still takes a looooong time
-            for n in range(100): # change based on size of db
-                print(f'Creating phrases for chunk {n}...')
-                self.con.execute(CREATE_PHRASES, [n])
-        if 'skipphrase' in phrases:
-            print('Creating skipphrases...')
-            # create the phrases in chunks to prevent memory errors
-            # this still takes a looooong time
-            for n in range(100): # change based on size of db
-                print(f'Creating skipphrases for chunk {n}...')
-                self.con.execute(CREATE_SKIPPHRASES, [n])
-        if 'trigram' in phrases:
-            print("Add row number to phrase inverted index...")
-            self.con.execute(TRIGRAM_STEP1)
-            print("Creating trigram inverted phrases. Step 1...")
-            for n in range(100):
-                print(f'Creating trigram phrases for chunk {n}...')
-                self.con.execute(TRIGRAM_STEP2, [n])
-            print("Creating trigram inverted phrases. Step 2...")
-            self.con.execute(TRIGRAM_STEP3)
-            print("Creating trigram inverted phrases. Step 3...")
-            for n in range(100):
-                print(f'Creating trigram phrases for chunk {n}...')
-                self.con.execute(TRIGRAM_STEP4, [n])
+        create_geocoder_tables(self.con).execute_direct()
 
-    def create_inverted_index(self, phrases: list[str] = ['standard']) -> None:
+    def create_phrases(self, phrases: list[str] | None = None) -> None:
+        if phrases is None:
+            phrases = ["standard"]
+        if "standard" in phrases:
+            print("Creating phrases...")
+            pipeline = build_phrase_pipeline(self.con)
+            for n in range(MAX_PHRASE_CHUNKS):
+                print(f"Creating phrases for chunk {n}...")
+                pipeline.execute_into_table("phrase", [n])
+        if "skipphrase" in phrases:
+            print("Creating skipphrases...")
+            pipeline = build_phrase_pipeline(self.con, "skipphrase")
+            for n in range(MAX_PHRASE_CHUNKS):
+                print(f"Creating skipphrases for chunk {n}...")
+                pipeline.execute_into_table("skipphrase", [n])
+        if "trigram" in phrases:
+            print("Add row number to phrase inverted index...")
+            prepare_trigram_index(self.con).execute_direct()
+            print("Creating trigram inverted phrases. Step 1...")
+            pipeline = trigram_chunk_pipeline(self.con)
+            for n in range(MAX_PHRASE_CHUNKS):
+                print(f"Creating trigram phrases for chunk {n}...")
+                pipeline.execute_into_table("trigramphraseinverted", [n])
+            print("Creating trigram inverted phrases. Step 2...")
+            prepare_trigram_merge(self.con).execute_direct()
+            print("Creating trigram inverted phrases. Step 3...")
+            pipeline = trigram_merge_pipeline(self.con)
+            for n in range(MAX_PHRASE_CHUNKS):
+                print(f"Creating trigram phrases for chunk {n}...")
+                pipeline.execute_into_table("trigramphraseinverted3", [n])
+
+    def create_inverted_index(self, phrases: list[str] | None = None) -> None:
         """
         Create the inverted index for the database.
 
         Parameters
         ----------
-        phrases : list of str
+        phrases : list of str, optional
             Types of phrases to create. Each str must be either 'standard', 'trigram', or 'skipphrase'.
+            Defaults to ['standard'].
         """
-        print('Creating inverted index...')
-        if 'standard' in phrases:
-            self.con.execute(INVERTED_INDEX)
-            self.con.execute(CREATE_INDEXES)
-        if 'skipphrase' in phrases:
-            self.con.execute(INVERTED_INDEX_SKIPPHRASE)
-          #  self.con.execute(CREATE_INDEXES_SKIPPHRASE)
+        if phrases is None:
+            phrases = ["standard"]
+        print("Creating inverted index...")
+        if "standard" in phrases:
+            inverted_index_pipeline(self.con, "standard").execute_direct()
+        if "skipphrase" in phrases:
+            inverted_index_pipeline(self.con, "skipphrase").execute_direct()
 
     def clean_database(self, phrases: list[str]) -> None:
         """
@@ -164,26 +129,8 @@ class AddressLoader:
         phrases : list of str
             The types of matching to use. Each str is either 'standard', 'trigram', or 'skipphrase'.
         """
-        
-        self.con.execute("""
-        drop table addrtext;
-        """)
 
-        if 'standard' in phrases:
-            self.con.execute("""
-            drop table phrase;
-            """)
-        if 'skipphrase' in phrases:
-            self.con.execute("""
-            drop table skipphrase;
-            """)
-        if 'trigram' in phrases:
-            self.con.execute("""
-            drop table trigramphrase;
-            drop table tg_distinct;
-            drop table trigramphraseinverted;
-            drop table trigramphraseinverted2;
-            """)
+        cleanup_pipeline(self.con, phrases).execute_direct()
 
     def export_database(self, db_path: str) -> None:
         """
@@ -216,17 +163,17 @@ class AddressLoader:
         tree_path : str
             Path to export computed KD-Tree.
         """
-        
+
         print("Creating KD-Tree for reverse geocoding...")
-        
+
         # extract address texts and lat, long coords from db
         self.reference_data = self.con.execute("""
-        select 
+        select
         at.addr_id address_id,
         at.addr address,
         av.latitude latitude,
         av.longitude longitude
-        from 
+        from
         addrtext at
         inner join
         address_view av
@@ -234,5 +181,5 @@ class AddressLoader:
         """).df()
 
         # create kdtree
-        tree = KDTree(self.reference_data[['latitude', 'longitude']].values)
-        pickle.dump(tree, open(tree_path, 'wb'))
+        tree = KDTree(self.reference_data[["latitude", "longitude"]].values)
+        pickle.dump(tree, open(tree_path, "wb"))

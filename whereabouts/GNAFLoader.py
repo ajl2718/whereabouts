@@ -1,167 +1,62 @@
 from __future__ import annotations
 
-import pickle
-from pathlib import Path
-
 import duckdb
-from scipy.spatial import KDTree
 
-MAKE_ADDRESSES = Path('whereabouts/queries/create_addrtext.sql').read_text()
-DO_MATCH_BASIC = Path("whereabouts/queries/geocoder_query_standard.sql").read_text()
+from .AddressLoader import AddressLoader
+from .constants import MAX_PHRASE_CHUNKS
+from .matching_queries.addrtext_with_detail import build_address_detail_pipeline
+from .matching_queries.database import cleanup_pipeline, inverted_index_pipeline
+from .matching_queries.phrases import build_phrase_pipeline
 
-CREATE_GEOCODER_TABLES = Path("whereabouts/queries/create_geocoder_tables.sql").read_text()
 
-CREATE_PHRASES = Path("whereabouts/queries/create_phrases.sql").read_text()
-INVERTED_INDEX = Path("whereabouts/queries/phrase_inverted.sql").read_text()
-CREATE_INDEXES = Path("whereabouts/queries/create_indexes.sql").read_text()
-
-CREATE_TRIGRAM_PHRASES = Path("whereabouts/queries/create_trigramphrases.sql").read_text()
-
-TRIGRAM_STEP1 = Path("whereabouts/queries/create_trigram_index_step1.sql").read_text()
-TRIGRAM_STEP2 = Path("whereabouts/queries/create_trigram_index_step2.sql").read_text()
-TRIGRAM_STEP3 = Path("whereabouts/queries/create_trigram_index_step3.sql").read_text()
-TRIGRAM_STEP4 = Path("whereabouts/queries/create_trigram_index_step4.sql").read_text()
-
-class GNAFLoader:
-    con: duckdb.DuckDBPyConnection
+class GNAFLoader(AddressLoader):
+    """Legacy G-NAF interface backed by the shared database-building pipelines."""
 
     def __init__(self, db_name: str) -> None:
         self.db = db_name
         self.con = duckdb.connect(database=db_name)
 
-    def load_gnaf_data(self, gnaf_path: str, state_names: list[str] = ['VIC']) -> None:
-        for state_name in state_names:
-            print(f"Loading data for {state_name}")
-            query = f"""
-            insert into addrtext 
-            select 
-            ADDRESS_DETAIL_PID addr_id, 
-            ADDRESS_LABEL address_label,
-            ADDRESS_SITE_NAME address_site_name,
-            LOCALITY_NAME locality_name,
-            POSTCODE postcode,
-            STATE state,
-            LATITUDE latitude,
-            LONGITUDE 
-            from
-            read_csv_auto('{gnaf_path}', delim='|')
-            where state='{state_name}'
-            """
-            self.con.execute(query)
+    def load_gnaf_data(
+        self, gnaf_path: str, state_names: list[str] | None = None
+    ) -> None:
+        details = {
+            "schema": {
+                "addr_id": "ADDRESS_DETAIL_PID",
+                "full_address": "ADDRESS_LABEL",
+                "address_site_name": "ADDRESS_SITE_NAME",
+                "locality_name": "LOCALITY_NAME",
+                "postcode": "POSTCODE",
+                "state": "STATE",
+                "latitude": "LATITUDE",
+                "longitude": "LONGITUDE",
+            },
+            "data": {"filepath": gnaf_path, "sep": "|", "format": "csv"},
+        }
+        states = state_names if state_names is not None else ["VIC"]
+        for state in states:
+            self.load_data(details, [state])
 
     def create_final_address_table(self) -> None:
-        self.con.execute(MAKE_ADDRESSES)
+        build_address_detail_pipeline(self.con, include_state=False).execute_as_table(
+            "addrtext_with_detail"
+        )
 
-    def create_geocoder_tables(self) -> None:
-        print("Creating geocoder tables...")
-        self.con.execute(CREATE_GEOCODER_TABLES)
-        
-    def create_phrases(self, phrases: list[str] = ['standard']) -> None:
-        if 'standard' in phrases:
-            print('Creating phrases...')
-            # create the phrases in chunks to prevent memory errors
-            # this still takes a looooong time
-            for n in range(100): # change based on size of db
-                print(f'Creating phrases for chunk {n}...')
-                self.con.execute(CREATE_PHRASES, [n])
-        if 'trigram' in phrases:
-            print("Add row number to phrase inverted index...")
-            self.con.execute(TRIGRAM_STEP1)
-            print("Creating trigram inverted phrases. Step 1...")
-            for n in range(100):
-                print(f'Creating trigram phrases for chunk {n}...')
-                self.con.execute(TRIGRAM_STEP2, [n])
-            print("Creating trigram inverted phrases. Step 2...")
-            self.con.execute(TRIGRAM_STEP3)
-            print("Creating trigram inverted phrases. Step 3...")
-            for n in range(100):
-                print(f'Creating trigram phrases for chunk {n}...')
-                self.con.execute(TRIGRAM_STEP4, [n])
+    def create_phrases(self, phrases: list[str] | None = None) -> None:
+        phrases = phrases if phrases is not None else ["standard"]
+        if "standard" in phrases:
+            print("Creating phrases...")
+            pipeline = build_phrase_pipeline(self.con, include_numeric_skip=False)
+            for n in range(MAX_PHRASE_CHUNKS):
+                print(f"Creating phrases for chunk {n}...")
+                pipeline.execute_into_table("phrase", [n])
+        if "trigram" in phrases:
+            super().create_phrases(["trigram"])
 
-    def create_inverted_index(self, phrases: list[str] = ['standard']) -> None:
-        print('Creating inverted index...')
-        if 'standard' in phrases:
-            self.con.execute(INVERTED_INDEX)
-            self.con.execute(CREATE_INDEXES)
+    def create_inverted_index(self, phrases: list[str] | None = None) -> None:
+        phrases = phrases if phrases is not None else ["standard"]
+        print("Creating inverted index...")
+        if "standard" in phrases:
+            inverted_index_pipeline(self.con, "standard").execute_direct()
 
     def clean_database(self, phrases: list[str]) -> None:
-        """
-        Once geocoder tables have been created, remove unnecessary tables from DB
-        to clear up space. Note that DuckDB currently does not free up the space
-        so the database has to be exported with tables and then loaded back again.
-
-        Parameters
-        ----------
-        phrases : list of str
-            The types of matching to use. Each str is either 'standard' or 'trigram'.
-        """
-        
-        self.con.execute("""
-        drop table addrtext;
-        drop table skipphrase;
-        drop table skipphraseinverted;
-        """)
-
-        if 'standard' in phrases:
-            self.con.execute("""
-            drop table phrase;
-            """)
-        if 'trigram' in phrases:
-            self.con.execute("""
-            drop table trigramphrase;
-            drop table tg_distinct;
-            drop table trigramphraseinverted;
-            drop table trigramphraseinverted2;
-            """)
-
-    def export_database(self, db_path: str) -> None:
-        """
-        Export the database to the specified folder.
-
-        Parameters
-        ----------
-        db_path : str
-            Name of folder to export DB to.
-        """
-        self.con.execute(f"export database '{db_path}' (format parquet);")
-
-    def import_database(self, db_path: str) -> None:
-        """
-        Import database from specified folder.
-
-        Parameters
-        ----------
-        db_path : str
-            Path where database files and queries are located.
-        """
-        self.con.execute(f"import database '{db_path}'")
-
-    def create_kdtree(self, tree_path: str) -> None:
-        """
-        Create a KD-Tree data structure from the reference data in GNAF.
-
-        Parameters
-        ----------
-        tree_path : str
-            Path to export computed KD-Tree.
-        """
-        
-        print("Creating KD-Tree for reverse geocoding...")
-        
-        # extract address texts and lat, long coords from db
-        self.reference_data = self.con.execute("""
-        select 
-        at.addr_id address_id,
-        at.addr address,
-        av.latitude latitude,
-        av.longitude longitude
-        from 
-        addrtext at
-        inner join
-        address_view av
-        on at.addr_id = av.address_detail_pid;
-        """).df()
-
-        # create kdtree
-        tree = KDTree(self.reference_data[['latitude', 'longitude']].values)
-        pickle.dump(tree, open(tree_path, 'wb'))
+        cleanup_pipeline(self.con, phrases, legacy=True).execute_direct()

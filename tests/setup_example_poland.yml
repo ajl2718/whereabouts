@@ -1,7 +1,7 @@
 data:
     db_name: db_test_poland
     folder: geodb
-    filepath: tests/test_datapoland.csv
+    filepath: example_data/test_datapoland.csv
     sep: ","
 geocoder:
     matchers: [standard, trigram]

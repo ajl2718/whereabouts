@@ -9,32 +9,16 @@ import duckdb
 import numpy as np
 import pandas as pd
 
-from .matching_queries import create_matching_query, load_libraries, register_functions
-
-
-from .utils import (
-    list_overlap,
-    numeric_overlap,
-    numeric_overlap2,
-    multiset_jaccard,
-    ngram_jaccard,
-    IOU,
-    IOU_min
+from .matching_queries import (
+    create_matching_pipeline,
+    load_libraries,
+    register_functions,
 )
+
+
 from .errors import InvalidDatabaseError
 
 VALID_HOW_VALUES = frozenset({"standard", "skipphrase", "trigram"})
-
-DO_MATCH_SKIPPHRASE = (
-    importlib.resources.files("whereabouts.queries")
-    .joinpath("geocoder_query_skipphrase2.sql")
-    .read_text(encoding="utf-8")
-)
-DO_MATCH_TRIGRAM = (
-    importlib.resources.files("whereabouts.queries")
-    .joinpath("geocoder_query_trigramb3.sql")
-    .read_text(encoding="utf-8")
-)
 
 
 class Matcher:
@@ -110,8 +94,7 @@ class Matcher:
         register_functions(self.con)
         load_libraries(self.con)
 
-        # Build the standard matching pipeline
-        self.pipeline = create_matching_query(self.con)
+        self.pipeline = create_matching_pipeline(self.con, how)
 
         self.how = how
         self.threshold = threshold
@@ -201,20 +184,16 @@ class Matcher:
         );""")
         self.con.execute("INSERT INTO input_addresses SELECT * FROM df")
 
-        # Execute the appropriate matching algorithm
-        if how == "trigram":
-            answers = (
-                self.con.execute(DO_MATCH_TRIGRAM, [top_n])
-                .df()
-                .sort_values(by="address_id")
-                .reset_index(drop=True)
-            )
-        else:
-            answers = (
-                self.pipeline.execute(verbose=verbose)
-                .sort_values(by="address_id")
-                .reset_index(drop=True)
-            )
+        pipeline = (
+            self.pipeline
+            if how == self.how and top_n == 1
+            else create_matching_pipeline(self.con, how, top_n)
+        )
+        answers = (
+            pipeline.execute(verbose=verbose)
+            .sort_values(by="address_id")
+            .reset_index(drop=True)
+        )
 
         self.con.execute("DROP TABLE IF EXISTS input_addresses;")
         self.con.execute("DROP TABLE IF EXISTS input_addresses_with_tokens;")

@@ -1,1 +1,0 @@
-create index skipphraseinverted_tokenphrase_idx on skipphraseinverted(tokenphrase);

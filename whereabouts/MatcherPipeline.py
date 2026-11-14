@@ -3,6 +3,7 @@ from __future__ import annotations
 from .Matcher import Matcher
 from .utils import get_unmatched, order_matches
 
+
 class MatcherPipeline:
     """
     MatcherPipeline class for concatenating Matcher objects to improve the recall of addresses.
@@ -19,7 +20,7 @@ class MatcherPipeline:
     geocode(addresses, address_ids=None) :
         Geocode a list of addresses using the Matcher objects in sequence.
     """
-    
+
     matchers: list[Matcher]
     query_types: list[str]
 
@@ -38,10 +39,12 @@ class MatcherPipeline:
             self.matchers = matchers
         if query_types:
             if len(query_types) != len(matchers):
-                raise ValueError("Length of query_types must match the number of matchers.")
+                raise ValueError(
+                    "Length of query_types must match the number of matchers."
+                )
             self.query_types = query_types
         else:
-            self.query_types = ['standard' for _ in matchers]
+            self.query_types = ["standard" for _ in matchers]
 
     def set_matches(self, matchers: list[Matcher]) -> None:
         """
@@ -54,7 +57,9 @@ class MatcherPipeline:
         """
         self.matchers = matchers
 
-    def geocode(self, addresses: list[str], address_ids: list[int] | None = None) -> list[dict]:
+    def geocode(
+        self, addresses: list[str], address_ids: list[int] | None = None
+    ) -> list[dict]:
         """
         Geocode a list of addresses by passing them through each Matcher object in the pipeline.
 
@@ -88,7 +93,9 @@ class MatcherPipeline:
         for matcher, query_type in zip(self.matchers[1:], self.query_types[1:]):
             if not unmatched:
                 break
-            results = matcher.geocode(addresses0, address_ids=address_ids0, how=query_type)
+            results = matcher.geocode(
+                addresses0, address_ids=address_ids0, how=query_type
+            )
             threshold = matcher.threshold
             matched, unmatched = get_unmatched(results, threshold)
 

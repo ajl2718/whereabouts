@@ -143,10 +143,10 @@ The benchmarking can be run as:
 uv run python -m whereabouts benchmark <database_name> <path_to_test_set> --how <algorithm_name> --threshold <float> --output-csv <path>
 ```
 
-For example, for Australian data:
+For example, for the `au_all_sm` Australian dataset:
 
 ```bash
-uv run python -m whereabouts benchmark au_all_sm example_data/test_set_au.csv --how standard --threshold 0.5 --output-csv whereabouts/benchmarking_results/benchmarking_results_080626.csv
+uv run python -m whereabouts benchmark au_all_sm evaluation_data/test_set_au.csv --how standard --threshold 0.5 --output-csv whereabouts/benchmarking_results/benchmarking_results_050726.csv
 ```
 
 ## How the algorithm works

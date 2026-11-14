@@ -19,6 +19,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 - 12 new test sets for filtering and string similarity.
 
 ### Changed
+- Migrated all remaining matching and database-building SQL to shared `QueryStep`/`QueryPipeline` factories; removed bundled SQL files.
+- Added bound-parameter CTE execution, insertion, and direct DDL/DML pipelines. `LoadAddresses` now shares the `AddressLoader` implementation.
 - Refactored `matching_queries.py` into a `matching_queries/` package with separate modules (`standard.py`, `common.py`).
 - Tidied similarity functions.
 - Improved docstring style, import ordering, and control flow.
@@ -27,6 +29,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 - Better handling of edge cases in similarity functions.
 
 ### Fixed
+- Skipphrase requests now execute skipphrase matching instead of the standard pipeline.
+- The legacy G-NAF trigram builder now uses integer hashes compatible with the current trigram matcher.
 - Upgraded `urllib3` to fix security vulnerability.
 - Upgraded `requests` to fix security vulnerability.
 - Bumped `lxml` from 5.3.1 to 6.1.0.
@@ -35,6 +39,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ### Removed
 - Evaluation tool temporarily removed until security issue is addressed.
+- Superseded SQL query variants, unused SQL resource loads, and tracked Python bytecode and macOS metadata.
 
 ## [0.4.3] - 2025-12-30
 

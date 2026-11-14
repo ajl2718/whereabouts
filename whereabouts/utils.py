@@ -365,7 +365,8 @@ def numeric_overlap2(input_numerics: list[str], candidate_numerics: list[str]) -
 
     return len(input_set & candidate_set) / len(input_set | candidate_set)
 
-def IOU_min(input_tokens: list[str|int], candidate_tokens: list[str|int]) -> float:
+
+def IOU_min(input_tokens: list[str | int], candidate_tokens: list[str | int]) -> float:
     """
     Compute the Intersection over Union (IoU) for alphabetic tokens.
 
@@ -389,7 +390,8 @@ def IOU_min(input_tokens: list[str|int], candidate_tokens: list[str|int]) -> flo
 
     return len(input_set & candidate_set) / min(len(input_set), len(candidate_set))
 
-def IOU(input_tokens: list[str|int], candidate_tokens: list[str|int]) -> float:
+
+def IOU(input_tokens: list[str | int], candidate_tokens: list[str | int]) -> float:
     """
     Compute the Intersection over Union (IoU) for alphabetic tokens.
 
@@ -412,6 +414,7 @@ def IOU(input_tokens: list[str|int], candidate_tokens: list[str|int]) -> float:
     candidate_set = set(candidate_tokens)
 
     return len(input_set & candidate_set) / len(input_set | candidate_set)
+
 
 def multiset_jaccard(l1: list[str], l2: list[str]) -> float:
     """

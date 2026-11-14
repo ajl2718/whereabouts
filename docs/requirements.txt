@@ -46,5 +46,5 @@ tqdm==4.67.3
 typing-extensions==4.15.0
 typing-inspection==0.4.2
 tzdata==2026.1 ; sys_platform == 'emscripten' or sys_platform == 'win32' or python_full_version >= '3.14'
-urllib3==2.7.0
+urllib3==2.8.0
 uvicorn==0.45.0

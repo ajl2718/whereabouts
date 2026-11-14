@@ -10,3 +10,4 @@ db_test/
 dist/
 build/
 experiments/
+evaluation_runs/

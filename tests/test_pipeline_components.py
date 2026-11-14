@@ -10,6 +10,7 @@ from duckdb import DuckDBPyConnection
 
 from whereabouts.matching_queries import register_functions
 from whereabouts.QueryPipeline import QueryPipeline
+from whereabouts.QueryStep import query_step
 from whereabouts.matching_queries.standard_with_neighbours import (
     clean_addresses,
     create_address_numerics,
@@ -25,6 +26,62 @@ from whereabouts.matching_queries.standard_with_neighbours import (
     select_current,
     rejoin_all_inputs,
 )
+
+
+def test_parameterized_ctes_can_query_create_and_insert() -> None:
+    with duckdb.connect() as connection:
+        ddl = query_step(
+            query_template="CREATE TABLE source(value INTEGER); INSERT INTO source VALUES (1), (2), (3)",
+            output_table_name="source_ddl",
+            direct_execution=True,
+        )
+        QueryPipeline(connection, [ddl]).execute_direct()
+        select = query_step(
+            query_template="SELECT value FROM {source} WHERE value >= ?",
+            output_table_name="selected_values",
+            input_table_names={"source": "source"},
+        )
+        pipeline = QueryPipeline(connection, [select])
+        assert pipeline.execute([2])["value"].tolist() == [2, 3]
+        pipeline.execute_as_table("selected", [3])
+        pipeline.execute_into_table("selected", [2])
+        assert connection.execute(
+            "SELECT value FROM selected ORDER BY value"
+        ).fetchall() == [(2,), (3,), (3,)]
+
+
+def test_direct_parameters_and_mixed_pipeline_execution() -> None:
+    with duckdb.connect() as connection:
+        create = query_step(
+            query_template="CREATE TABLE source(value INTEGER)",
+            output_table_name="create_source",
+            direct_execution=True,
+        )
+        insert = query_step(
+            query_template="INSERT INTO source VALUES (?)",
+            output_table_name="insert_source",
+            direct_execution=True,
+        )
+        QueryPipeline(connection, [create]).execute_direct()
+        QueryPipeline(connection, [insert]).execute_direct([7])
+        select = query_step(
+            query_template="SELECT value FROM {source} WHERE value = ?",
+            output_table_name="selected_values",
+            input_table_names={"source": "source"},
+        )
+        assert QueryPipeline(connection, [select]).execute([7])["value"].tolist() == [7]
+        with pytest.raises(ValueError, match="direct-execution"):
+            QueryPipeline(connection, [select]).execute_direct()
+        with pytest.raises(ValueError, match="single"):
+            QueryPipeline(connection, [create, insert]).execute_direct([8])
+        direct = query_step(
+            query_template="INSERT INTO source VALUES (9)",
+            output_table_name="insert_nine",
+            direct_execution=True,
+        )
+        assert QueryPipeline(connection, [direct, select]).execute([9])[
+            "value"
+        ].tolist() == [9]
 
 
 @pytest.fixture(scope="module")

@@ -146,10 +146,20 @@ uv run python -m whereabouts benchmark <database_name> <path_to_test_set> --how 
 For example, for the `au_all_sm` Australian dataset:
 
 ```bash
-uv run python -m whereabouts benchmark au_all_sm evaluation_data/test_set_au.csv --how standard --threshold 0.5 --output-csv whereabouts/benchmarking_results/benchmarking_results_050726.csv
+uv run python -m whereabouts benchmark au_all_sm example_data/test_set_au.csv --how standard --threshold 0.5 --output-csv whereabouts/benchmarking_results/benchmarking_results_050726.csv
 ```
 
 ## How the algorithm works
+
+For reproducible experiments, candidate-level diagnostics, baseline/challenger
+comparisons, and a local label-review UI, see the [evaluation harness guide](docs/evaluation.md).
+
+Launch the Streamlit experiment app (CSV matching, row-level error labels, saved
+runs, and isolated Git-version comparisons):
+
+```bash
+uv run --extra evaluation streamlit run whereabouts/evaluation/streamlit_app.py --server.address 127.0.0.1 --browser.gatherUsageStats false
+```
 
 The algorithm employs simple record linkage techniques, making it suitable for implementation in around 10 lines of SQL. It is based on the following papers:
 

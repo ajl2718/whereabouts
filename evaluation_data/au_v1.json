@@ -1,0 +1,5043 @@
+{
+  "name": "test_set_au",
+  "version": "1",
+  "split": "development",
+  "cases": [
+    {
+      "case_id": "8cf5e89c5d916617-1",
+      "input_address": "246 Conadilly Street Gunnedah NSW 2380",
+      "acceptable": [
+        {
+          "address": "246 256 CONADILLY ST GUNNEDAH NSW 2380",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 2; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "bdc5d903e41cc0ab-1",
+      "input_address": "56 Beach Street Woolgoolga NSW 2456",
+      "acceptable": [
+        {
+          "address": "BEACH CARAVAN PARK 56 BEACH ST WOOLGOOLGA NSW 2456",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 3; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "454aa53bbdc866ef-1",
+      "input_address": "Stockland Town Centre, Polding Street Wetherill Park NSW 2164",
+      "acceptable": [
+        {
+          "address": "STOCKLAND WETHERILL PARK 561 583 POLDING ST PRAIRIEWOOD NSW 2176",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 4; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "a29a6f9eb2b7acf0-1",
+      "input_address": "Westfield Bondi Junction, 500 Oxford Street Bondi Junction NSW 2022",
+      "acceptable": [
+        {
+          "address": "500 OXFORD ST BONDI JUNCTION NSW 2022",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 5; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "de4cfcdfb3ae2b71-1",
+      "input_address": "Rhodes Waterside Shopping Centre, 1 Rider Boulevard Rhodes NSW 2138",
+      "acceptable": [
+        {
+          "address": "1 RIDER BVD RHODES NSW 2138",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 6; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "9b9a43bd7d92f83e-1",
+      "input_address": "Stockland Shellharbour, 200 Lake Entrance Road Shellharbour NSW 2529",
+      "acceptable": [
+        {
+          "address": "211 LAKE ENTRANCE RD SHELLHARBOUR CITY CENTRE NSW 2529",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 7; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "9f56706d87168c13-1",
+      "input_address": "St Ives Shopping Village, 166-170 Mona Vale Road St Ives NSW 2075",
+      "acceptable": [
+        {
+          "address": "166 MONA VALE RD ST IVES NSW 2075",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 8; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "cc1de15275492395-1",
+      "input_address": "Fairfield Forum Shopping Centre, 8-36 Station Street Fairfield NSW 2165",
+      "acceptable": [
+        {
+          "address": "8 36 STATION ST FAIRFIELD NSW 2165",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 9; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "29b4a1965ddd3ba2-1",
+      "input_address": "Belconnen Westfield, 18 Benjamin Way Belconnen ACT 2616",
+      "acceptable": [
+        {
+          "address": "CAR PARK 20 BENJAMIN WAY BELCONNEN ACT 2617",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 10; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "85f1ff1a68843b6b-1",
+      "input_address": "152 Bunnerong Road Eastgardens NSW 2036",
+      "acceptable": [
+        {
+          "address": "WESTFIELD SHOPPINGTOWN 152 BUNNERONG RD EASTGARDENS NSW 2036",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 11; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "9e830e4ab0888e50-1",
+      "input_address": "63 Harbour Drive Coffs Harbour NSW 2450",
+      "acceptable": [
+        {
+          "address": "PALMS SHOPPING CENTRE 35 63 HARBOUR DR COFFS HARBOUR NSW 2450",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 12; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "cfb1edccc4ebc26f-1",
+      "input_address": "Norwest Marketown, T11A, 4 Century Circuit Baulkham Hills NSW 2153",
+      "acceptable": [
+        {
+          "address": "11B 4 CENTURY CCT NORWEST NSW 2153",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 13; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "eef444567df62ee9-1",
+      "input_address": "57 Oxford Street Darlinghurst NSW 2010",
+      "acceptable": [
+        {
+          "address": "58 OXFORD ST DARLINGHURST NSW 2010",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 14; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "ed59db7f969412d7-1",
+      "input_address": "Stockland Green Hills Shopping Centre, 1 Molly Morgan Drive East Maitland NSW 2323",
+      "acceptable": [
+        {
+          "address": "1 MOLLY MORGAN DR EAST MAITLAND NSW 2323",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 15; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "ab4eb3d3eb005782-1",
+      "input_address": "10-14 Willoughby Road Crows Nest NSW 2065",
+      "acceptable": [
+        {
+          "address": "10 WILLOUGHBY RD CROWS NEST NSW 2065",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 16; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "79d7ca20ab7c8576-1",
+      "input_address": "K-Mart Campbellfield, 1434 Sydney Road Campbellfield VIC 3061",
+      "acceptable": [
+        {
+          "address": "CAMPBELLFIELD PLAZA 1434 1468 SYDNEY RD CAMPBELLFIELD VIC 3061",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 17; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "3d88f67860c8b708-1",
+      "input_address": "Northcote Plaza, 3 Separation Street Northcote VIC 3070",
+      "acceptable": [
+        {
+          "address": "ATM CWEALTH 25 SEPARATION ST NORTHCOTE VIC 3070",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 18; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "42e6511bfb20a8f3-1",
+      "input_address": "497 Kiewa Street Albury NSW 2640",
+      "acceptable": [
+        {
+          "address": "497 KIEWA ST ALBURY NSW 2640",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 19; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "33d973d3990cade0-1",
+      "input_address": "Wentworth Chambers, 180 Philip Street Sydney NSW 2000",
+      "acceptable": [
+        {
+          "address": "WENTWORTH CHAMBERS 178 180 PHILLIP ST SYDNEY NSW 2000",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 20; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "7badb40b91846212-1",
+      "input_address": "23-25 Woodlark St Lismore NSW 2480",
+      "acceptable": [
+        {
+          "address": "25 WOODLARK ST LISMORE NSW 2480",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 21; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "f441e6aa139d68b4-1",
+      "input_address": "St Vincents Hospital, 406-436 Victoria Street Darlinghurst NSW 2010",
+      "acceptable": [
+        {
+          "address": "ST VINCENTS PRIVATE HOSPITAL 406 VICTORIA ST DARLINGHURST NSW 2010",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 22; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "d1bb3e3cf06693c2-1",
+      "input_address": "Koonindah Shopping Centre, 57 President Wilson Walk Tanilba Bay NSW 2319",
+      "acceptable": [
+        {
+          "address": "57 PRESIDENT WILSON WALK TANILBA BAY NSW 2319",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 23; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "0e426ffbc7065325-1",
+      "input_address": "Tenterfield Plaza, 164-182 Rous Street Tenterfield NSW 2372",
+      "acceptable": [
+        {
+          "address": "SOUTHERN CROSS HOTEL 164 182 ELIZABETH ST SYDNEY NSW 2000",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 24; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "9163a39d7fc14c8c-1",
+      "input_address": "13 Wallace Street Macksville NSW 2447",
+      "acceptable": [
+        {
+          "address": "13 WALLACE ST MACKSVILLE NSW 2447",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 25; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "c1a9250a8f1fbc2a-1",
+      "input_address": "Bargins On First, 19 First Avenue Sawtell NSW 2452",
+      "acceptable": [
+        {
+          "address": "19 FIRST AV SAWTELL NSW 2452",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 26; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "eb8575f1890ec8da-1",
+      "input_address": "33 Murray Street Barham NSW 2732",
+      "acceptable": [
+        {
+          "address": "33 MURRAY ST BARHAM NSW 2732",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 27; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "605403f43aa5001d-1",
+      "input_address": "Riverfront Plaza, 2 Belgrave Street Kempsey NSW 2440",
+      "acceptable": [
+        {
+          "address": "2 10 BELGRAVE ST KEMPSEY NSW 2440",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 28; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "fce5a8741bd01731-1",
+      "input_address": "Centro Westside Shopping Centre, 5 Galena Street Broken Hill NSW 2880",
+      "acceptable": [
+        {
+          "address": "CENTRO WESTSIDE 5 GALENA ST BROKEN HILL NSW 2880",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 29; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "25037ccd1ca06537-1",
+      "input_address": "37 Ultimo Road Haymarket NSW 2000",
+      "acceptable": [
+        {
+          "address": "37 ULTIMO RD HAYMARKET NSW 2000",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 30; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "567d2060f91fdc56-1",
+      "input_address": "183 Carp Street Bega NSW 2550",
+      "acceptable": [
+        {
+          "address": "183 CARP ST BEGA NSW 2550",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 31; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "40b82469202a31a8-1",
+      "input_address": "125 River Street Ballina NSW 2478",
+      "acceptable": [
+        {
+          "address": "125 RIVER ST BALLINA NSW 2478",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 32; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "c73a2590f2138357-1",
+      "input_address": "49 Oxley Street Bourke NSW 2840",
+      "acceptable": [
+        {
+          "address": "49 OXLEY ST BOURKE NSW 2840",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 33; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "336f6a469edd16a8-1",
+      "input_address": "256 Bong Bong Street Bowral NSW 2576",
+      "acceptable": [
+        {
+          "address": "256 BONG BONG ST BOWRAL NSW 2576",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 34; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "220b096ef6721064-1",
+      "input_address": "119 Barker Street Casino NSW 2470",
+      "acceptable": [
+        {
+          "address": "119 BARKER ST CASINO NSW 2470",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 35; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "8603c28d230a30ca-1",
+      "input_address": "75 Vincent Street Cessnock NSW 2325",
+      "acceptable": [
+        {
+          "address": "75 VINCENT ST CESSNOCK NSW 2325",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 36; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "585f5f42f2d7a863-1",
+      "input_address": "50 Marshall Street Cobar NSW 2835",
+      "acceptable": [
+        {
+          "address": "50 MARSHALL ST COBAR NSW 2835",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 37; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "a681a2e6a7f19bfb-1",
+      "input_address": "106 Sanger Street Corowa NSW 2646",
+      "acceptable": [
+        {
+          "address": "106 SANGER ST COROWA NSW 2646",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 38; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "680c8019970719d9-1",
+      "input_address": "117 Kendal Street Cowra NSW 2794",
+      "acceptable": [
+        {
+          "address": "117 KENDAL ST COWRA NSW 2794",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 39; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "448f5519d303afd2-1",
+      "input_address": "269-271 Cressy Street Deniliquin NSW 2710",
+      "acceptable": [
+        {
+          "address": "269 271 CRESSY ST DENILIQUIN NSW 2710",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 40; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "be41b5b1d41a9e84-1",
+      "input_address": "163 Murray Street Finley NSW 2713",
+      "acceptable": [
+        {
+          "address": "163 MURRAY ST FINLEY NSW 2713",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 41; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "f79f272ec9612936-1",
+      "input_address": "Stockland Glendale, 387 Lake Road Glendale NSW 2285",
+      "acceptable": [
+        {
+          "address": "387 LAKE RD GLENDALE NSW 2285",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 42; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "005dd80eabbcb909-1",
+      "input_address": "167-173 Auburn Street Goulburn NSW 2580",
+      "acceptable": [
+        {
+          "address": "167 AUBURN ST GOULBURN NSW 2580",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 43; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "c01d2d959c8692f1-1",
+      "input_address": "37 Prince Street Grafton NSW 2460",
+      "acceptable": [
+        {
+          "address": "37 PRINCE ST GRAFTON NSW 2460",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 44; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "02a7e3350f054af2-1",
+      "input_address": "322 Banna Avenue Griffith NSW 2680",
+      "acceptable": [
+        {
+          "address": "318 322 BANNA AV GRIFFITH NSW 2680",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 45; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "c606dcf81946ab40-1",
+      "input_address": "50 Byron Street Inverell NSW 2360",
+      "acceptable": [
+        {
+          "address": "50 BYRON ST INVERELL NSW 2360",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 46; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "35fc72418709b885-1",
+      "input_address": "46 Terralong Street Kiama NSW 2533",
+      "acceptable": [
+        {
+          "address": "46 TERRALONG ST KIAMA NSW 2533",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 47; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "50799896df2583dd-1",
+      "input_address": "2 Lane Cove Plaza Lane Cove NSW 2066",
+      "acceptable": [
+        {
+          "address": "2 LANE COVE PLZA LANE COVE NSW 2066",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 48; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "d1432a7d71bfb416-1",
+      "input_address": "7 Kurrajong Avenue Leeton NSW 2705",
+      "acceptable": [
+        {
+          "address": "7 KURRAJONG AV LEETON NSW 2705",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 49; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "7a8efedf6ca2ff70-1",
+      "input_address": "156 Main Street Lithgow NSW 2790",
+      "acceptable": [
+        {
+          "address": "156 MAIN ST LITHGOW NSW 2790",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 50; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "98187e509ade56b6-1",
+      "input_address": "1 Merimbula Drive Merimbula NSW 2548",
+      "acceptable": [
+        {
+          "address": "1 3 MERIMBULA DR MERIMBULA NSW 2548",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 51; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "a498e2d5f78125e0-1",
+      "input_address": "41 Heber Street Moree NSW 2400",
+      "acceptable": [
+        {
+          "address": "41 HEBER ST MOREE NSW 2400",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 52; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "4f39fde4a0576c9c-1",
+      "input_address": "61 Vulcan Street Moruya NSW 2537",
+      "acceptable": [
+        {
+          "address": "61 VULCAN ST MORUYA NSW 2537",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 53; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "05d7ca8419f93b45-1",
+      "input_address": "64-66 Church Street Mudgee NSW 2850",
+      "acceptable": [
+        {
+          "address": "66 CHURCH ST MUDGEE NSW 2850",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 54; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "79d6ce349a3818a8-1",
+      "input_address": "48 Bridge Street Muswellbrook NSW 2333",
+      "acceptable": [
+        {
+          "address": "48 BRIDGE ST MUSWELLBROOK NSW 2333",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 55; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "868b5c8b3c998c34-1",
+      "input_address": "141-143 Maitland Street Narrabri NSW 2390",
+      "acceptable": [
+        {
+          "address": "NATIONAL AUSTRALIA BANK 141 MAITLAND ST NARRABRI NSW 2390",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 56; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "be909933d6bac920-1",
+      "input_address": "230 Clarinda Street Parkes NSW 2870",
+      "acceptable": [
+        {
+          "address": "230 CLARINDA ST PARKES NSW 2870",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 57; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "80cacb4b76b4ae29-1",
+      "input_address": "182 Kelly Street Scone NSW 2337",
+      "acceptable": [
+        {
+          "address": "182 KELLY ST SCONE NSW 2337",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 58; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "d2341cbb4e42e49b-1",
+      "input_address": "92 John Street Singleton NSW 2330",
+      "acceptable": [
+        {
+          "address": "92 JOHN ST SINGLETON NSW 2330",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 59; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "287ef46a505b492c-1",
+      "input_address": "8 Prince Of Wales Road South West Rocks NSW 2431",
+      "acceptable": [
+        {
+          "address": "8 PRINCE OF WALES AVENUE SOUTH WEST ROCKS NSW 2431",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 60; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "2ada66b0c9dbd570-1",
+      "input_address": "20 The Boulevarde Strathfield NSW 2135",
+      "acceptable": [
+        {
+          "address": "20 THE BOULEVARDE STRATHFIELD NSW 2135",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 61; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "6105c4498482882d-1",
+      "input_address": "131-133 Remembrance Drive Tahmoor NSW 2573",
+      "acceptable": [
+        {
+          "address": "131 133 REMEMBRANCE DVWY TAHMOOR NSW 2573",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 62; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "ec10c8cc70caf852-1",
+      "input_address": "95 Wynyard Road Tumut NSW 2720",
+      "acceptable": [
+        {
+          "address": "95 WYNYARD ST TUMUT NSW 2720",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 63; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "4b94390256cecc16-1",
+      "input_address": "96 Princes Highway Ulladulla NSW 2539",
+      "acceptable": [
+        {
+          "address": "96 PRINCES HWY ULLADULLA NSW 2539",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 64; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "ebf8a718ea5ed1fb-1",
+      "input_address": "46 High Street Wauchope NSW 2446",
+      "acceptable": [
+        {
+          "address": "46 HIGH ST WAUCHOPE NSW 2446",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 65; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "f6e8c88695a73bf9-1",
+      "input_address": "13 Yamba Street Yamba NSW 2464",
+      "acceptable": [
+        {
+          "address": "13 YAMBA ST YAMBA NSW 2464",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 66; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "b87ff41d9e5b5a4a-1",
+      "input_address": "8-28 The Corso Manly NSW 2095",
+      "acceptable": [
+        {
+          "address": "8 28 THE CORSO MANLY NSW 2095",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 67; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "5ca9a4daa5fa0dbb-1",
+      "input_address": "Westfield Hornsby, 236 Pacific Highway Hornsby NSW 2077",
+      "acceptable": [
+        {
+          "address": "WESTFIELDS 236 PACIFIC HWY HORNSBY NSW 2077",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 68; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "ff68bab93ec4f635-1",
+      "input_address": "878 Military Road Mosman NSW 2088",
+      "acceptable": [
+        {
+          "address": "878 MILITARY RD MOSMAN NSW 2088",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 69; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "02f997fcf634681f-1",
+      "input_address": "108 Boorowa Street Young NSW 2594",
+      "acceptable": [
+        {
+          "address": "108 BOOROWA ST YOUNG NSW 2594",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 70; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "f3b6d7fc83313d11-1",
+      "input_address": "Shop L5/L6, Ground Floor, 451 New South Head Road Double Bay NSW 2028",
+      "acceptable": [
+        {
+          "address": "451 NEW SOUTH HEAD RD DOUBLE BAY NSW 2028",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 71; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "705365efb588d985-1",
+      "input_address": "World Square, 686 George Street Sydney NSW 2000",
+      "acceptable": [
+        {
+          "address": "684 686 GEORGE ST SYDNEY NSW 2000",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 72; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "bba106207ffb9447-1",
+      "input_address": "Broadway Shopping Centre, 1 Bay Street Ultimo NSW 2007",
+      "acceptable": [
+        {
+          "address": "BROADWAY SHOPPING CENTRE 1 21 BAY ST GLEBE NSW 2037",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 73; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "b18870c90960e803-1",
+      "input_address": "111 Belmore Road Randwick NSW 2031",
+      "acceptable": [
+        {
+          "address": "111 BELMORE RD RANDWICK NSW 2031",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 74; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "4695cc59a31aed5f-1",
+      "input_address": "Narellan Town Centre, 326 Camden Valley Way Narellan NSW 2567",
+      "acceptable": [
+        {
+          "address": "NARELLAN TOWN CENTRE 326 CAMDEN VALLEY WAY NARELLAN NSW 2567",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 75; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "ec1edd22c55c8960-1",
+      "input_address": "Macquarie Shopping Centre, 225 Herring Road North Ryde NSW 2113",
+      "acceptable": [
+        {
+          "address": "MACQUARIE SHOPPING CENTRE 197 223 HERRING RD MACQUARIE PARK NSW 2113",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 76; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "475868fb8ac30657-1",
+      "input_address": "55 Port Stephens Street Raymond Terrace NSW 2324",
+      "acceptable": [
+        {
+          "address": "55 PORT STEPHENS ST RAYMOND TERRACE NSW 2324",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 77; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "80a9023f2d2785aa-1",
+      "input_address": "100 Katoomba Street Katoomba NSW 2780",
+      "acceptable": [
+        {
+          "address": "100 KATOOMBA ST KATOOMBA NSW 2780",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 78; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "c5cd012de1be5a23-1",
+      "input_address": "265 Darling Street Balmain NSW 2041",
+      "acceptable": [
+        {
+          "address": "265 DARLING ST BALMAIN NSW 2041",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 79; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "4b710ed832c8a498-1",
+      "input_address": "94 Great North Road Five Dock NSW 2046",
+      "acceptable": [
+        {
+          "address": "94 GREAT NORTH RD FIVE DOCK NSW 2046",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 80; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "96ab7bc2af05ae04-1",
+      "input_address": "31 Beaumont Street Hamilton NSW 2303",
+      "acceptable": [
+        {
+          "address": "31 BEAUMONT ST HAMILTON NSW 2303",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 81; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "330dd372ac5ca351-1",
+      "input_address": "147 Crown Street Wollongong NSW 2500",
+      "acceptable": [
+        {
+          "address": "147 CROWN ST WOLLONGONG NSW 2500",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 82; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "f9f453a88b0cfe7c-1",
+      "input_address": "Gungahlin Market Place, 33 Hibberson Street Gungahlin ACT 2912",
+      "acceptable": [
+        {
+          "address": "MARKET PLACE 33 HIBBERSON ST GUNGAHLIN ACT 2912",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 83; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "1ee4b585376215af-1",
+      "input_address": "10 Yacaaba Street Nelson Bay NSW 2315",
+      "acceptable": [
+        {
+          "address": "10 YACAABA ST NELSON BAY NSW 2315",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 84; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "aebf0ae58292b34f-1",
+      "input_address": "Forestway Shopping Centre, Warringah Road Frenchs Forest NSW 2086",
+      "acceptable": [
+        {
+          "address": "FORESTWAY SHOPPING CENTRE 22 FOREST WAY FRENCHS FOREST NSW 2086",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 85; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "5598b905f23b0376-1",
+      "input_address": "16 Park Street Mona Vale NSW 2103",
+      "acceptable": [
+        {
+          "address": "16 PARK ST MONA VALE NSW 2103",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 86; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "dc4f5ed6e45f0747-1",
+      "input_address": "22 John Street Cabramatta NSW 2166",
+      "acceptable": [
+        {
+          "address": "22 JOHN ST CABRAMATTA NSW 2166",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 87; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "e2c81070adb3c91d-1",
+      "input_address": "Macarthur Square Shopping Centre, 200 Gilchrist Drive Campbelltown NSW 2560",
+      "acceptable": [
+        {
+          "address": "MACARTHUR SQUARE 200 GILCHRIST DR CAMPBELLTOWN NSW 2560",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 88; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "f6cd04d174d0a93c-1",
+      "input_address": "Stockland Forster, 3-17 Breese Parade Forster NSW 2428",
+      "acceptable": [
+        {
+          "address": "STOCKLANDS FORSTER 3 17 BREESE PDE FORSTER NSW 2428",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 89; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "b4c58c9e865ade0d-1",
+      "input_address": "Westfield Warringah Mall, Old Pittwater Road Brookvale NSW 2100",
+      "acceptable": [
+        {
+          "address": "WARRINGAH MALL SHOPPING CENTRE 145 OLD PITTWATER RD BROOKVALE NSW 2100",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 90; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "2b4164d575f34c40-1",
+      "input_address": "Chatswood Interchange, 436 Victoria Avenue Chatswood NSW 2067",
+      "acceptable": [
+        {
+          "address": "CHATSWOOD TRANSPORT INTERCHANGE 436 VICTORIA AV CHATSWOOD NSW 2067",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 91; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "3a2e10013628e53e-1",
+      "input_address": "Westfield Parramatta, 159-175 Church Street Parramatta NSW 2150",
+      "acceptable": [
+        {
+          "address": "WESTFIELD 175 CHURCH ST PARRAMATTA NSW 2150",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 92; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "81d5c346c6f86539-1",
+      "input_address": "222 Beamish Street Campsie NSW 2194",
+      "acceptable": [
+        {
+          "address": "222 BEAMISH ST CAMPSIE NSW 2194",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 93; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "54d7630b210ee5e4-1",
+      "input_address": "South.Point Shopping Centre, 210 Anketell Street Tuggeranong DC ACT 2901",
+      "acceptable": [
+        {
+          "address": "SOUTH POINT 210 ANKETELL ST GREENWAY ACT 2900",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 94; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "5e34cdd03a225d6e-1",
+      "input_address": "Charlestown Square, 30 Pearson Street Charlestown NSW 2290",
+      "acceptable": [
+        {
+          "address": "30 PEARSON ST CHARLESTOWN NSW 2290",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 95; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "d19370a0835d80ed-1",
+      "input_address": "118a Burwood Road Burwood NSW 2134",
+      "acceptable": [
+        {
+          "address": "118A BURWOOD RD BURWOOD NSW 2134",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 96; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "ba2315e0566cbc17-1",
+      "input_address": "Supa IGA, 141 Parker Street Cootamundra NSW 2590",
+      "acceptable": [
+        {
+          "address": "141 PARKER ST COOTAMUNDRA NSW 2590",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 97; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "88b9f69b1a9cd16d-1",
+      "input_address": "170 Sheridan Street Gundagai NSW 2722",
+      "acceptable": [
+        {
+          "address": "170 SHERIDAN ST GUNDAGAI NSW 2722",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 98; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "9f0165114028e190-1",
+      "input_address": "113 Adelaide Street Blayney NSW 2799",
+      "acceptable": [
+        {
+          "address": "113 ADELAIDE ST BLAYNEY NSW 2799",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 99; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "471dd91f0b72268d-1",
+      "input_address": "98 Comur Street Yass NSW 2582",
+      "acceptable": [
+        {
+          "address": "98 COMUR ST YASS NSW 2582",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 100; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "051a9cf3ada90332-1",
+      "input_address": "2 Carrington Street Sydney NSW 2000",
+      "acceptable": [
+        {
+          "address": "SHELL HOUSE 2 CARRINGTON ST SYDNEY NSW 2000",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 101; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "2d7090b14e67fce8-1",
+      "input_address": "163 Rowe Street Eastwood NSW 2122",
+      "acceptable": [
+        {
+          "address": "163 ROWE ST EASTWOOD NSW 2122",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 102; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "39ec3903f632b58c-1",
+      "input_address": "300 Victoria Avenue Chatswood NSW 2067",
+      "acceptable": [
+        {
+          "address": "300 VICTORIA AV CHATSWOOD NSW 2067",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 103; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "d770cacf3a3d22f2-1",
+      "input_address": "292 Pitt Street Sydney NSW 2000",
+      "acceptable": [
+        {
+          "address": "292 PITT ST SYDNEY NSW 2000",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 104; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "f7c6e79d1d255254-1",
+      "input_address": "884-896 Pittwater Road Dee Why NSW 2099",
+      "acceptable": [
+        {
+          "address": "884 PITTWATER RD DEE WHY NSW 2099",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 105; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "4a3a621d19639ae1-1",
+      "input_address": "10-14 Auburn Road Auburn NSW 2144",
+      "acceptable": [
+        {
+          "address": "10 14 AUBURN RD AUBURN NSW 2144",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 106; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "e2b9ff166a70ea5f-1",
+      "input_address": "Stockland Merrylands Shopping Centre, 52 McFarlane Street Merrylands NSW 2160",
+      "acceptable": [
+        {
+          "address": "52 MCFARLANE ST MERRYLANDS NSW 2160",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 107; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "335eea98faf4b268-1",
+      "input_address": "288 Peel St Tamworth NSW 2340",
+      "acceptable": [
+        {
+          "address": "288 PEEL ST TAMWORTH NSW 2340",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 108; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "cd8ff5ba815b110b-1",
+      "input_address": "Rouse Hill Town Centre, 10-14 Market Lane Rouse Hill NSW 2155",
+      "acceptable": [
+        {
+          "address": "10 14 MARKET LANE ROUSE HILL NSW 2155",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 109; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "32981c7aab56a792-1",
+      "input_address": "159 Queen Street St Marys NSW 2760",
+      "acceptable": [
+        {
+          "address": "159 QUEEN ST ST MARYS NSW 2760",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 110; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "97c25da36ad8e1e2-1",
+      "input_address": "60 Martin Place Sydney NSW 2000",
+      "acceptable": [
+        {
+          "address": "60 MARTIN PL SYDNEY NSW 2000",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 111; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "b274d9b893c00a25-1",
+      "input_address": "904 Botany Road Mascot NSW 2020",
+      "acceptable": [
+        {
+          "address": "904 BOTANY RD MASCOT NSW 2020",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 112; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "b5846f88dd6aba55-1",
+      "input_address": "3 Parramatta Square Parramatta NSW 2150",
+      "acceptable": [
+        {
+          "address": "3 PARRAMATTA SQ PARRAMATTA NSW 2150",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 113; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "f0b819549f6f8b09-1",
+      "input_address": "196 Summer Street Orange NSW 2800",
+      "acceptable": [
+        {
+          "address": "196 SUMMER ST ORANGE NSW 2800",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 114; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "247c1712ee964c19-1",
+      "input_address": "70-74 Horton Street Port Macquarie NSW 2444",
+      "acceptable": [
+        {
+          "address": "70 74 HORTON ST PORT MACQUARIE NSW 2444",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 115; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "049633019c3dceee-1",
+      "input_address": "35A Marketown, 23 Steel St Newcastle West NSW 2302",
+      "acceptable": [
+        {
+          "address": "MARKETOWN SHOPPING CENTRE 23 STEEL ST NEWCASTLE WEST NSW 2302",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 116; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "1d341ede8f47f329-1",
+      "input_address": "182 City Walk Canberra ACT 2601",
+      "acceptable": [
+        {
+          "address": "182 CITY WALK CITY ACT 2601",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 117; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "6fca3c8287996f15-1",
+      "input_address": "151 Victoria Street Taree NSW 2430",
+      "acceptable": [
+        {
+          "address": "151 VICTORIA ST TAREE NSW 2430",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 118; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "cfdb98a400b69396-1",
+      "input_address": "Westfield Tuggerah, 50 Wyong Road Tuggerah NSW 2259",
+      "acceptable": [
+        {
+          "address": "WESTFIELD SHOPPING CENTRE 50 WYONG RD TUGGERAH NSW 2259",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 119; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "9c6ed24a6c28a16c-1",
+      "input_address": "56 Kinghorne Street Nowra NSW 2541",
+      "acceptable": [
+        {
+          "address": "56 KINGHORNE ST NOWRA NSW 2541",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 120; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "a831e334e76fbb18-1",
+      "input_address": "Shops G1 & G2, Westfield Woden, 1 Keltie Street Woden ACT 2606",
+      "acceptable": [
+        {
+          "address": "HEALTH CENTRE 1 KELTIE ST PHILLIP ACT 2606",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 121; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "8f4ca2e4203aa97c-1",
+      "input_address": "518 Princes Highway Rockdale NSW 2216",
+      "acceptable": [
+        {
+          "address": "518 PRINCES HWY ROCKDALE NSW 2216",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 122; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "12a58d5a4b492d0a-1",
+      "input_address": "33 Jonson Street Byron Bay NSW 2481",
+      "acceptable": [
+        {
+          "address": "33 JONSON ST BYRON BAY NSW 2481",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 123; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "d368418784e07d8b-1",
+      "input_address": "277 King Street Newtown NSW 2042",
+      "acceptable": [
+        {
+          "address": "277 KING ST NEWTOWN NSW 2042",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 124; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "a9fc3782d362c807-1",
+      "input_address": "333 George Street Sydney NSW 3000",
+      "acceptable": [
+        {
+          "address": "333 GEORGE ST SYDNEY NSW 2000",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 125; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "c0e6af2d14351675-1",
+      "input_address": "Tenancy C2.03, 3 Sussex Street Barangaroo NSW 2000",
+      "acceptable": [
+        {
+          "address": "3 SUSSEX ST BARANGAROO NSW 2000",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 126; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "bf55a87bf16ad982-1",
+      "input_address": "343 Kingsway Caringbah NSW 2229",
+      "acceptable": [
+        {
+          "address": "343 KINGSWAY CARINGBAH NSW 2229",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 127; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "f10e40725040085f-1",
+      "input_address": "191 Beardy Street Armidale NSW 2350",
+      "acceptable": [
+        {
+          "address": "191 BEARDY ST ARMIDALE NSW 2350",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 128; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "53e5c331778600a3-1",
+      "input_address": "Ashfield Mall, 260A Liverpool Road Ashfield NSW 2131",
+      "acceptable": [
+        {
+          "address": "260A LIVERPOOL RD ASHFIELD NSW 2131",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 129; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "a34a2f1dc1390103-1",
+      "input_address": "Marrickville Metro Shopping Centre, T12-14, 20 Smidmore Street Marrickville NSW 2204",
+      "acceptable": [
+        {
+          "address": "MARRICKVILLE SHOPPING CENTRE 20 SMIDMORE ST MARRICKVILLE NSW 2204",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 130; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "0024f5cb24e88157-1",
+      "input_address": "Fountain Plaza, 148-158 The Entrance Road Erina NSW 2250",
+      "acceptable": [
+        {
+          "address": "148 158 THE ENTRANCE ROAD ERINA NSW 2250",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 131; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "6f70ba54f5c30a4c-1",
+      "input_address": "Blockbuster Sebastopol, 107 Rubicon Street Sebastopol VIC 3356",
+      "acceptable": [
+        {
+          "address": "BLOCKBUSTER VIDEO 107 RUBICON ST SEBASTOPOL VIC 3356",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 132; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "4ba5480d31a6b6ff-1",
+      "input_address": "10 Lochial Avenue Mount Martha VIC 3934",
+      "acceptable": [
+        {
+          "address": "HIMA FLATS FLAT 10 43 THE AVENUE MOUNT BULLER VIC 3723",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 133; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "82adb9cc6d46fe89-1",
+      "input_address": "Box Hill Hospital, 51 Nelson Road Box Hill VIC 3128",
+      "acceptable": [
+        {
+          "address": "BOX HILL HOSPITAL 51 NELSON RD BOX HILL VIC 3128",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 134; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "978ad88cce9de7ee-1",
+      "input_address": "210 Dunns Road Mornington VIC 3931",
+      "acceptable": [
+        {
+          "address": "210 DUNNS RD MORNINGTON VIC 3931",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 135; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "f38244ae6ddf536b-1",
+      "input_address": "4 / 19 RATHMINES ST FAIRFIELD",
+      "acceptable": [
+        {
+          "address": "UNIT 4 19 RATHMINES ST FAIRFIELD VIC 3078",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 136; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "a473f23c4ce1499f-1",
+      "input_address": "4 / 19 RATHMINES ST ALPHINGTON",
+      "acceptable": [
+        {
+          "address": "UNIT 4 19 RATHMINES ST FAIRFIELD VIC 3078",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 137; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "f88205e36781ccba-1",
+      "input_address": "4 / 19 RATMNES ST ALPINGTON",
+      "acceptable": [
+        {
+          "address": "UNIT 4 19 RATHMINES ST FAIRFIELD VIC 3078",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 138; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "419979bc0b44ed1e-1",
+      "input_address": "34/121 EXHIBTN ST MELBURNE",
+      "acceptable": [
+        {
+          "address": "LEVEL 34 121 EXHIBITION ST MELBOURNE VIC 3000",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 139; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "d0a7c18a49abb54b-1",
+      "input_address": "30 AUGHTIE DR ALBERT PARK",
+      "acceptable": [
+        {
+          "address": "BMELBOURNE SPORT AND AQUATIC CENTRE 30 AUGHTIE DR ALBERT PARK VIC 3206",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 140; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "f1db4a089162c279-1",
+      "input_address": "2 B TOWERHILL ROAD FRANKSTON VIC 3199",
+      "acceptable": [
+        {
+          "address": "ST PAUL S TERRACE 2B TOWERHILL RD FRANKSTON VIC 3199",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 141; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "1687f5bdea6edabb-1",
+      "input_address": "27 49 RYOT STREET WARRNAMBOOL VIC 3280",
+      "acceptable": [
+        {
+          "address": "SOUTH WEST HEALTHCARE 25 RYOT ST WARRNAMBOOL VIC 3280",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 142; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "65d0f99df1386945-1",
+      "input_address": "31 ALMA ROAD ST KILDA VIC 3182",
+      "acceptable": [
+        {
+          "address": "ROYAL DISTRICT NURSING SERVICE 31 39 ALMA RD ST KILDA VIC 3182",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 143; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "9d6cd0f9f7515d2e-1",
+      "input_address": "21 25 INVERNESS STREET CLARINDA VIC 3169",
+      "acceptable": [
+        {
+          "address": "CLARINDA ON THE PARK 21 29 INVERNESS ST CLARINDA VIC 3169",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 144; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "0fcd67169148a4e5-1",
+      "input_address": "2 GRAHAM STREET SHEPPARTON VIC 3630",
+      "acceptable": [
+        {
+          "address": "AVE MARIA VILLAGE 25 GRAHAM ST SHEPPARTON VIC 3630",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 145; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "9f2d66d774bbe642-1",
+      "input_address": "2 B GRACE STREET GLEN WAVERLEY VIC 3150",
+      "acceptable": [
+        {
+          "address": " 2 GRACE ST GLEN WAVERLEY VIC 3150 ",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 146; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "07897a3e65b6d644-1",
+      "input_address": "2 OVERTON ROAD FRANKSTON VIC 3199",
+      "acceptable": [
+        {
+          "address": "2 4 OVERTON RD FRANKSTON VIC 3199 ",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 147; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "c6693a3de2dccf1b-1",
+      "input_address": "103 CORIO STREET GEELONG VIC 3220",
+      "acceptable": [
+        {
+          "address": "103 107 CORIO ST GEELONG VIC 3220 ",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 148; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "1cc598ef72995a05-1",
+      "input_address": "100 WEDDELL ROAD NORTH GEELONG VIC 3125",
+      "acceptable": [
+        {
+          "address": "MULTICULTURAL AGED CARE SERVICES MACS 100 WEDDELL RD NORTH GEELONG VIC 3215",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 149; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "c6895b9f600729a9-1",
+      "input_address": "61 S LAKER BOULEVARD CLYDE NORTH VIC 3978",
+      "acceptable": [
+        {
+          "address": "BLOOM BY LUSON AGED CARE 61 LAKER BVD CLYDE NORTH VIC 3978",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 150; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "913cee82776ce471-1",
+      "input_address": "1 DUNLOP STREET SHEPPARTON VIC 3630",
+      "acceptable": [
+        {
+          "address": "1 3 DUNLOP ST SHEPPARTON VIC 3630 ",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 151; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "b2b17946942ce6ed-1",
+      "input_address": "1 / 653 high st thornbury",
+      "acceptable": [
+        {
+          "address": "653 HIGH ST THORNBURY VIC 3071",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 152; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "f1e67f15b30c9ca9-1",
+      "input_address": "144 wingrove st fairifeld",
+      "acceptable": [
+        {
+          "address": "144 WINGROVE ST FAIRFIELD VIC 3078",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 153; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "66a84569abad21f0-1",
+      "input_address": "235 springvale rd glenwaverley",
+      "acceptable": [
+        {
+          "address": "THE GLEN S C 227 235 SPRINGVALE RD GLEN WAVERLEY VIC 3150",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 154; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "97c9ebaeecb92002-1",
+      "input_address": "380 lygon st carlton",
+      "acceptable": [
+        {
+          "address": "380 LYGON ST CARLTON VIC 3053",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 155; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "0503f56e362d771d-1",
+      "input_address": "115 sydney rd brunswick",
+      "acceptable": [
+        {
+          "address": "115 SYDNEY RD BRUNSWICK VIC 3056",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 156; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "97d5918daba60391-1",
+      "input_address": "309 lygon st carlton",
+      "acceptable": [
+        {
+          "address": "309 LYGON ST CARLTON VIC 3053",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 157; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "afeac432550f757a-1",
+      "input_address": "309 lygon street ",
+      "acceptable": [
+        {
+          "address": "309 LYGON ST CARLTON VIC 3053",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 158; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "d6b553fa12fa27d2-1",
+      "input_address": "112 Acland St, St Kilda",
+      "acceptable": [
+        {
+          "address": "112 ACLAND ST ST KILDA VIC 3182",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 159; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "fe23a0ad91ce9d98-1",
+      "input_address": "112 Ackland St St Kilda",
+      "acceptable": [
+        {
+          "address": "112 ACLAND ST ST KILDA VIC 3182",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 160; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "dc28e0adb0afa5c6-1",
+      "input_address": "2 manor grove caulfield north",
+      "acceptable": [
+        {
+          "address": "2 MANOR GR CAULFIELD NORTH VIC 3161",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 161; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "9fea11b6f747900f-1",
+      "input_address": "2 MANOR GROVE CAULIELD",
+      "acceptable": [
+        {
+          "address": "2 MANOR GR CAULFIELD NORTH VIC 3161",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 162; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "2495c94398834dee-1",
+      "input_address": "2 manna grove caulfield north",
+      "acceptable": [
+        {
+          "address": "2 MANOR GR CAULFIELD NORTH VIC 3161",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 163; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "6a03461a2342c2bc-1",
+      "input_address": "254-262 Wingrove St, Fairfield",
+      "acceptable": [
+        {
+          "address": "254 256 WINGROVE ST FAIRFIELD VIC 3078",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 164; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "da6efb83fb6faec7-1",
+      "input_address": "254 wingrove Street Fairfield",
+      "acceptable": [
+        {
+          "address": "254 WINGROVE ST FAIRFIELD VIC 3078",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 165; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "ddc395b9091991a4-1",
+      "input_address": "254 WINGROVE ST ALPHINGTON",
+      "acceptable": [
+        {
+          "address": "254 WINGROVE ST FAIRFIELD VIC 3078",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 166; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "8cf5e89c5d916617-2",
+      "input_address": "246 CONADILLY STREET GUNNEDAH NSW 2380",
+      "acceptable": [
+        {
+          "address": "246 256 CONADILLY ST GUNNEDAH NSW 2380",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 167; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "98187e509ade56b6-2",
+      "input_address": "1 MERIMBULA DRIVE MERIMBULA NSW 2548",
+      "acceptable": [
+        {
+          "address": "1 3 MERIMBULA DR MERIMBULA NSW 2548",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 168; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "1f4282e02fd8632f-1",
+      "input_address": "141 143 MAITLAND STREET NARRABRI NSW 2390",
+      "acceptable": [
+        {
+          "address": "NATIONAL AUSTRALIA BANK 141 MAITLAND ST NARRABRI NSW 2390",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 169; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "948d6f15334e73c4-1",
+      "input_address": "WESTFIELD BONDI JUNCTION 500 OXFORD STREET BONDI JUNCTION NSW 2022",
+      "acceptable": [
+        {
+          "address": "500 OXFORD ST BONDI JUNCTION NSW 2022",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 170; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "85f1ff1a68843b6b-2",
+      "input_address": "152 BUNNERONG ROAD EASTGARDENS NSW 2036",
+      "acceptable": [
+        {
+          "address": "WESTFIELD SHOPPINGTOWN 152 BUNNERONG RD EASTGARDENS NSW 2036",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 171; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "92b9a9434a4edc19-1",
+      "input_address": "342 344 BELGRAVE GEMBROOK ROAD EMERALD VIC 3782",
+      "acceptable": [
+        {
+          "address": "344 BELGRAVE GEMBROOK RD EMERALD VIC 3782",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 172; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "dbd62885686ae00c-1",
+      "input_address": "37 CATTLEY STREET BURNIE TAS 7320",
+      "acceptable": [
+        {
+          "address": "NATIONAL AUSTRALIA BANK 37 CATTLEY ST BURNIE TAS 7320",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 173; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "5022001e3f0a1d11-1",
+      "input_address": "SUNSHINE MARKETPLACE 80 HARVESTER ROAD SUNSHINE VIC 3020",
+      "acceptable": [
+        {
+          "address": "80 HARVESTER RD SUNSHINE VIC 3020",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 174; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "58445dbe047d43e9-1",
+      "input_address": "16 GILBERT STREET TORQUAY VIC 3228",
+      "acceptable": [
+        {
+          "address": "NATIONAL BANK 16 GILBERT ST TORQUAY VIC 3228",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 175; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "4ef543ea43ebe2c5-1",
+      "input_address": "SHOP 128 CASEY CENTRAL SC 400 NARRE WARREN CRANBOURNE RD NARRE WARREN SOUTH VIC 3805",
+      "acceptable": [
+        {
+          "address": "SHOP 128 400 CRANBOURNE RD NARRE WARREN SOUTH VIC 3805",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 176; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "da7a473908606448-1",
+      "input_address": "NORTHLAND SHOPPING CENTRE 2 50 MURRAY ROAD PRESTON VIC 3072",
+      "acceptable": [
+        {
+          "address": "NORTHLAND SHOPPING CENTRE SHOP 2 2 50 MURRAY RD PRESTON VIC 3072",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 177; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "01ca3c0ca6d11b07-1",
+      "input_address": "39 41 RAMSAY STREET CLONCURRY QLD 4824",
+      "acceptable": [
+        {
+          "address": "39 RAMSAY ST CLONCURRY QLD 4824",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 178; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "2a63776d7f7dbbc0-1",
+      "input_address": "219 223 WATERWORKS ROAD ASHGROVE QLD 4060",
+      "acceptable": [
+        {
+          "address": "223 WATERWORKS RD ASHGROVE QLD 4060",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 179; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "1d580017b416b398-1",
+      "input_address": "1001 STURT STREET BALLARAT VIC 3350",
+      "acceptable": [
+        {
+          "address": "SWIFT STURT STREET 1108 STURT ST BALLARAT CENTRAL VIC 3350",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 180; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "8ae63577901fc3ef-1",
+      "input_address": "SHOP 103 COCKBURN GATEWAY SHOPPING CENTRE 816 BEELAIR DRIVE SUCCESS WA 6164",
+      "acceptable": [
+        {
+          "address": "COCKBURN GATEWAY SHOPPING CENT SHOP 103 816 BEELIAR DR SUCCESS WA 6164",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 181; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "e52713b8b4afe34a-1",
+      "input_address": "260 CLARENDON STREET SOUTH MELBOURNE VIC 3205",
+      "acceptable": [
+        {
+          "address": "258 264 CLARENDON ST SOUTH MELBOURNE VIC 3205",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 182; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "13c0233a55deb363-1",
+      "input_address": "64 66 CHURCH STREET MUDGEE NSW 2850",
+      "acceptable": [
+        {
+          "address": "66 CHURCH ST MUDGEE NSW 2850",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 183; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "5dad395b37a49424-1",
+      "input_address": "54 MUNJINGBAL DRIVE TWEED HEADS NSW 2546",
+      "acceptable": [
+        {
+          "address": "54 MINJUNGBAL DR TWEED HEADS SOUTH NSW 2486",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 184; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "12cbee664ff3ce15-1",
+      "input_address": "194 JULL STREET ARMADALE WA 6112",
+      "acceptable": [
+        {
+          "address": "194 JULL ST ARMADALE WA 6112 ",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 185; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "de67fe61c1930ef2-1",
+      "input_address": "OCEAN KEYS SHOPPING CENTRE 35 OCEAN KEYS BOULEVARD CLARKSON WA 6030",
+      "acceptable": [
+        {
+          "address": "35 OCEAN KEYS BVD CLARKSON WA 6030",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 186; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "760068596af6df2e-1",
+      "input_address": "17 GOUGER STREET ADELAIDE SA 5000",
+      "acceptable": [
+        {
+          "address": "17 GOUGER ST ADELAIDE SA 5000",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 187; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "02591c38da255c20-1",
+      "input_address": "VICTOR HARBOR CENTRAL SHOPPING CENTRE 27 TORRENS ROAD VICTOR HARBOR SA 5211",
+      "acceptable": [
+        {
+          "address": "21 37 TORRENS ST VICTOR HARBOR SA 5211",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 188; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "d5ea805f87e365ec-1",
+      "input_address": "MUNNO PARA SHOPPING CITY 600 MAIN NORTH ROAD SMITHFIELD SA 5114",
+      "acceptable": [
+        {
+          "address": "MUNNO PARA SC 600 MAIN NORTH RD SMITHFIELD SA 5114",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 189; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "9808a06a7d7eb8d9-1",
+      "input_address": "SHOP D 137 141 THE PARADE NORWOOD SA 5067",
+      "acceptable": [
+        {
+          "address": "137 143 THE PARADE NORWOOD SA 5067",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 190; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "3176834b36cda2b2-1",
+      "input_address": "FINDON SHOPPING CENTRE 303 GRANGE ROAD FINDON SA 5023",
+      "acceptable": [
+        {
+          "address": "303 GRANGE RD FINDON SA 5023",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 191; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "8b82a220f5314aec-1",
+      "input_address": "CENTRO ARNDALE 470 TORRENS ROAD KILKENNY SA 5009",
+      "acceptable": [
+        {
+          "address": "ARMADA ARNDALE 460 470 TORRENS RD KILKENNY SA 5009",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 192; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "42ed0736368b6e9b-1",
+      "input_address": "43 JOHN STREET SALISBURY SA 5108",
+      "acceptable": [
+        {
+          "address": "41 43 JOHN ST SALISBURY SA 5108",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 193; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "4e54612f42a84367-1",
+      "input_address": "STOCKLAND ROCKHAMPTON 120 331 YAAMBA ROAD ROCKHAMPTON QLD 4700",
+      "acceptable": [
+        {
+          "address": "SHOPPING FAIR 331 YAAMBA RD PARK AVENUE QLD 4701",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 194; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "cbe234c7ac50e43f-1",
+      "input_address": "2 THE TERRACE NORTH IPSWICH QLD 4305",
+      "acceptable": [
+        {
+          "address": "2 THE TERRACE NORTH IPSWICH QLD 4305",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 195; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "05cf4f34379228a8-1",
+      "input_address": "MOUNT OMMANEY SHOPPING CENTRE 171 DANDENONG ROAD MOUNT OMMANEY QLD 4074",
+      "acceptable": [
+        {
+          "address": "171 DANDENONG RD MOUNT OMMANEY QLD 4074",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 196; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "811e07874fb5e05a-1",
+      "input_address": "BROOKSIDE SHOPPING CENTRE 159 OSBORNE ROAD MITCHELTON QLD 4053",
+      "acceptable": [
+        {
+          "address": "BROOKSIDE SHOPPING CENTRE 159 OSBORNE RD MITCHELTON QLD 4053",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 197; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "373eb2004cbe20c8-1",
+      "input_address": "139 BOAT HARBOUR DRIVE PIALBA QLD 4655",
+      "acceptable": [
+        {
+          "address": "130 140 BOAT HARBOUR DR PIALBA QLD 4655",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 198; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "f6e62198760beb22-1",
+      "input_address": "PIMPAMA CITY SHOPPING CENTRE 102 PIMPAMA JACOBS WELL ROAD PIMPAMA QLD 4209",
+      "acceptable": [
+        {
+          "address": "102 PIMPAMA JACOBS WELL RD PIMPAMA QLD 4209",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 199; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "fb02138423ad3fd0-1",
+      "input_address": "ORION SPRINGFIELD CENTRAL 1 MAIN STREET SPRINGFIELD LAKES QLD 4300",
+      "acceptable": [
+        {
+          "address": "1 MAIN ST SPRINGFIELD CENTRAL QLD 4300",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 200; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "1d5b9a476683d2d4-1",
+      "input_address": "14 16 MAIN STREET PROSERPINE QLD 4800",
+      "acceptable": [
+        {
+          "address": "PROSERPINE ENTERTAINMENT CENTRE LIBRARY 14 MAIN ST PROSERPINE QLD 4800",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 201; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "5bbb93f15b51ef6a-1",
+      "input_address": "3 BREAKFAST CREEK ROAD NEWSTEAD QLD 4006",
+      "acceptable": [
+        {
+          "address": "1 BREAKFAST CREEK RD NEWSTEAD QLD 4006",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 202; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "c5af483fd3217dae-1",
+      "input_address": "84 88 GRIFFITH STREET COOLANGATTA QLD 4225",
+      "acceptable": [
+        {
+          "address": "84 GRIFFITH ST COOLANGATTA QLD 4225",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 203; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "01ca3c0ca6d11b07-2",
+      "input_address": "39 41 RAMSAY STREET CLONCURRY QLD 4824",
+      "acceptable": [
+        {
+          "address": "39 RAMSAY ST CLONCURRY QLD 4824",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 204; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "36ca7c51e93db03e-1",
+      "input_address": "CANELAND CENTRAL 4740 MANGROVE ROAD MACKAY QLD 4740",
+      "acceptable": [
+        {
+          "address": "CANELAND SHOPPING TOWN 2 MANGROVE RD MACKAY QLD 4740",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 205; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "12ff53b15651d73b-1",
+      "input_address": "38 MAIN STREET ATHERTON QLD 4883",
+      "acceptable": [
+        {
+          "address": "38 MAIN ST ATHERTON QLD 4883",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 206; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "cfe37129d1d1df50-1",
+      "input_address": "414 ESPLANADE TORQUAY QLD 4655",
+      "acceptable": [
+        {
+          "address": "414 ESPLANADE TORQUAY QLD 4655",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 207; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "ed9693ac1b213b78-1",
+      "input_address": "23 DAY STREET TARA QLD 4421",
+      "acceptable": [
+        {
+          "address": "23 DAY ST TARA QLD 4421",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 208; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "a7eb92fcf3bed6b8-1",
+      "input_address": "AUSTRALIA FAIR SHOPPING CENTRE 49 MARINE PARADE SOUTHPORT QLD 4215",
+      "acceptable": [
+        {
+          "address": "AUSTRALIA FAIR 42 MARINE PDE SOUTHPORT QLD 4215",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 209; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "409622ca4d4b7ae9-1",
+      "input_address": "TOOWOOMBA K MART 878 RUTHVEN STREET TOOWOOMBA QLD 4350",
+      "acceptable": [
+        {
+          "address": "K MART PLAZA 878 898 RUTHVEN ST KEARNEYS SPRING QLD 4350",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 210; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "768f7141f3396ff2-1",
+      "input_address": "917 925 KINGSTON ROAD WATERFORD QLD 4133",
+      "acceptable": [
+        {
+          "address": "917 KINGSTON RD WATERFORD WEST QLD 4133",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 211; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "ebf0c1993b914e16-1",
+      "input_address": "WAVERLEY GARDENS SHOPPING CENTRE 271 POLICE ROAD MULGRAVE VIC 3170",
+      "acceptable": [
+        {
+          "address": "CENTRO WAVERLEY GARDENS 271 POLICE RD MULGRAVE VIC 3170",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 212; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "2d670b6e5c43a907-1",
+      "input_address": "ROSEBUD PLAZA SHOPPING CENTRE SHOPS 18 19 CNR BONEO ROAD AND MCCOMBE STREET ROSEBUD VIC 3939",
+      "acceptable": [
+        {
+          "address": "BONEO ROAD MCCOMBE STREET ROSEBUD VIC 3939",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 213; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "58445dbe047d43e9-2",
+      "input_address": "16 GILBERT STREET TORQUAY VIC 3228",
+      "acceptable": [
+        {
+          "address": "NATIONAL BANK 16 GILBERT ST TORQUAY VIC 3228",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 214; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "80a84131d0a096bd-1",
+      "input_address": "SHOP 1 19 21 DOUGLAS PARADE WILLIAMSTOWN VIC 3016",
+      "acceptable": [
+        {
+          "address": "SHOP 1 19 21 DOUGLAS PDE WILLIAMSTOWN VIC 3016",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 215; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "7d62fae432b8cdcf-1",
+      "input_address": "WESTFIELD DONCASTER 619 DONCASTER ROAD DONCASTER VIC 3108",
+      "acceptable": [
+        {
+          "address": "WESTFIELD DONCASTER 619 DONCASTER RD DONCASTER VIC 3108",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 216; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "3233ac5264872f17-1",
+      "input_address": "DANDENONG PLAZA 1 MCCRAE STREET DANDENONG VIC 3175",
+      "acceptable": [
+        {
+          "address": "CORNER MCCRAE AND WALKER STREETS DANDENONG VIC 3175",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 217; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "8e69a15c61545b0e-1",
+      "input_address": "140 KOROIT ST WARRNAMBOOL VIC 3280",
+      "acceptable": [
+        {
+          "address": "140 KOROIT ST WARRNAMBOOL VIC 3280",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 218; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "d1052b49ae69d6ae-1",
+      "input_address": "406 SYDNEY ROAD COBURG VIC 3058",
+      "acceptable": [
+        {
+          "address": "406 SYDNEY RD COBURG VIC 3058",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 219; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "d6cbbe188131587d-1",
+      "input_address": "406 SYDNEY ROAD NORTH COBURG VIC 3058",
+      "acceptable": [
+        {
+          "address": "406 SYDNEY RD COBURG VIC 3058",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 220; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "097918a5f5fb883c-1",
+      "input_address": "406 SYDNEY ROAD BRUNSWICK",
+      "acceptable": [
+        {
+          "address": "406 SYDNEY RD COBURG VIC 3058",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 221; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "e8bab897244a176b-1",
+      "input_address": "406 SYDNEY ROAD BRUNSWICK 3058",
+      "acceptable": [
+        {
+          "address": "406 SYDNEY RD COBURG VIC 3058",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 222; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "252cc572f09ffe02-1",
+      "input_address": "TARNEIT CENTRAL SHOPPING CENTRE 540 DERRIMUT ROAD TARNEIT VIC 3029",
+      "acceptable": [
+        {
+          "address": "TARNEIT CENTRAL 540 DERRIMUT RD TARNEIT VIC 3029",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 223; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "d18bae019bbf7a26-1",
+      "input_address": "EASTLAND SHOPPING CENTRE 171 175 MAROONDAH HIGHWAY RINGWOOD VIC 3134",
+      "acceptable": [
+        {
+          "address": "EASTLAND SHOP 175 MAROONDAH HWY RINGWOOD VIC 3134",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 224; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "49280ec7e8fa44af-1",
+      "input_address": "FOREST HILL CHASE SHOPPING CENTER 270 CANTERBURY ROAD FOREST HILL VIC 3131",
+      "acceptable": [
+        {
+          "address": "FOREST HILL CHASE SHOPPING CEN 270 CANTERBURY RD FOREST HILL VIC 3131",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 225; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "553be3b81a475cf9-1",
+      "input_address": "29 NAPIER ST ST ARNAUD",
+      "acceptable": [
+        {
+          "address": "29 NAPIER ST ST ARNAUD VIC 3478",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 226; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "392cc76bcff01624-1",
+      "input_address": "29 NAPIER ST SAINT ARNAUD",
+      "acceptable": [
+        {
+          "address": "29 NAPIER ST ST ARNAUD VIC 3478",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 227; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "affc3f7801bd273a-1",
+      "input_address": "29 NAPIER ST SAINT ARNORT",
+      "acceptable": [
+        {
+          "address": "29 NAPIER ST ST ARNAUD VIC 3478",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 228; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "37c44fff52a36693-1",
+      "input_address": "29 NAPIER ST SAINT ARNORD",
+      "acceptable": [
+        {
+          "address": "29 NAPIER ST ST ARNAUD VIC 3478",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 229; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "fdb9ab34e4075773-1",
+      "input_address": "BELLARINE VILLAGE SHOPPING CENTRE 25 29 BELLARINE HIGHWAY NEWCOMB VIC 3219",
+      "acceptable": [
+        {
+          "address": "27 37 BELLARINE HWY NEWCOMB VIC 3219",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 230; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "26e420a97ebd42f4-1",
+      "input_address": "BAYSIDE SHOPPING CENTRE 28 BEACH STREET FRANKSTON",
+      "acceptable": [
+        {
+          "address": "28 BEACH ST FRANKSTON VIC 3199",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 231; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "c701b9d5a22a3a74-1",
+      "input_address": "THE COMO CENTRE LEVEL 1 299 TOORAK RD STH YARRA ",
+      "acceptable": [
+        {
+          "address": "299 TOORAK RD SOUTH YARRA VIC ",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 232; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "0b68d88a03159519-1",
+      "input_address": "19 WALKER ST SOUTHBANK",
+      "acceptable": [
+        {
+          "address": "19 WALKER ST SOUTHBANK VIC 3006",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 233; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "65a381a27cb10b3e-1",
+      "input_address": "9 RAINFOREST WALK CLAYTON",
+      "acceptable": [
+        {
+          "address": "MONASH UNI 9 RAINFOREST WALK CLAYTON VIC 3168",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 234; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "b0e7570504ab42c4-1",
+      "input_address": "6 RIVERSIDE QUAY SOUTHBANK",
+      "acceptable": [
+        {
+          "address": "BUILDING 3 6 RIVERSIDE QY SOUTHBANK VIC 3006",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 235; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "3a0a20838a5f6e34-1",
+      "input_address": "LVL 1 299 TOORAK RD STH YARRA ",
+      "acceptable": [
+        {
+          "address": "299 TOORAK RD SOUTH YARRA VIC ",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 236; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "d88ba82337d35111-1",
+      "input_address": "4 FRESHWATER PLACE SOUTHBANK",
+      "acceptable": [
+        {
+          "address": "2 10 FRESHWATER PL SOUTHBANK VIC 3006",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 237; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "e34667e4c0bf5abe-1",
+      "input_address": "4 FRESH WATER PLCE SOUTHBAKN",
+      "acceptable": [
+        {
+          "address": "2 10 FRESHWATER PL SOUTHBANK VIC 3006",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 238; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "c8ea0d9f8d1c333c-1",
+      "input_address": "2A Abeckett Street st inverloch, VIC 3996",
+      "acceptable": [
+        {
+          "address": "2A ABECKETT ST INVERLOCH VIC 3996",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 239; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "23ce27ec11691062-1",
+      "input_address": "608 High St, PRESTON",
+      "acceptable": [
+        {
+          "address": "608 HIGH ST PRESTON VIC 3072",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 240; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "135cbdd798b8fb3f-1",
+      "input_address": "88 Rosebank Ave, Clayton South",
+      "acceptable": [
+        {
+          "address": "WESTALL SECONDARY COLLEGE 88 128 ROSEBANK AV CLAYTON SOUTH VIC 3169",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 241; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "f67920a9e0520023-1",
+      "input_address": "19 AC/DC La, Melbourne ",
+      "acceptable": [
+        {
+          "address": "19 ACDC LANE MELBOURNE VIC 3000",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 242; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "dc6bb03d1c555f7d-1",
+      "input_address": "2/194 rooks rd vermont",
+      "acceptable": [
+        {
+          "address": "UNIT G2 194 ROOKS RD VERMONT VIC 3133",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 243; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "f6379ec7683d6384-1",
+      "input_address": "155 Charlotte St, Brisbane City QLD 4000",
+      "acceptable": [
+        {
+          "address": "155 CHARLOTTE ST BRISBANE CITY QLD 4000",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 244; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "29c8854c9e105ae0-1",
+      "input_address": "155 Charlotte St, Brisbane",
+      "acceptable": [
+        {
+          "address": "155 CHARLOTTE ST BRISBANE CITY QLD 4000",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 245; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "b05ba193826f74a8-1",
+      "input_address": "lot 58 rice rd undullah, QLD",
+      "acceptable": [
+        {
+          "address": "LOT 58 RICE RD UNDULLAH QLD 4285",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 246; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "c7c9614d197d1d74-1",
+      "input_address": "Lot 580/15 Boulder Creek Street, South Ripley QLD 4306",
+      "acceptable": [
+        {
+          "address": "15 BOULDER CREEK ST SOUTH RIPLEY QLD 4306",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 247; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "84650e0e618b77b1-1",
+      "input_address": "lot 44 Rice Road, Undullah QLD",
+      "acceptable": [
+        {
+          "address": "LOT 44 RICE RD UNDULLAH QLD 4285",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 248; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "30f0152a11c5805a-1",
+      "input_address": "lot 226 Brennan Road, Undullah QLD",
+      "acceptable": [
+        {
+          "address": "LOT 226 BRENNAN RD UNDULLAH QLD 4285",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 249; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "1a04cb9eeadbec84-1",
+      "input_address": "lot 1 Mount Elliott Road, Undullah QLD",
+      "acceptable": [
+        {
+          "address": "LOT 1 MOUNT ELLIOTT RD UNDULLAH QLD 4285",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 250; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "e1c4f130a5900b0a-1",
+      "input_address": "lot 56 Undullah Road, Undullah QLD",
+      "acceptable": [
+        {
+          "address": "LOT 56 UNDULLAH RD UNDULLAH QLD 4285",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 251; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "e1bce82f9f039f9f-1",
+      "input_address": "lot 148 Washpool Road, Undullah QLD",
+      "acceptable": [
+        {
+          "address": "LOT 148 WASHPOOL RD UNDULLAH QLD 4285",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 252; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "0d1f15924383eec2-1",
+      "input_address": "lot 10 Wild Pig Creek Road, Undullah QLD",
+      "acceptable": [
+        {
+          "address": "LOT 10 WILD PIG CREEK RD UNDULLAH QLD 4285",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 253; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "3b09a83c38c0f330-1",
+      "input_address": "lot 17 Abrahams Road, South Ripley QLD",
+      "acceptable": [
+        {
+          "address": "LOT 17 ABRAHAMS RD SOUTH RIPLEY QLD 4306",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 254; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "27802cbda3d4fd70-1",
+      "input_address": "lot 80 Bayliss Road, South Ripley QLD",
+      "acceptable": [
+        {
+          "address": "LOT 80 BAYLISS RD SOUTH RIPLEY QLD 4306",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 255; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "9a810da4b6c0fc53-1",
+      "input_address": "lot 3008 Canungra Street, South Ripley QLD",
+      "acceptable": [
+        {
+          "address": "LOT 3008 CANUNGRA ST SOUTH RIPLEY QLD 4306",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 256; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "df2cffeec49f8f53-1",
+      "input_address": "lot 1 Centenary Motorway, South Ripley QLD",
+      "acceptable": [
+        {
+          "address": "LOT 1 CENTENARY MTWY SOUTH RIPLEY QLD 4306",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 257; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "aac28ccd20d2758b-1",
+      "input_address": "Wild Pig Creek Road, Undullah QLD",
+      "acceptable": [
+        {
+          "address": "798 WILD PIG CREEK RD UNDULLAH QLD 4285",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 258; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "9952a6838105cee3-1",
+      "input_address": "Mount Elliott Road, Undullah QLD",
+      "acceptable": [
+        {
+          "address": "194 MOUNT ELLIOTT RD UNDULLAH QLD 4285",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 259; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "00f2943081d0cebc-1",
+      "input_address": "Undullah Road, Undullah QLD",
+      "acceptable": [
+        {
+          "address": "7000 UNDULLAH RD UNDULLAH QLD 4285",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 260; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "825fa32380995060-1",
+      "input_address": "Washpool Road, Undullah QLD",
+      "acceptable": [
+        {
+          "address": "773 WASHPOOL RD UNDULLAH QLD 4285",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 261; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "bfffdaf4c155578e-1",
+      "input_address": "Watheroo Street, South Ripley QLD",
+      "acceptable": [
+        {
+          "address": "89 WATHEROO ST SOUTH RIPLEY QLD 4306",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 262; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "11c70934ad75ebe7-1",
+      "input_address": "Greenview Avenue, South Ripley QLD",
+      "acceptable": [
+        {
+          "address": "75 GREENVIEW AV SOUTH RIPLEY QLD 4306",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 263; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "0d4057cc6e727144-1",
+      "input_address": "Mazeppa Street, South Ripley QLD",
+      "acceptable": [
+        {
+          "address": "63 MAZEPPA ST SOUTH RIPLEY QLD 4306",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 264; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "1c8ecb6f9ed586b1-1",
+      "input_address": "Danbulla Street, South Ripley QLD",
+      "acceptable": [
+        {
+          "address": "104 DANBULLA ST SOUTH RIPLEY QLD 4306",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 265; label not independently verified.",
+      "error_mode": ""
+    },
+    {
+      "case_id": "d2a3fe059cd9767e-1",
+      "input_address": "Carnarvon Drive, South Ripley QLD",
+      "acceptable": [
+        {
+          "address": "53 CARNARVON DR SOUTH RIPLEY QLD 4306",
+          "reference_id": null,
+          "locality": null,
+          "postcode": null
+        }
+      ],
+      "precision": "exact",
+      "label_status": "needs_review",
+      "expect_abstention": false,
+      "tags": [],
+      "evidence": "",
+      "notes": "Imported from test_set_au.csv, CSV line 266; label not independently verified.",
+      "error_mode": ""
+    }
+  ],
+  "schema_version": 1
+}

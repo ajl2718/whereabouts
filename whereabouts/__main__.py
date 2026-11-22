@@ -10,6 +10,7 @@ Commands:
   remove_database <db_name>                 Remove an installed database
   list_databases                            List installed databases
   benchmark <db_name> <csv_path> [options]  Benchmark geocoder against a test set
+  evaluate <subcommand> [options]          Run experiments, compare results, and review labels
   convert_db <db_file>                      Convert a .db file to .joblib format
 
 Benchmark options:
@@ -51,6 +52,10 @@ def main():
     elif command == "convert_db":
         db_file = sys.argv[2]
         convert_db(db_file)
+    elif command == "evaluate":
+        from .evaluation.cli import main as evaluation_main
+
+        evaluation_main(sys.argv[2:])
     elif command == "benchmark":
         if len(sys.argv) < 4:
             print(

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.resources
 import os
+from pathlib import Path
 import re
 import urllib.parse
 
@@ -49,7 +50,7 @@ class Matcher:
         Parameters
         ----------
         db_name : str
-            The name of the database to use for geocoding.
+            Installed database name, URL, or path to an existing local .db snapshot.
         how : str, optional
             The geocoding algorithm to use. Defaults to 'standard'.
         threshold : float, optional
@@ -66,20 +67,29 @@ class Matcher:
 
         # check if db_name is a local file path or a remote duckdb database
         parsed_url = urllib.parse.urlparse(db_name)
+        read_only = False
         if parsed_url.scheme in ("http", "https", "duckdb"):
             whereabouts_db = db_name
         elif parsed_url.scheme == "":
-            # Check if the database is installed
-            path_to_models = importlib.resources.files("whereabouts").joinpath("models")
-            db_names = [
-                name[:-3] for name in os.listdir(path_to_models) if name.endswith(".db")
-            ]
-            if db_name in db_names:
-                whereabouts_db = f"{path_to_models}/{db_name}.db"
+            snapshot = Path(db_name).expanduser()
+            if snapshot.suffix == ".db" and snapshot.is_file():
+                whereabouts_db = str(snapshot.resolve())
+                read_only = True
             else:
-                raise InvalidDatabaseError(
-                    f"Unknown database '{db_name}'. Valid options: {'\n'.join(db_names)}"
+                path_to_models = importlib.resources.files("whereabouts").joinpath(
+                    "models"
                 )
+                db_names = [
+                    name[:-3]
+                    for name in os.listdir(path_to_models)
+                    if name.endswith(".db")
+                ]
+                if db_name in db_names:
+                    whereabouts_db = f"{path_to_models}/{db_name}.db"
+                else:
+                    raise InvalidDatabaseError(
+                        f"Unknown database '{db_name}'. Valid options: {'\n'.join(db_names)}"
+                    )
         else:
             raise InvalidDatabaseError(f"Invalid database name or URL: {db_name}")
 
@@ -88,7 +98,8 @@ class Matcher:
             raise InvalidDatabaseError(
                 f"Database path contains invalid characters: {whereabouts_db}"
             )
-        self.con.execute(f"ATTACH DATABASE '{whereabouts_db}' as remote;")
+        options = " (READ_ONLY)" if read_only else ""
+        self.con.execute(f"ATTACH DATABASE '{whereabouts_db}' as remote{options};")
 
         # Register custom UDFs and extensions
         register_functions(self.con)

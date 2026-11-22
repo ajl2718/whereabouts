@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Whereabouts evaluation</title>
+<style nonce="__TOKEN__">
+body { font: 15px system-ui, sans-serif; background: #f4f6f8; color: #19232d; margin: 0; }
+main { max-width: 1400px; margin: auto; padding: 24px; }
+h1 { margin-top: 0; } h2 { font-size: 19px; }
+section { background: white; padding: 20px; margin-bottom: 18px; border: 1px solid #dce2e8; border-radius: 8px; }
+.controls { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; }
+label { display: flex; flex-direction: column; gap: 5px; }
+input, select, textarea, button { font: inherit; padding: 8px; border: 1px solid #9daab6; border-radius: 4px; }
+button { cursor: pointer; background: #174e78; color: white; } button:disabled { opacity: .5; cursor: wait; }
+select { max-width: 450px; } textarea { width: 100%; box-sizing: border-box; }
+table { border-collapse: collapse; width: 100%; }
+th, td { text-align: left; padding: 10px; border-bottom: 1px solid #dce2e8; vertical-align: top; }
+.scroll { overflow: auto; max-height: 440px; } tr[data-case] { cursor: pointer; }
+tr[data-case]:hover, tr.active { background: #eaf2f9; }
+.columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+.notice { color: #5a4400; } #message { white-space: pre-wrap; color: #9c1820; }
+.regression { color: #9c1820; } .improvement { color: #176136; }
+.muted { color: #53616e; } .metrics { font-variant-numeric: tabular-nums; }
+@media (max-width: 800px) { .columns { grid-template-columns: 1fr; } main { padding: 12px; } }
+</style>
+</head>
+<body>
+<main>
+<h1>Whereabouts evaluation</h1>
+<p class="muted">Compare experiments, inspect retained candidates, and propose label corrections locally.</p>
+<p id="message" role="status" aria-live="polite"></p>
+<section>
+<div class="controls">
+<label>Baseline<select id="baseline"></select></label>
+<label>Challenger<select id="challenger"></select></label>
+<button id="compare">Compare</button>
+<button id="refresh">Refresh runs</button>
+</div>
+<div id="summary" class="metrics"></div>
+<details>
+<summary>Run a new variation using the baseline's dataset and database</summary>
+<p>Custom Python pipeline factories and held-out evaluations are available through the CLI only.</p>
+<div class="controls">
+<label>Algorithm<select id="how"><option>standard</option><option>skipphrase</option><option>trigram</option></select></label>
+<label>Threshold<input id="threshold" type="number" min="0" max="1" step="0.05" value="0.5"></label>
+<label>Top k<input id="top-k" type="number" min="1" max="50" value="5"></label>
+<button id="run">Run variation</button>
+</div>
+</details>
+</section>
+<section>
+<div class="controls">
+<label>Search input or result<input id="search" type="search"></label>
+<label>Change<select id="category"><option value="">All</option><option>regression</option><option>improvement</option>
+<option>shared_failure</option><option>shared_success</option><option>unscored</option></select></label>
+<label>Diagnosis<select id="diagnosis"><option value="">All</option><option>ranking</option>
+<option>threshold_rejection</option><option>not_in_top_k</option><option>false_positive</option>
+<option>correct</option><option>unscored</option></select></label>
+<label>Tag<input id="tag" type="search"></label>
+<label>Label status<select id="status"><option value="">All</option><option>verified</option>
+<option>needs_review</option><option>ambiguous</option></select></label>
+</div>
+<p id="count"></p>
+<div class="scroll"><table><thead><tr><th>Change / diagnosis</th><th>Input</th><th>Baseline</th><th>Challenger</th></tr></thead>
+<tbody id="cases"></tbody></table></div>
+</section>
+<section id="detail" hidden>
+<h2 id="case-title"></h2>
+<p id="gold"></p>
+<div class="columns"><div><h2>Baseline candidates</h2><pre id="before"></pre></div>
+<div><h2>Challenger candidates</h2><pre id="after"></pre></div></div>
+<h2>Label proposal</h2>
+<p class="notice">Saving does not alter either run or its metrics. Export a new dataset version and rerun to apply proposals.</p>
+<div class="controls">
+<label>Required precision<select id="precision"><option>exact</option><option>unit</option><option>building</option>
+<option>street</option><option>locality</option></select></label>
+<label>Label status<select id="label-status"><option>needs_review</option><option>verified</option>
+<option>ambiguous</option></select></label>
+<label>Tags, comma-separated<input id="tags"></label>
+<label>Error mode<input id="error-mode" placeholder="e.g. house_number, typo, wrong_locality"></label>
+<label>Expect abstention<input id="abstention" type="checkbox"></label>
+</div>
+<p>For unit/building/street precision, enumerate acceptable database IDs or full labels explicitly; no address hierarchy is inferred.
+For locality precision, use locality and optionally postcode.</p>
+<label>Acceptable matches (JSON array)<textarea id="acceptable" rows="6"></textarea></label>
+<label>Evidence / source (required for verified labels)<textarea id="evidence" rows="2"></textarea></label>
+<label>Notes<textarea id="notes" rows="2"></textarea></label>
+<p><button id="save">Save proposal</button></p>
+</section>
+</main>
+<script nonce="__TOKEN__">
+"use strict";
+const token = "__TOKEN__";
+const $ = id => document.getElementById(id);
+let runs = [], comparison = null, active = null;
+const pct = value => value === null ? "not scored" : `${(value * 100).toFixed(1)}%`;
+async function api(path, body) {
+    const response = await fetch(path, body === undefined ? {} : {
+        method: "POST", headers: {"Content-Type": "application/json", "X-Evaluation-Token": token},
+        body: JSON.stringify(body)
+    });
+    const value = await response.json();
+    if (!response.ok) throw new Error(value.error || `HTTP ${response.status}`);
+    return value;
+}
+async function action(button, callback) {
+    button.disabled = true; $("message").textContent = "";
+    try { await callback(); } catch (error) { $("message").textContent = error.message; }
+    finally { button.disabled = false; }
+}
+function runLabel(run) {
+    return `${run.run_id.slice(0, 8)} | ${run.config.pipeline || run.config.how} @ ${run.config.threshold} | ` +
+        `${run.dataset.name} v${run.dataset.version} (${run.dataset.split})`;
+}
+async function refresh(challengerId) {
+    const before = $("baseline").value, after = challengerId || $("challenger").value;
+    runs = await api("/api/runs");
+    for (const [id, selected] of [["baseline", before], ["challenger", after]]) {
+        $(id).replaceChildren(...runs.map(run => new Option(runLabel(run), run.run_id)));
+        if (runs.some(run => run.run_id === selected)) $(id).value = selected;
+    }
+    if (!runs.length) $("message").textContent = "No runs yet. Import a dataset and run an evaluation with the CLI first.";
+}
+function text(parent, tag, value, className = "") {
+    const element = document.createElement(tag); element.textContent = value; element.className = className;
+    parent.appendChild(element); return element;
+}
+async function compare() {
+    comparison = await api(`/api/compare?baseline=${$("baseline").value}&challenger=${$("challenger").value}`);
+    active = null; $("detail").hidden = true;
+    $("summary").replaceChildren();
+    text($("summary"), "p", Object.entries(comparison.counts).map(([key, value]) => `${key}: ${value}`).join(" | "));
+    for (const [title, id] of [["Baseline", comparison.baseline], ["Challenger", comparison.challenger]]) {
+        const run = runs.find(run => run.run_id === id), m = run.metrics;
+        text($("summary"), "p", `${title}: accuracy ${pct(m.accuracy)}, coverage ${pct(m.coverage)}, ` +
+            `accepted accuracy ${pct(m.accepted_accuracy)}, top-k recall ${pct(m.top_k_recall)}; ` +
+            `${m.scored} scored / ${m.total} cases. Provisional label agreement: ${pct(m.label_agreement)}.`);
+        const details = text($("summary"), "details", "");
+        text(details, "summary", `${title} metrics, precision/tag breakdowns, and provenance`);
+        text(details, "pre", JSON.stringify({metrics: m, timing: run.timing, code: run.code,
+            database: run.database, dataset: run.dataset, query_sha256: run.query_sha256}, null, 2));
+    }
+    if (!comparison.timing_comparable) text($("summary"), "p", "Timing conditions differ (batch size or top k).", "notice");
+    render();
+}
+function render() {
+    if (!comparison) return;
+    const query = $("search").value.toLowerCase(), tag = $("tag").value.toLowerCase();
+    const filtered = comparison.rows.filter(row => {
+        const c = row.challenger.case;
+        return (!$("category").value || row.category === $("category").value) &&
+            (!$("diagnosis").value || row.challenger.diagnosis === $("diagnosis").value) &&
+            (!$("status").value || c.label_status === $("status").value) &&
+            (!tag || c.tags.some(value => value.toLowerCase().includes(tag))) &&
+            (!query || [c.input_address, row.baseline.selected?.address, row.challenger.selected?.address]
+                .some(value => (value || "").toLowerCase().includes(query)));
+    });
+    const priorities = {regression: 0, improvement: 1, shared_failure: 2, unscored: 3, shared_success: 4};
+    filtered.sort((a, b) => priorities[a.category] - priorities[b.category]);
+    $("cases").replaceChildren();
+    for (const row of filtered) {
+        const tr = document.createElement("tr"); tr.dataset.case = row.case_id;
+        if (active?.case_id === row.case_id) tr.className = "active";
+        text(tr, "td", `${row.category}\n${row.challenger.diagnosis}`, row.category);
+        text(tr, "td", row.challenger.case.input_address);
+        text(tr, "td", row.baseline.selected?.address || "(abstained)");
+        text(tr, "td", row.challenger.selected?.address || "(abstained)");
+        tr.tabIndex = 0; tr.onclick = () => selectCase(row);
+        tr.onkeydown = event => { if (event.key === "Enter") selectCase(row); };
+        $("cases").appendChild(tr);
+    }
+    $("count").textContent = `${filtered.length} / ${comparison.rows.length} cases`;
+}
+function candidateText(row) {
+    return row.candidates.length ? row.candidates.map((c, i) =>
+        `${i + 1}. ${c.address}\n   ID ${c.reference_id} | score ${c.score.toFixed(5)}` +
+        `${row.selected?.reference_id === c.reference_id ? " | selected" : ""}`).join("\n\n") :
+        "No retained candidates. This alone cannot distinguish retrieval failure from earlier pruning.";
+}
+function selectCase(row) {
+    active = row; $("detail").hidden = false;
+    const original = row.challenger.case, proposed = comparison.reviews[row.case_id] || original;
+    $("case-title").textContent = original.input_address;
+    $("gold").textContent = `Original label: ${original.label_status}, ${original.precision}; acceptable: ` +
+        JSON.stringify(original.acceptable);
+    $("before").textContent = candidateText(row.baseline); $("after").textContent = candidateText(row.challenger);
+    $("precision").value = proposed.precision; $("label-status").value = proposed.label_status;
+    $("tags").value = proposed.tags.join(", "); $("error-mode").value = proposed.error_mode;
+    $("abstention").checked = proposed.expect_abstention;
+    $("acceptable").value = JSON.stringify(proposed.acceptable, null, 2);
+    $("evidence").value = proposed.evidence; $("notes").value = proposed.notes;
+    render();
+}
+$("refresh").onclick = () => action($("refresh"), () => refresh());
+$("compare").onclick = () => action($("compare"), compare);
+for (const id of ["search", "category", "diagnosis", "tag", "status"]) $(id).oninput = render;
+$("save").onclick = () => action($("save"), async () => {
+    if (!active) throw new Error("Select a case first");
+    const proposal = {...active.challenger.case, precision: $("precision").value,
+        label_status: $("label-status").value, tags: $("tags").value.split(",").map(tag => tag.trim()).filter(Boolean),
+        error_mode: $("error-mode").value, expect_abstention: $("abstention").checked,
+        acceptable: JSON.parse($("acceptable").value), evidence: $("evidence").value, notes: $("notes").value};
+    await api("/api/reviews", {run_id: comparison.challenger, case_id: active.case_id, proposal});
+    comparison.reviews[active.case_id] = proposal;
+    $("message").textContent = "Proposal saved. Export a new dataset version to apply it.";
+});
+$("run").onclick = () => action($("run"), async () => {
+    if (!$("baseline").value) throw new Error("Select a baseline first");
+    $("message").textContent = "Running evaluation...";
+    const result = await api("/api/run", {run_id: $("baseline").value, how: $("how").value,
+        threshold: Number($("threshold").value), top_k: Number($("top-k").value)});
+    await refresh(result.run_id); await compare();
+    $("message").textContent = "New run saved.";
+});
+action($("refresh"), refresh);
+</script>
+</body>
+</html>

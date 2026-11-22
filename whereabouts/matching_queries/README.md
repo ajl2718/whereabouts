@@ -78,14 +78,15 @@ Uses character-level trigrams (3-character substrings) rather than word-level to
 ## Pipeline construction
 
 All algorithms are built from `QueryStep` objects. `create_matching_pipeline`
-selects standard, skipphrase, or trigram for `Matcher`. Skipphrase and trigram
-reuse input processing and candidate scoring/ranking helpers in
-`phrase_matching.py`, with their original normalization, numeric filters,
-scores, and result columns preserved.
+selects standard, skipphrase, or trigram and is shared by `Matcher` and the
+evaluation harness. Skipphrase and trigram reuse input processing and candidate
+scoring/ranking helpers in `phrase_matching.py`, with their original normalization,
+numeric filters, scores, and result columns preserved.
 
 `Matcher(how="skipphrase")` now executes the skipphrase pipeline rather than
 falling through to standard. Skipphrase and trigram support `top_n`; standard
-retains its existing top-one behavior.
+retains its existing top-one behavior. The evaluator exports candidates before
+the final selection and applies its own acceptance threshold.
 
 Database-building pipelines live in `database.py`, `phrases.py`, and
 `addrtext_with_detail.py`. `AddressLoader` and `LoadAddresses` share these

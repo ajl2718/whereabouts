@@ -14,6 +14,8 @@ from whereabouts.AddressLoader import AddressLoader
 from whereabouts.GNAFLoader import GNAFLoader
 from whereabouts.LoadAddresses import LoadAddresses
 from whereabouts.QueryPipeline import QueryPipeline
+from whereabouts.evaluation.dataset import AcceptableMatch, EvaluationCase
+from whereabouts.evaluation.engine import CandidateRunner, RunConfig
 from whereabouts.matching_queries.addrtext_with_detail import (
     build_address_detail_pipeline,
 )
@@ -240,7 +242,7 @@ def test_standard_candidate_budget_and_reference_id_tie_break(
 
 
 @pytest.mark.parametrize("how", ["skipphrase", "trigram"])
-def test_public_matcher_returns_ranked_candidates(
+def test_public_matcher_and_evaluator_share_ranked_candidates(
     reference_database: Path, how: str
 ) -> None:
     with Matcher("sample", how=how) as matcher:
@@ -267,6 +269,22 @@ def test_public_matcher_returns_ranked_candidates(
         standard = matcher.geocode(["115 sydney rd brunswick"], how="standard")
         assert standard[0]["address_matched"] == "115 SYDNEY RD BRUNSWICK VIC 3056"
         assert "input_address" in standard[0]
+    runner = CandidateRunner(RunConfig("sample", how=how, top_k=2))
+    try:
+        case = EvaluationCase(
+            "one", "115 sydney rd brunswick", [AcceptableMatch(reference_id="1")]
+        )
+        candidates = runner.retrieve([case])[0]
+        assert {candidate["reference_id"] for candidate in candidates} == {"1", "2"}
+        for candidate in candidates:
+            result = next(
+                row
+                for row in matches
+                if row["address_id2"] == int(candidate["reference_id"])
+            )
+            assert candidate["score"] == result["similarity"]
+    finally:
+        runner.close()
 
 
 @pytest.mark.parametrize("loader_class", [AddressLoader, LoadAddresses])

@@ -107,16 +107,11 @@ def resolve_reference(database: Path | None, custom_database: str) -> Path:
     if custom_database and not reference.is_absolute():
         raise ValueError("Reference database path must be absolute")
     resolved = reference.resolve()
-    if custom_database:
-        if resolved.suffix.lower() != ".db":
-            raise ValueError("Reference database path must point to a .db file")
-        try:
-            resolved.relative_to(safe_root)
-        except ValueError as exc:
-            raise ValueError(
-                f"Reference database path must be within {safe_root}"
-            ) from exc
-    return resolved
+    if not resolved.is_relative_to(safe_root):
+        raise ValueError(f"Reference database path must be within {safe_root}")
+    if resolved.suffix != ".db" or not resolved.is_file():
+        raise ValueError("Reference database must be an existing .db file")
+    return safe_root / resolved.relative_to(safe_root)
 
 
 def reference_lookup_tab(models: list[Path]) -> None:
@@ -136,7 +131,10 @@ def reference_lookup_tab(models: list[Path]) -> None:
         if models
         else None
     )
-    custom = st.text_input("Lookup database path (absolute .db path)")
+    custom = st.text_input(
+        "Lookup database path (absolute .db path inside models)",
+        help="Only existing snapshots within whereabouts/models are permitted, including nested directories.",
+    )
     with st.form("reference-lookup"):
         left, right = st.columns(2)
         street_number = left.text_input("Street number (label token)")
@@ -161,6 +159,12 @@ def reference_lookup_tab(models: list[Path]) -> None:
             show_error(exc)
     saved = st.session_state.get("reference_lookup")
     if not saved:
+        return
+    try:
+        resolve_reference(saved["database"], "")
+    except (ValueError, OSError) as exc:
+        st.session_state.pop("reference_lookup", None)
+        show_error(exc)
         return
     result, page = saved["result"], saved["page"]
     st.caption(f"Results from {saved['database']} using {saved['filters']}")
@@ -267,7 +271,10 @@ def main() -> None:
             if models
             else None
         )
-        custom_database = st.text_input("Or an absolute path to another .db snapshot")
+        custom_database = st.text_input(
+            "Or an absolute .db path inside models",
+            help="Only existing snapshots within whereabouts/models are permitted, including nested directories.",
+        )
         algorithm = st.selectbox(
             "Matching algorithm", ["standard", "skipphrase", "trigram"]
         )

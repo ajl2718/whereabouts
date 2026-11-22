@@ -9,12 +9,12 @@ uv run --extra evaluation streamlit run whereabouts/evaluation/streamlit_app.py 
   --server.address 127.0.0.1 --browser.gatherUsageStats false
 ```
 
-* **Match addresses:** Select a repo CSV or upload one with `input_address` and `best_match` columns. Pick an algorithm, local reference DB snapshot, threshold, top-k, batch size, and experiment name.
+* **Match addresses:** Select a repo CSV or upload one with `input_address` and `best_match` columns. Pick an algorithm, reference DB snapshot within `whereabouts/models`, threshold, top-k, batch size, and experiment name.
 * **Results:** Green/red rows show label agreement (case/whitespace-normalized only)—not verified gold accuracy. Missing or below-threshold predictions count as incorrect.
 * **Error tagging:** Click any incorrect row to add a free-text error type (empty text clears it). Tags are stored as run-specific, append-only records in `evaluation_runs/errors.sqlite3` and never modify the CSV or run evidence.
 * **Saving & archiving:** Runs save automatically and can be reopened without re-executing, or exported as JSON/CSV. A downloaded JSON alone isn't executable—keep the local run directory, source snapshots, lockfiles, and reference DB snapshots for reproducibility.
 * **Comparing runs:** Requires identical datasets and reference snapshots. Measured geocoding time excludes setup, warm-up, and scoring; wall time includes worktree prep, env startup, and first-run installs. Compare speed only on the same machine with matching settings.
-* **Reference lookup:** Independently choose an installed reference DB or an absolute `.db` path.
+* **Reference lookup:** Independently choose an installed reference DB or an absolute `.db` path inside `whereabouts/models`.
   Filter by street-number token, `LOT` number, street-name phrase, and/or exact suburb.
   All nonempty filters are combined with AND; matching ignores case and whitespace.
   At least one filter is required. Results include reference IDs, labels, suburb and
@@ -24,6 +24,11 @@ uv run --extra evaluation streamlit run whereabouts/evaluation/streamlit_app.py 
   token can occur in a unit, lot, postcode, or range, and street-name phrases can
   also occur elsewhere in a label. Use the database's literal spellings/abbreviations;
   no parsing, range inference, or fuzzy/abbreviation expansion is performed.
+* **App path policy:** Both evaluation and lookup accept only existing `.db` files
+  whose canonical paths are inside `whereabouts/models`, including nested directories.
+  Traversal, sibling-directory paths, and symlinks escaping this directory are rejected.
+  External snapshots must be copied into this directory before using them in the app;
+  do not commit generated databases. This restriction also applies to saved lookup searches.
 
 ---
 
@@ -39,7 +44,7 @@ The default **Working copy** runs a snapshot of your current package source in a
 * **Execution:** Registered versions are saved in `evaluation_runs/versions.json` and run in detached Git worktrees (`evaluation_runs/implementations/worktrees/`) with isolated `.venv` environments via `uv run --locked`. Your working branch is never switched, and modified cached worktrees are rejected. Clean up old worktrees with `git worktree remove <exact-worktree-path>`.
 * **Security:** Only register trusted local code—running a revision executes its Python and build scripts with your user permissions.
 * **Protocol v1:** Accepts a JSON request (DB path, checksums, `RunConfig`) and returns a saved-run path. The controller validates checksums, config, and commit SHA before saving. Older commits must port this contract before registering. Supports `standard`, `skipphrase`, and `trigram` with threshold/top-k/batch-size settings; structural SQL/similarity changes are versioned by commit.
-* **Database compatibility:** The worker checks for required tables, but DuckDB surfaces column/type mismatches. Keep a compatible DB snapshot per implementation—checksums are verified, and DBs aren't copied into worktrees. Accepts installed DBs or explicit `.db` paths.
+* **Database compatibility:** The worker checks for required tables, but DuckDB surfaces column/type mismatches. Keep a compatible DB snapshot per implementation—checksums are verified, and DBs aren't copied into worktrees. The app restricts paths to `whereabouts/models`; trusted CLI/Python callers can still use external local snapshots.
 
 ---
 

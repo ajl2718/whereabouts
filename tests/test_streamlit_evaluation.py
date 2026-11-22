@@ -235,3 +235,105 @@ def test_reference_lookup_tab_works_without_an_evaluation_and_reports_invalid_fi
     assert not test.exception
     assert "at least one" in test.error[0].value
     assert not test.dataframe
+
+
+def test_resolve_reference_accepts_existing_snapshots_inside_models(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.setattr(app, "ROOT", tmp_path)
+    models = tmp_path / "whereabouts/models"
+    nested = models / "snapshots"
+    nested.mkdir(parents=True)
+    reference = models / "reference.db"
+    reference.write_bytes(b"snapshot")
+    alternate = nested / "alternate.db"
+    alternate.write_bytes(b"alternate")
+    alias = models / "alias.db"
+    alias.symlink_to(reference)
+    assert app.resolve_reference(reference, "") == reference
+    assert app.resolve_reference(alias, "") == reference
+    assert app.resolve_reference(reference, str(alternate)) == alternate
+    assert app.resolve_reference(None, str(nested / ".." / "reference.db")) == reference
+
+
+@pytest.mark.parametrize("custom", [False, True])
+def test_resolve_reference_rejects_escaping_paths_symlinks_and_invalid_files(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    custom: bool,
+) -> None:
+    monkeypatch.setattr(app, "ROOT", tmp_path)
+    models = tmp_path / "whereabouts/models"
+    models.mkdir(parents=True)
+    external = tmp_path / "external.db"
+    external.write_bytes(b"external snapshot")
+    sibling = models.with_name("models-other")
+    sibling.mkdir()
+    (sibling / "reference.db").write_bytes(b"sibling snapshot")
+    (models / "escape.db").symlink_to(external)
+    (models / "wrong.txt").write_bytes(b"not a database")
+    (models / "directory.db").mkdir()
+    for path in (
+        external,
+        sibling / "reference.db",
+        models / ".." / ".." / "external.db",
+        models / "escape.db",
+        models / "missing.db",
+        models / "wrong.txt",
+        models / "directory.db",
+    ):
+        with pytest.raises(ValueError):
+            app.resolve_reference(None, str(path)) if custom else app.resolve_reference(
+                path, ""
+            )
+    with pytest.raises(ValueError, match="absolute"):
+        app.resolve_reference(None, "reference.db")
+    with pytest.raises(ValueError, match="Select"):
+        app.resolve_reference(None, "")
+
+
+@pytest.mark.parametrize("lookup", [False, True])
+def test_app_rejects_external_snapshots_before_evaluation_or_lookup(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    lookup: bool,
+) -> None:
+    monkeypatch.setattr(app, "ROOT", tmp_path)
+    monkeypatch.setattr(app, "RUNS", tmp_path / "runs")
+    models = tmp_path / "whereabouts/models"
+    models.mkdir(parents=True)
+    (models / "reference.db").write_bytes(b"snapshot")
+    examples = tmp_path / "example_data"
+    examples.mkdir()
+    (examples / "input.csv").write_text("input_address,best_match\nINPUT,CORRECT\n")
+    external = tmp_path / "external.db"
+    external.write_bytes(b"external snapshot")
+
+    def forbidden(*args: object, **kwargs: object) -> None:
+        pytest.fail("An unapproved path reached database lookup or evaluation")
+
+    monkeypatch.setattr(app, "lookup_reference", forbidden)
+    monkeypatch.setattr(app, "run_version", forbidden)
+    test = AppTest.from_string(
+        "from whereabouts.evaluation.streamlit_app import main\nmain()"
+    ).run()
+    label = (
+        "Lookup database path (absolute .db path inside models)"
+        if lookup
+        else "Or an absolute .db path inside models"
+    )
+    next(field for field in test.text_input if field.label == label).set_value(
+        str(external)
+    )
+    button_label = "Search reference database" if lookup else "Match addresses"
+    next(button for button in test.button if button.label == button_label).click()
+    test.run()
+    assert not test.exception
+    assert "must be within" in test.error[0].value
+    if lookup:
+        test.session_state["reference_lookup"] = {"database": external}
+        test.run()
+        assert not test.exception
+        assert "must be within" in test.error[0].value
+        assert "reference_lookup" not in test.session_state

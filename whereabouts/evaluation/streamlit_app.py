@@ -100,12 +100,23 @@ def choose_run(label: str, paths: list[Path], key: str) -> Path | None:
 
 
 def resolve_reference(database: Path | None, custom_database: str) -> Path:
+    safe_root = (ROOT / "whereabouts/models").resolve()
     reference = Path(custom_database).expanduser() if custom_database else database
     if reference is None:
         raise ValueError("Select a reference database snapshot")
     if custom_database and not reference.is_absolute():
         raise ValueError("Reference database path must be absolute")
-    return reference.resolve()
+    resolved = reference.resolve()
+    if custom_database:
+        if resolved.suffix.lower() != ".db":
+            raise ValueError("Reference database path must point to a .db file")
+        try:
+            resolved.relative_to(safe_root)
+        except ValueError as exc:
+            raise ValueError(
+                f"Reference database path must be within {safe_root}"
+            ) from exc
+    return resolved
 
 
 def reference_lookup_tab(models: list[Path]) -> None:

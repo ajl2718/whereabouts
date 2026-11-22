@@ -14,7 +14,7 @@ uv run --extra evaluation streamlit run whereabouts/evaluation/streamlit_app.py 
 * **Error tagging:** Click any incorrect row to add a free-text error type (empty text clears it). Tags are stored as run-specific, append-only records in `evaluation_runs/errors.sqlite3` and never modify the CSV or run evidence.
 * **Saving & archiving:** Runs save automatically and can be reopened without re-executing, or exported as JSON/CSV. A downloaded JSON alone isn't executable—keep the local run directory, source snapshots, lockfiles, and reference DB snapshots for reproducibility.
 * **Comparing runs:** Requires identical datasets and reference snapshots. Measured geocoding time excludes setup, warm-up, and scoring; wall time includes worktree prep, env startup, and first-run installs. Compare speed only on the same machine with matching settings.
-* **Reference lookup:** Independently choose an installed reference DB or an absolute `.db` path inside `whereabouts/models`.
+* **Reference lookup:** Independently select an approved reference DB from the dropdown.
   Filter by street-number token, `LOT` number, street-name phrase, and/or exact suburb.
   All nonempty filters are combined with AND; matching ignores case and whitespace.
   At least one filter is required. Results include reference IDs, labels, suburb and
@@ -26,9 +26,16 @@ uv run --extra evaluation streamlit run whereabouts/evaluation/streamlit_app.py 
   no parsing, range inference, or fuzzy/abbreviation expansion is performed.
 * **App path policy:** Both evaluation and lookup accept only existing `.db` files
   whose canonical paths are inside `whereabouts/models`, including nested directories.
-  Traversal, sibling-directory paths, and symlinks escaping this directory are rejected.
+  The app discovers approved snapshots on the server and exposes opaque selection IDs,
+  not free-text paths. Dropdown labels include relative subdirectories to distinguish
+  identically named snapshots. Traversal strings and unknown IDs are rejected;
+  dangling symlinks and symlinks escaping the models directory are excluded.
   External snapshots must be copied into this directory before using them in the app;
-  do not commit generated databases. This restriction also applies to saved lookup searches.
+  do not commit generated databases. Selections are revalidated before database access;
+  cached lookup results are cleared if their selection disappears, changes target, or
+  changes file metadata. Legacy path-based lookup state must be searched again.
+  Keep the models directory operator-controlled; these checks do not provide atomic
+  protection against a concurrent malicious filesystem change.
 
 ---
 

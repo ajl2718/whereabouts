@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from collections import Counter
+import hashlib
 import json
 import logging
 from pathlib import Path
@@ -99,14 +100,9 @@ def choose_run(label: str, paths: list[Path], key: str) -> Path | None:
     )
 
 
-def resolve_reference(database: Path | None, custom_database: str) -> Path:
+def approve_reference(reference: Path) -> Path:
     safe_root = (ROOT / "whereabouts/models").resolve()
-    reference = Path(custom_database).expanduser() if custom_database else database
-    if reference is None:
-        raise ValueError("Select a reference database snapshot")
-    if custom_database and not reference.is_absolute():
-        raise ValueError("Reference database path must be absolute")
-    resolved = reference.resolve()
+    resolved = reference.resolve(strict=True)
     if not resolved.is_relative_to(safe_root):
         raise ValueError(f"Reference database path must be within {safe_root}")
     if resolved.suffix != ".db" or not resolved.is_file():
@@ -114,7 +110,52 @@ def resolve_reference(database: Path | None, custom_database: str) -> Path:
     return safe_root / resolved.relative_to(safe_root)
 
 
-def reference_lookup_tab(models: list[Path]) -> None:
+def approved_reference_databases() -> dict[str, Path]:
+    safe_root = (ROOT / "whereabouts/models").resolve()
+    databases = {}
+    for reference in sorted(safe_root.rglob("*.db")):
+        try:
+            approve_reference(reference)
+        except (ValueError, OSError) as exc:
+            logger.warning(
+                "Excluding unapproved reference database %s: %s", reference, exc
+            )
+            continue
+        relative = reference.relative_to(safe_root).as_posix()
+        databases[hashlib.sha256(relative.encode()).hexdigest()] = reference
+    return databases
+
+
+def resolve_reference(database_id: str | None, databases: dict[str, Path]) -> Path:
+    if database_id is None:
+        raise ValueError("Select a reference database snapshot")
+    if not isinstance(database_id, str) or database_id not in databases:
+        raise ValueError("Unknown reference database selection")
+    return approve_reference(databases[database_id])
+
+
+def reference_identity(reference: Path) -> tuple[str, int, int, int, int]:
+    stat = reference.stat()
+    return str(reference), stat.st_dev, stat.st_ino, stat.st_size, stat.st_mtime_ns
+
+
+def choose_reference(label: str, databases: dict[str, Path], key: str) -> str | None:
+    safe_root = (ROOT / "whereabouts/models").resolve()
+    if not databases:
+        return None
+    return st.selectbox(
+        label,
+        list(databases),
+        format_func=lambda value: (
+            databases[value].relative_to(safe_root).as_posix()
+            if value in databases
+            else "Unknown database"
+        ),
+        key=key,
+    )
+
+
+def reference_lookup_tab(models: dict[str, Path]) -> None:
     st.subheader("Reference address lookup")
     st.caption(
         "Street number and street name search whole tokens/phrases in the address label; "
@@ -126,14 +167,8 @@ def reference_lookup_tab(models: list[Path]) -> None:
         "be a unit, lot, postcode, or range endpoint. Use the spelling/abbreviations shown in the database; "
         "this is label searching, not address parsing or fuzzy matching."
     )
-    database = (
-        st.selectbox("Lookup reference database", models, format_func=lambda p: p.name)
-        if models
-        else None
-    )
-    custom = st.text_input(
-        "Lookup database path (absolute .db path inside models)",
-        help="Only existing snapshots within whereabouts/models are permitted, including nested directories.",
+    database_id = choose_reference(
+        "Lookup reference database", models, "lookup-database"
     )
     with st.form("reference-lookup"):
         left, right = st.columns(2)
@@ -145,12 +180,14 @@ def reference_lookup_tab(models: list[Path]) -> None:
     if search:
         st.session_state.pop("reference_lookup", None)
         try:
-            reference = resolve_reference(database, custom)
+            reference = resolve_reference(database_id, models)
+            identity = reference_identity(reference)
             filters = ReferenceFilters(street_number, lot_number, street_name, suburb)
             with st.spinner("Searching reference address labels..."):
                 result = lookup_reference(reference, filters)
             st.session_state["reference_lookup"] = {
-                "database": reference,
+                "database_id": database_id,
+                "database_identity": identity,
                 "filters": filters,
                 "page": 0,
                 "result": result,
@@ -161,13 +198,21 @@ def reference_lookup_tab(models: list[Path]) -> None:
     if not saved:
         return
     try:
-        resolve_reference(saved["database"], "")
+        reference = resolve_reference(saved.get("database_id"), models)
+        if reference_identity(reference) != saved.get("database_identity"):
+            raise ValueError(
+                "Reference snapshot changed; search the reference database again"
+            )
     except (ValueError, OSError) as exc:
         st.session_state.pop("reference_lookup", None)
         show_error(exc)
         return
+    if saved["database_id"] != database_id:
+        st.session_state.pop("reference_lookup", None)
+        st.info("Reference database selection changed; search again.")
+        return
     result, page = saved["result"], saved["page"]
-    st.caption(f"Results from {saved['database']} using {saved['filters']}")
+    st.caption(f"Results from {reference} using {saved['filters']}")
     st.metric("Matching reference addresses", result.total)
     if not result.total:
         st.info("No reference addresses agree with these filters.")
@@ -180,10 +225,13 @@ def reference_lookup_tab(models: list[Path]) -> None:
     if back or forward:
         try:
             next_page = page + (1 if forward else -1)
-            with st.spinner("Loading reference results..."):
-                result = lookup_reference(
-                    saved["database"], saved["filters"], page=next_page
+            reference = resolve_reference(saved["database_id"], models)
+            if reference_identity(reference) != saved["database_identity"]:
+                raise ValueError(
+                    "Reference snapshot changed; search the reference database again"
                 )
+            with st.spinner("Loading reference results..."):
+                result = lookup_reference(reference, saved["filters"], page=next_page)
             saved.update({"page": next_page, "result": result})
             st.rerun()
         except (ValueError, OSError, duckdb.Error) as exc:
@@ -244,6 +292,13 @@ def main() -> None:
             "Historical environments may need dependency downloads on their first run."
         )
 
+    try:
+        models = approved_reference_databases()
+    except OSError as exc:
+        show_error(exc)
+        st.stop()
+    if not models:
+        st.info("No approved .db snapshots found in whereabouts/models.")
     matching, errors, comparison, lookup = st.tabs(
         ["Match addresses", "Error breakdown", "Compare saved runs", "Reference lookup"]
     )
@@ -263,17 +318,8 @@ def main() -> None:
         st.caption(
             "Required columns: input_address and best_match. An uploaded CSV takes precedence."
         )
-        models = sorted((ROOT / "whereabouts/models").glob("*.db"))
-        database = (
-            st.selectbox(
-                "Reference database snapshot", models, format_func=lambda p: p.name
-            )
-            if models
-            else None
-        )
-        custom_database = st.text_input(
-            "Or an absolute .db path inside models",
-            help="Only existing snapshots within whereabouts/models are permitted, including nested directories.",
+        database_id = choose_reference(
+            "Reference database snapshot", models, "match-database"
         )
         algorithm = st.selectbox(
             "Matching algorithm", ["standard", "skipphrase", "trigram"]
@@ -291,8 +337,6 @@ def main() -> None:
             try:
                 source = local_csv
                 if upload is not None:
-                    import hashlib
-
                     content = upload.getvalue()
                     source = (
                         RUNS / "inputs" / f"{hashlib.sha256(content).hexdigest()}.csv"
@@ -302,14 +346,14 @@ def main() -> None:
                         source.write_bytes(content)
                 if source is None:
                     raise ValueError("Select an input CSV")
-                reference = resolve_reference(database, custom_database)
+                reference = resolve_reference(database_id, models)
                 config = RunConfig(
                     "snapshot",
                     how=algorithm,
                     threshold=threshold,
                     top_k=int(top_k),
                     batch_size=int(batch_size),
-                    reference_path=str(reference.resolve()),
+                    reference_path=str(reference),
                 )
                 dataset = RUNS / "datasets" / f"{file_hash(source)}.json"
                 if not dataset.exists():

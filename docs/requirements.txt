@@ -42,7 +42,7 @@ scipy==1.18.1
 six==1.17.0
 starlette==1.10.0
 threadpoolctl==3.6.0
-tqdm==4.67.3
+tqdm==4.70.1
 typing-extensions==4.15.0
 typing-inspection==0.4.2
 tzdata==2026.1 ; sys_platform == 'emscripten' or sys_platform == 'win32' or python_full_version >= '3.14'
